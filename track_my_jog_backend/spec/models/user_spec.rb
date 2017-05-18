@@ -87,4 +87,42 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe 'role' do
+    context 'when nil' do
+      it 'is invalid' do
+        expect(build(:user, role: nil)).not_to be_valid
+      end
+    end
+
+    context 'when empty' do
+      it 'is invalid' do
+        expect(build(:user, role: '')).not_to be_valid
+      end
+    end
+
+    context "when is 'regular'" do
+      it 'is valid' do
+        expect(build(:user, role: 'regular')).to be_valid
+      end
+    end
+
+    context "when is 'manager'" do
+      it 'is valid' do
+        expect(build(:manager_user)).to be_valid
+      end
+    end
+
+    context "when is 'admin'" do
+      it 'is valid' do
+        expect(build(:admin_user)).to be_valid
+      end
+    end
+
+    context "when not one of predefined roles" do
+      it 'is invalid' do
+        expect(build(:user, role: Faker::Lorem.characters(10))).not_to be_valid
+      end
+    end
+  end
 end

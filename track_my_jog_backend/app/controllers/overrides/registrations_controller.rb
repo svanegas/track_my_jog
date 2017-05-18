@@ -1,21 +1,26 @@
 module Overrides
   class RegistrationsController < DeviseTokenAuth::RegistrationsController
 
-    def update
-      if @resource
-        begin
-          if @resource.send(resource_update_method, account_update_params)
-            yield @resource if block_given?
-            render_update_success
-          else
-            render_update_error
-          end
-        rescue ActiveRecord::RecordNotUnique
-          clean_up_passwords @resource
-          render_update_error_email_already_exists
+    def create
+      if dangerous_role?(params[:role])
+        if user_signed_in? && current_user.can_create_role?(params[:role])
+          super
+        else
+          render json: {
+            errors: [I18n.t('devise_token_auth.registrations.unauthorized_role')]
+          }, status: :unprocessable_entity
         end
       else
-        render_update_error_user_not_found
+        super
+      end
+    end
+
+    def update
+      begin
+        super
+      rescue ActiveRecord::RecordNotUnique
+        clean_up_passwords @resource
+        render_update_error_email_already_exists
       end
     end
 
@@ -43,14 +48,22 @@ module Overrides
 
     def render_update_error_user_not_found
       render json: {
-        errors: [I18n.t("devise_token_auth.registrations.user_not_found")]
+        errors: [I18n.t('devise_token_auth.registrations.user_not_found')]
       }, status: :not_found
     end
 
     def render_update_error_email_already_exists
       render json: {
-        errors: [I18n.t("devise_token_auth.registrations.email_already_exists", email: @resource.email)]
-      }, status: 422
+        errors: [I18n.t('devise_token_auth.registrations.email_already_exists',
+                 email: @resource.email)]
+      }, status: :unprocessable_entity
+    end
+
+    private
+
+    def dangerous_role?(role)
+      return false if role.nil?
+      role.to_sym == :manager || role.to_sym == :admin
     end
   end
 end

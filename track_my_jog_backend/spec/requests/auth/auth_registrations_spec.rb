@@ -129,6 +129,90 @@ RSpec.describe "Auth::Registrations", type: :request do
         expect(response).to have_http_status(200)
       end
     end
+
+    context 'as regular user or not signed in' do
+      let(:valid_session) { create(:user).create_new_auth_token }
+
+      context 'when role is regular' do
+        it 'creates the user' do
+          body[:role] = 'regular'
+          post user_registration_path, { params: body, headers: valid_session }
+          expect(response).to have_http_status(200)
+        end
+      end
+
+      context 'when role is manager' do
+        it 'returns 422' do
+          body[:role] = 'manager'
+          post user_registration_path, { params: body, headers: valid_session }
+          expect(response).to have_http_status(422)
+        end
+      end
+
+      context 'when role is admin' do
+        it 'returns 422' do
+          body[:role] = 'admin'
+          post user_registration_path, { params: body, headers: valid_session }
+          expect(response).to have_http_status(422)
+        end
+      end
+    end
+
+    context 'as manager user' do
+      let(:valid_session) { create(:manager_user).create_new_auth_token }
+
+      context 'when role is regular' do
+        it 'creates the user' do
+          body[:role] = 'regular'
+          post user_registration_path, { params: body, headers: valid_session }
+          expect(response).to have_http_status(200)
+        end
+      end
+
+      context 'when role is manager' do
+        it 'creates the user' do
+          body[:role] = 'manager'
+          post user_registration_path, { params: body, headers: valid_session }
+          expect(response).to have_http_status(200)
+        end
+      end
+
+      context 'when role is admin' do
+        it 'returns 422' do
+          body[:role] = 'admin'
+          post user_registration_path, { params: body, headers: valid_session }
+          expect(response).to have_http_status(422)
+        end
+      end
+    end
+
+    context 'as admin user' do
+      let(:valid_session) { create(:admin_user).create_new_auth_token }
+
+      context 'when role is regular' do
+        it 'creates the user' do
+          body[:role] = 'regular'
+          post user_registration_path, { params: body, headers: valid_session }
+          expect(response).to have_http_status(200)
+        end
+      end
+
+      context 'when role is manager' do
+        it 'creates the user' do
+          body[:role] = 'manager'
+          post user_registration_path, { params: body, headers: valid_session }
+          expect(response).to have_http_status(200)
+        end
+      end
+
+      context 'when role is admin' do
+        it 'creates the user' do
+          body[:role] = 'admin'
+          post user_registration_path, { params: body, headers: valid_session }
+          expect(response).to have_http_status(200)
+        end
+      end
+    end
   end
 
   describe "PATCH /auth" do

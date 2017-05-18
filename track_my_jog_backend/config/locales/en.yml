@@ -20,4 +20,6 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  devise_token_auth:
+    registrations:
+      unauthorized_role: "You're not authorized to assign the given role"
