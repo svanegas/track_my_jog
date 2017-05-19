@@ -23,3 +23,10 @@ en:
   devise_token_auth:
     registrations:
       unauthorized_role: "You're not authorized to assign the given role"
+  activerecord:
+    errors:
+      models:
+        time_entry:
+          attributes:
+            date:
+              cant_be_future: "can't be in the future" 

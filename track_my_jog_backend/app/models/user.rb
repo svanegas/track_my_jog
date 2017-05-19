@@ -4,6 +4,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   include DeviseTokenAuth::Concerns::User
 
+  # Associations
+  has_many :time_entries
+
   # Validations
   validates :email, :name, presence: true
   validates :role, inclusion: { in: %w(regular manager admin) }
