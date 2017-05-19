@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Auth::Sessions", type: :request do
 
-  describe "POST /auth/sign_in" do
+  describe "POST /auths/sign_in" do
     let(:password) { Faker::Internet.password(8) }
     let(:existing_user) { create(:user, password: password) }
     let(:body) { { email: existing_user.email, password: password } }

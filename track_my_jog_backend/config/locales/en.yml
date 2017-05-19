@@ -23,10 +23,14 @@ en:
   devise_token_auth:
     registrations:
       unauthorized_role: "You're not authorized to assign the given role"
+  time_entry:
+    forbidden_entry: "You're not allowed to access the requested time entry"
+    date_query:
+      invalid_format: "The given date format is invalid, try dd-mm-yyyy or dd/mm/yyyy"
   activerecord:
     errors:
       models:
         time_entry:
           attributes:
             date:
-              cant_be_future: "can't be in the future" 
+              cant_be_future: "can't be in the future"

@@ -7,6 +7,11 @@ class TimeEntry < ApplicationRecord
   validates :distance, :duration, numericality: { greater_than: 0 }
   validate :date_on_or_before_today
 
+  # Scopes for search filtering
+  scope :user_id, -> (user_id) { where user_id: user_id }
+  scope :date_from, -> (date_from) { where("date >= ?", Date.parse(date_from)) }
+  scope :date_to, -> (date_to) { where("date <= ?", Date.parse(date_to)) }
+
   private
 
   def date_on_or_before_today
