@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe "Auth::Registrations", type: :request do
 
-  describe "POST /auth" do
+  describe "POST /auths" do
     let(:body) { attributes_for(:user) }
 
     context 'when email and password are valid' do
@@ -215,7 +215,7 @@ RSpec.describe "Auth::Registrations", type: :request do
     end
   end
 
-  describe "PATCH /auth" do
+  describe "PATCH /auths" do
     let(:existing_user) { create(:user) }
     let(:valid_session) { existing_user.create_new_auth_token }
 
