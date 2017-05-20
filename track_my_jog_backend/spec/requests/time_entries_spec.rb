@@ -466,4 +466,213 @@ RSpec.describe "TimeEntries", type: :request do
       end
     end
   end
+
+  describe "PATCH /time_entries/:id" do
+    let(:user) { create(:user) }
+    let(:session) { user.create_new_auth_token }
+    let(:body) { attributes_for(:time_entry) }
+
+    context 'when updating a non-existing time entry' do
+      it 'raises a ActiveRecord::RecordNotFound exception' do
+        expect do
+          patch time_entry_path(Faker::Number.between(9999, 99999)), {
+            params: body, headers: session
+          }
+        end.to raise_error ActiveRecord::RecordNotFound
+      end
+    end
+
+    context 'when updating an existing and owned time entry' do
+      let(:existing_time_entry) { create(:time_entry, user: user) }
+
+      context 'when all attributes are valid' do
+        it 'responds with 200' do
+          patch time_entry_path(existing_time_entry.id), { params: body, headers: session }
+          expect(response.status).to eq(200)
+        end
+
+        it 'responds with created time entry information' do
+          patch time_entry_path(existing_time_entry.id), { params: body, headers: session }
+          time_entry = JSON.parse(response.body)
+          expect(time_entry['user_id']).to eq(user.id)
+          expect(time_entry['duration']).to eq(body[:duration])
+          expect(time_entry['distance']).to eq(body[:distance])
+        end
+      end
+
+      context 'when duration is nil' do
+        it 'responds with 422' do
+          body[:duration] = nil
+          patch time_entry_path(existing_time_entry.id), { params: body, headers: session }
+          expect(response.status).to eq(422)
+        end
+      end
+
+      context 'when duration is empty' do
+        it 'responds with 422' do
+          body[:duration] = ''
+          patch time_entry_path(existing_time_entry.id), { params: body, headers: session }
+          expect(response.status).to eq(422)
+        end
+      end
+
+      context 'when duration is negative' do
+        it 'responds with 422' do
+          body[:duration] = Faker::Number.negative.to_i
+          patch time_entry_path(existing_time_entry.id), { params: body, headers: session }
+          expect(response.status).to eq(422)
+        end
+      end
+
+      context 'when duration is zero' do
+        it 'responds with 422' do
+          body[:duration] = 0
+          patch time_entry_path(existing_time_entry.id), { params: body, headers: session }
+          expect(response.status).to eq(422)
+        end
+      end
+
+      context 'when distance is nil' do
+        it 'responds with 422' do
+          body[:distance] = nil
+          patch time_entry_path(existing_time_entry.id), { params: body, headers: session }
+          expect(response.status).to eq(422)
+        end
+      end
+
+      context 'when distance is empty' do
+        it 'responds with 422' do
+          body[:distance] = ''
+          patch time_entry_path(existing_time_entry.id), { params: body, headers: session }
+          expect(response.status).to eq(422)
+        end
+      end
+
+      context 'when distance is negative' do
+        it 'responds with 422' do
+          body[:distance] = Faker::Number.negative.to_i
+          patch time_entry_path(existing_time_entry.id), { params: body, headers: session }
+          expect(response.status).to eq(422)
+        end
+      end
+
+      context 'when distance is zero' do
+        it 'responds with 422' do
+          body[:distance] = 0
+          patch time_entry_path(existing_time_entry.id), { params: body, headers: session }
+          expect(response.status).to eq(422)
+        end
+      end
+
+      context 'when date is nil' do
+        it 'responds with 422' do
+          body[:date] = nil
+          patch time_entry_path(existing_time_entry.id), { params: body, headers: session }
+          expect(response.status).to eq(422)
+        end
+      end
+
+      context 'when date is empty' do
+        it 'responds with 422' do
+          body[:date] = ''
+          patch time_entry_path(existing_time_entry.id), { params: body, headers: session }
+          expect(response.status).to eq(422)
+        end
+      end
+
+      context 'when date has invalid format' do
+        it 'responds with 400' do
+          body[:date] = Faker::Lorem.characters
+          patch time_entry_path(existing_time_entry.id), { params: body, headers: session }
+          expect(response.status).to eq(422)
+        end
+      end
+    end
+
+    context 'as regular user' do
+      context 'when updating a time entry that does not belong to him' do
+        it 'responds with 403' do
+          other_time_entry = create(:time_entry)
+          patch time_entry_path(other_time_entry.id), { params: body, headers: session }
+          expect(response.status).to eq(403)
+        end
+      end
+    end
+
+    context 'as manager user' do
+      context 'when updating a time entry that does not belong to him' do
+        it 'responds with 403' do
+          manager_session = create(:manager_user).create_new_auth_token
+          other_time_entry = create(:time_entry)
+          patch time_entry_path(other_time_entry.id), { params: body, headers: manager_session }
+          expect(response.status).to eq(403)
+        end
+      end
+    end
+
+    context 'as admin user' do
+      context 'when updating a time entry that does not belong to him' do
+        it 'responds with 200' do
+          admin_session = create(:admin_user).create_new_auth_token
+          other_time_entry = create(:time_entry)
+          patch time_entry_path(other_time_entry.id), { params: body, headers: admin_session }
+          expect(response.status).to eq(200)
+        end
+      end
+    end
+  end
+
+  describe "DELETE /time_entries/:id" do
+    let(:user) { create(:user) }
+    let(:session) { user.create_new_auth_token }
+
+    context 'when deleting a non-existing time entry' do
+      it 'raises a ActiveRecord::RecordNotFound exception' do
+        expect do
+          delete time_entry_path(Faker::Number.between(9999, 99999)), headers: session
+        end.to raise_error ActiveRecord::RecordNotFound
+      end
+    end
+
+    context 'when deleting an existing and owned time entry' do
+      let(:existing_time_entry) { create(:time_entry, user: user) }
+
+      it 'responds with 204' do
+        delete time_entry_path(existing_time_entry.id), headers: session
+        expect(response.status).to eq(204)
+      end
+    end
+
+    context 'as regular user' do
+      context 'when deleting a time entry that does not belong to him' do
+        it 'responds with 403' do
+          other_time_entry = create(:time_entry)
+          delete time_entry_path(other_time_entry.id), headers: session
+          expect(response.status).to eq(403)
+        end
+      end
+    end
+
+    context 'as manager user' do
+      context 'when deleting a time entry that does not belong to him' do
+        it 'responds with 403' do
+          manager_session = create(:manager_user).create_new_auth_token
+          other_time_entry = create(:time_entry)
+          delete time_entry_path(other_time_entry.id), headers: manager_session
+          expect(response.status).to eq(403)
+        end
+      end
+    end
+
+    context 'as admin user' do
+      context 'when updating a time entry that does not belong to him' do
+        it 'responds with 204' do
+          admin_session = create(:admin_user).create_new_auth_token
+          other_time_entry = create(:time_entry)
+          delete time_entry_path(other_time_entry.id), headers: admin_session
+          expect(response.status).to eq(204)
+        end
+      end
+    end
+  end
 end
