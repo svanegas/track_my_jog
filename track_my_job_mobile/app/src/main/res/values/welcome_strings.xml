@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="welcome_title">Track My Jog</string>
     <string name="welcome_create_account">Create an account</string>
     <string name="welcome_already_have_account">I already have an account</string>
 </resources>

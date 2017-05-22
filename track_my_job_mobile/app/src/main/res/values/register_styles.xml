@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Register"/>
+
+    <style name="Register.RegisterButton" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="android:layout_marginTop">@dimen/register_submit_button_horizontal_margin</item>
+    </style>
+
+    <style name="Register.ProgressBar" parent="@style/Base.Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:layout_marginStart">@dimen/register_progress_horizontal_margin</item>
+        <item name="android:layout_marginEnd">@dimen/register_progress_horizontal_margin</item>
+        <item name="android:indeterminate">true</item>
+    </style>
+</resources>

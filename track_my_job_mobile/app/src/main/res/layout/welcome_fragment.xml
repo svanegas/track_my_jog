@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.svanegas.trackmyjog.WelcomeActivity">
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.svanegas.trackmyjog.landing.LandingActivity">
 
     <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/appCompatImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/welcome_background" />
+        android:src="@drawable/welcome_background"/>
 
     <LinearLayout
         style="@style/Welcome.ButtonsContainer"
@@ -19,17 +20,18 @@
         android:orientation="vertical">
 
         <android.support.v7.widget.AppCompatButton
-            style="@style/Welcome.CreateAccountButton"
+            android:id="@+id/register_button"
+            style="@style/Welcome.RegisterButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/welcome_create_account" />
+            android:text="@string/welcome_create_account"/>
 
         <android.support.v7.widget.AppCompatTextView
-            style="@style/Welcome.AlreadyHaveAccountButton"
+            android:id="@+id/login_button"
+            style="@style/Welcome.LoginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="@dimen/welcome_buttons_container_padding"
-            android:text="@string/welcome_already_have_account" />
+            android:text="@string/welcome_already_have_account"/>
     </LinearLayout>
 </FrameLayout>

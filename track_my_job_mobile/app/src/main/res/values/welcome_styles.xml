@@ -7,12 +7,12 @@
         <item name="android:padding">@dimen/welcome_buttons_container_padding</item>
     </style>
 
-    <style name="Welcome.CreateAccountButton" parent="@style/Widget.AppCompat.Button.Colored" />
+    <style name="Welcome.RegisterButton" parent="@style/Widget.AppCompat.Button.Colored" />
 
-    <style name="Welcome.AlreadyHaveAccountButton">
+    <style name="Welcome.LoginButton">
         <item name="android:background">?attr/selectableItemBackground</item>
         <item name="android:clickable">true</item>
-        <item name="android:padding">@dimen/welcome_already_account_padding</item>
+        <item name="android:padding">@dimen/welcome_login_button_padding</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 </resources>
