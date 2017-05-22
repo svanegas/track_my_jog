@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Welcome" />
+
+    <style name="Welcome.ButtonsContainer">
+        <item name="android:padding">@dimen/welcome_buttons_container_padding</item>
+    </style>
+
+    <style name="Welcome.CreateAccountButton" parent="@style/Widget.AppCompat.Button.Colored" />
+
+    <style name="Welcome.AlreadyHaveAccountButton">
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:padding">@dimen/welcome_already_account_padding</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+</resources>
