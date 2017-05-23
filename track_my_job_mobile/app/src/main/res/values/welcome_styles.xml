@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Welcome" />
+
+    <style name="Welcome.ButtonsContainer">
+        <item name="android:padding">@dimen/welcome_buttons_container_padding</item>
+    </style>
+
+    <style name="Welcome.RegisterButton" parent="@style/Widget.AppCompat.Button.Colored" />
+
+    <style name="Welcome.LoginButton">
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:padding">@dimen/welcome_login_button_padding</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+</resources>

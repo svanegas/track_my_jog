@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="register_title">Create an account</string>
+    <string name="register_name">Name</string>
+    <string name="register_email">Email address</string>
+    <string name="register_password">Password</string>
+    <string name="register_password_confirmation">Password confirmation</string>
+    <string name="register_sign_up_button">Sign up</string>
+
+    <!-- Errors -->
+    <string name="register_error_field_required">This field is required</string>
+    <string name="register_error_invalid_email">This is not a valid email address</string>
+    <string name="register_error_password_short">Password must have at least 8 characters</string>
+    <string name="register_error_passwords_mismatch">Passwords don\'t match</string>
+</resources>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Track My Jog</string>
+
+    <!-- Errors -->
+    <string name="error_timeout">Your request is taking too long, please try again</string>
+    <string name="error_no_internet">It seems that you\'re not connected to internet</string>
+    <string name="error_unknown">Unfortunately, there was an unknown error while processing your request</string>
+</resources>
