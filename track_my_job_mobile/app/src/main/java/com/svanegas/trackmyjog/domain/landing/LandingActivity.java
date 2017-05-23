@@ -1,4 +1,4 @@
-package com.svanegas.trackmyjog.landing;
+package com.svanegas.trackmyjog.domain.landing;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,9 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.svanegas.trackmyjog.R;
-import com.svanegas.trackmyjog.landing.login.LoginFragment;
-import com.svanegas.trackmyjog.landing.register.RegisterFragment;
-import com.svanegas.trackmyjog.landing.welcome.WelcomeFragment;
+import com.svanegas.trackmyjog.domain.landing.login.LoginFragment;
+import com.svanegas.trackmyjog.domain.landing.register.RegisterFragment;
+import com.svanegas.trackmyjog.domain.landing.welcome.WelcomeFragment;
 
 import butterknife.ButterKnife;
 

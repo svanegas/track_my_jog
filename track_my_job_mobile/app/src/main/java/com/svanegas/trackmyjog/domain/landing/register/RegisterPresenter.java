@@ -1,4 +1,4 @@
-package com.svanegas.trackmyjog.landing.register;
+package com.svanegas.trackmyjog.domain.landing.register;
 
 interface RegisterPresenter {
 

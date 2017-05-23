@@ -1,4 +1,4 @@
-package com.svanegas.trackmyjog.landing.welcome;
+package com.svanegas.trackmyjog.domain.landing.welcome;
 
 class WelcomePresenterImpl implements WelcomePresenter {
 

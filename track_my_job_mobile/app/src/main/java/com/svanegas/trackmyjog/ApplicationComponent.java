@@ -1,0 +1,19 @@
+package com.svanegas.trackmyjog;
+
+import com.svanegas.trackmyjog.domain.landing.register.RegisterPresenterImpl;
+import com.svanegas.trackmyjog.interactor.InteractorsModule;
+import com.svanegas.trackmyjog.network.NetworkModule;
+import com.svanegas.trackmyjog.repository.RepositoryModule;
+import com.svanegas.trackmyjog.util.PreferencesModule;
+
+import javax.inject.Singleton;
+
+import dagger.Component;
+
+@Singleton
+@Component(modules = {ApplicationModule.class, PreferencesModule.class, NetworkModule.class,
+        RepositoryModule.class, InteractorsModule.class})
+public interface ApplicationComponent {
+
+    void inject(RegisterPresenterImpl registerPresenter);
+}

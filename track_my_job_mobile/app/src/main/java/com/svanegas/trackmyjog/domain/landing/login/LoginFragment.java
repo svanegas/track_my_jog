@@ -1,4 +1,4 @@
-package com.svanegas.trackmyjog.landing.login;
+package com.svanegas.trackmyjog.domain.landing.login;
 
 import android.content.Context;
 import android.os.Bundle;

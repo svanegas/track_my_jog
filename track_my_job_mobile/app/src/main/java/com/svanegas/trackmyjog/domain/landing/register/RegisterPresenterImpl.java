@@ -1,18 +1,28 @@
-package com.svanegas.trackmyjog.landing.register;
+package com.svanegas.trackmyjog.domain.landing.register;
 
 import android.text.TextUtils;
+import android.util.Log;
 
-import com.svanegas.trackmyjog.landing.register.interactors.RegisterInteractor;
+import com.svanegas.trackmyjog.TrackMyJogApplication;
+import com.svanegas.trackmyjog.domain.landing.register.interactors.RegisterInteractor;
+import com.svanegas.trackmyjog.repository.model.APIError;
+
+import java.net.SocketTimeoutException;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.HttpException;
 
 import static android.support.v4.util.PatternsCompat.EMAIL_ADDRESS;
+import static com.svanegas.trackmyjog.network.ConnectionInterceptor.isInternetConnectionError;
+import static com.svanegas.trackmyjog.util.HttpErrorHelper.isHttpError;
+import static com.svanegas.trackmyjog.util.HttpErrorHelper.parseHttpError;
 
-class RegisterPresenterImpl implements RegisterPresenter {
+public class RegisterPresenterImpl implements RegisterPresenter {
 
+    private static final String TAG = RegisterPresenterImpl.class.getSimpleName();
     private static final int MINIMUM_PASSWORD_SIZE = 8;
 
     private RegisterView mView;
@@ -22,6 +32,7 @@ class RegisterPresenterImpl implements RegisterPresenter {
 
     RegisterPresenterImpl(RegisterView registerView) {
         mView = registerView;
+        TrackMyJogApplication.getInstance().getApplicationComponent().inject(this);
     }
 
     @Override
@@ -44,11 +55,27 @@ class RegisterPresenterImpl implements RegisterPresenter {
         mRegisterInteractor.registerUser(name, email, password)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(user -> {
-                    // TODO: Do something with the User
-                }, throwable -> {
-                    // TODO: Do something with the error.
-                });
+                .subscribe(user -> mView.hideLoadingAndEnableFields(),
+                        throwable -> {
+                            mView.hideLoadingAndEnableFields();
+                            if (throwable instanceof SocketTimeoutException) {
+                                mView.showTimeoutError();
+                            } else if (isInternetConnectionError(throwable)) {
+                                mView.showNoConnectionError();
+                            } else if (isHttpError(throwable)) {
+                                APIError error = parseHttpError((HttpException) throwable);
+                                if (error != null && error.getErrorMessage() != null) {
+                                    mView.showDisplayableError(error.errorMessage);
+                                } else mView.showUnknownError();
+                            } else {
+                                Log.e(TAG, "Could not login due unknown error: ", throwable);
+                                mView.showUnknownError();
+                            }
+                        });
+    }
+
+    private boolean isDisplayableError(Throwable throwable) {
+        return throwable instanceof HttpException;
     }
 
     private boolean validateName(String name) {

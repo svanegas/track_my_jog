@@ -1,10 +1,11 @@
-package com.svanegas.trackmyjog.landing.register;
+package com.svanegas.trackmyjog.domain.landing.register;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatTextView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,6 +87,7 @@ public class RegisterFragment extends Fragment implements RegisterView {
 
     @Override
     public void showLoadingAndDisableFields() {
+        mViewHolder.errorMessage.setVisibility(View.GONE);
         setLoadingAndFieldsEnabled(false);
     }
 
@@ -131,6 +133,30 @@ public class RegisterFragment extends Fragment implements RegisterView {
         mViewHolder.passwordConfirmationField.requestFocus();
     }
 
+    @Override
+    public void showTimeoutError() {
+        mViewHolder.errorMessage.setVisibility(View.VISIBLE);
+        mViewHolder.errorMessage.setText(R.string.error_timeout);
+    }
+
+    @Override
+    public void showNoConnectionError() {
+        mViewHolder.errorMessage.setVisibility(View.VISIBLE);
+        mViewHolder.errorMessage.setText(R.string.error_no_internet);
+    }
+
+    @Override
+    public void showDisplayableError(String errorMessage) {
+        mViewHolder.errorMessage.setVisibility(View.VISIBLE);
+        mViewHolder.errorMessage.setText(errorMessage);
+    }
+
+    @Override
+    public void showUnknownError() {
+        mViewHolder.errorMessage.setVisibility(View.VISIBLE);
+        mViewHolder.errorMessage.setText(R.string.error_unknown);
+    }
+
     private void setLoadingAndFieldsEnabled(boolean enabled) {
         mViewHolder.progressBar.setVisibility(enabled ? View.GONE : View.VISIBLE);
         mViewHolder.submitButton.setEnabled(enabled);
@@ -156,6 +182,9 @@ public class RegisterFragment extends Fragment implements RegisterView {
 
         @BindView(R.id.submit_button)
         AppCompatButton submitButton;
+
+        @BindView(R.id.error_message)
+        AppCompatTextView errorMessage;
 
         @BindView(R.id.progress_bar)
         ProgressBar progressBar;

@@ -12,4 +12,5 @@
     <string name="register_error_invalid_email">This is not a valid email address</string>
     <string name="register_error_password_short">Password must have at least 8 characters</string>
     <string name="register_error_passwords_mismatch">Passwords don\'t match</string>
+    <string name="register_error_timeout">Passwords don\'t match</string>
 </resources>

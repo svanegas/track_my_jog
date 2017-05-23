@@ -1,4 +1,4 @@
-package com.svanegas.trackmyjog.landing.register;
+package com.svanegas.trackmyjog.domain.landing.register;
 
 interface RegisterView {
 
@@ -25,4 +25,12 @@ interface RegisterView {
     void showShortPasswordError();
 
     void showPasswordsDontMatchError();
+
+    void showTimeoutError();
+
+    void showNoConnectionError();
+
+    void showDisplayableError(String errorMessage);
+
+    void showUnknownError();
 }

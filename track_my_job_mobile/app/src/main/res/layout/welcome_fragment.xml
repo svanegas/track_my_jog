@@ -3,7 +3,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="com.svanegas.trackmyjog.landing.LandingActivity">
+             tools:context=".domain.landing.LandingActivity">
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/appCompatImageView"
