@@ -1,6 +1,6 @@
 package com.svanegas.trackmyjog.repository.landing;
 
-import com.svanegas.trackmyjog.repository.landing.register.model.User;
+import com.svanegas.trackmyjog.repository.model.User;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

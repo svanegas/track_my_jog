@@ -1,4 +1,4 @@
-package com.svanegas.trackmyjog.repository.landing.register.model;
+package com.svanegas.trackmyjog.repository.model;
 
 public class User {
 

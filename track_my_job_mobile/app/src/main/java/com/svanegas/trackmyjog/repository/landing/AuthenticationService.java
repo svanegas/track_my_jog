@@ -1,6 +1,6 @@
 package com.svanegas.trackmyjog.repository.landing;
 
-import com.svanegas.trackmyjog.repository.landing.register.model.User;
+import com.svanegas.trackmyjog.repository.model.User;
 
 import io.reactivex.Single;
 import retrofit2.http.Field;
