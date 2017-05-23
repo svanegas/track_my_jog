@@ -1,24 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
-
-def getIP() {
-    InetAddress result = null;
-    Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-    while (interfaces.hasMoreElements()) {
-        Enumeration<InetAddress> addresses = interfaces.nextElement().getInetAddresses();
-        while (addresses.hasMoreElements()) {
-            InetAddress address = addresses.nextElement();
-            if (!address.isLoopbackAddress()) {
-                if (address.isSiteLocalAddress()) {
-                    return address.getHostAddress();
-                } else if (result == null) {
-                    result = address;
-                }
-            }
-        }
-    }
-    return (result != null ? result : InetAddress.getLocalHost()).getHostAddress();
-}
+apply from: 'utils.gradle'
 
 android {
     compileSdkVersion 25
@@ -38,7 +20,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            buildConfigField "String", "API_BASE_URL", '\"http://' + getIP() + ':3000\"'
+            buildConfigField "String", "API_BASE_URL", '\"http://' + localServerAddress() + ':3000\"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

@@ -1,7 +1,7 @@
 package com.svanegas.trackmyjog.repository;
 
-import com.svanegas.trackmyjog.repository.landing.register.RegisterService;
-import com.svanegas.trackmyjog.repository.landing.register.RemoteRegisterRepository;
+import com.svanegas.trackmyjog.repository.landing.AuthenticationService;
+import com.svanegas.trackmyjog.repository.landing.RemoteAuthenticationRepository;
 
 import javax.inject.Singleton;
 
@@ -13,7 +13,8 @@ public class RepositoryModule {
 
     @Provides
     @Singleton
-    public RemoteRegisterRepository provideRegisterRepository(RegisterService registerService) {
-        return new RemoteRegisterRepository(registerService);
+    public RemoteAuthenticationRepository provideAuthenticationRepository(
+            AuthenticationService authenticationService) {
+        return new RemoteAuthenticationRepository(authenticationService);
     }
 }

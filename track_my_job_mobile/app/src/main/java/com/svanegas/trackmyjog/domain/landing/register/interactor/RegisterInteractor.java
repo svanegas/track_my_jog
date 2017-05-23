@@ -1,7 +1,7 @@
-package com.svanegas.trackmyjog.domain.landing.register.interactors;
+package com.svanegas.trackmyjog.domain.landing.register.interactor;
 
-import com.svanegas.trackmyjog.repository.landing.register.RegisterRepository;
-import com.svanegas.trackmyjog.repository.landing.register.RemoteRegisterRepository;
+import com.svanegas.trackmyjog.repository.landing.AuthenticationRepository;
+import com.svanegas.trackmyjog.repository.landing.RemoteAuthenticationRepository;
 import com.svanegas.trackmyjog.repository.landing.register.model.User;
 
 import javax.inject.Inject;
@@ -12,10 +12,10 @@ import io.reactivex.Single;
 @Singleton
 public class RegisterInteractor {
 
-    RegisterRepository mRemoteRepository;
+    private AuthenticationRepository mRemoteRepository;
 
     @Inject
-    public RegisterInteractor(RemoteRegisterRepository remoteRepository) {
+    public RegisterInteractor(RemoteAuthenticationRepository remoteRepository) {
         mRemoteRepository = remoteRepository;
     }
 

@@ -1,5 +1,6 @@
 package com.svanegas.trackmyjog;
 
+import com.svanegas.trackmyjog.domain.landing.login.LoginPresenterImpl;
 import com.svanegas.trackmyjog.domain.landing.register.RegisterPresenterImpl;
 import com.svanegas.trackmyjog.interactor.InteractorsModule;
 import com.svanegas.trackmyjog.network.NetworkModule;
@@ -16,4 +17,6 @@ import dagger.Component;
 public interface ApplicationComponent {
 
     void inject(RegisterPresenterImpl registerPresenter);
+
+    void inject(LoginPresenterImpl loginPresenter);
 }

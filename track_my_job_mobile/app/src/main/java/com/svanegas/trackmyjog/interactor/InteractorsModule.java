@@ -1,7 +1,8 @@
 package com.svanegas.trackmyjog.interactor;
 
-import com.svanegas.trackmyjog.domain.landing.register.interactors.RegisterInteractor;
-import com.svanegas.trackmyjog.repository.landing.register.RemoteRegisterRepository;
+import com.svanegas.trackmyjog.domain.landing.login.interactor.LoginInteractor;
+import com.svanegas.trackmyjog.domain.landing.register.interactor.RegisterInteractor;
+import com.svanegas.trackmyjog.repository.landing.RemoteAuthenticationRepository;
 
 import javax.inject.Singleton;
 
@@ -11,10 +12,15 @@ import dagger.Provides;
 @Module
 public class InteractorsModule {
 
-    // Register
     @Provides
     @Singleton
-    public RegisterInteractor provideRegisterInteractor(RemoteRegisterRepository remoteRepository) {
+    public RegisterInteractor provideRegisterInteractor(RemoteAuthenticationRepository remoteRepository) {
         return new RegisterInteractor(remoteRepository);
+    }
+
+    @Provides
+    @Singleton
+    public LoginInteractor provideLoginInteractor(RemoteAuthenticationRepository remoteRepository) {
+        return new LoginInteractor(remoteRepository);
     }
 }

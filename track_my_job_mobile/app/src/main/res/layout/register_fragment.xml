@@ -65,7 +65,7 @@
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/error_message"
-            style="@style/Register.ErrorMessage"
+            style="@style/Landing.ErrorMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone" />
@@ -76,14 +76,14 @@
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/submit_button"
-                style="@style/Register.RegisterButton"
+                style="@style/Landing.SubmitButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/register_sign_up_button" />
 
             <ProgressBar
                 android:id="@+id/progress_bar"
-                style="@style/Register.ProgressBar"
+                style="@style/Landing.ProgressBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone" />

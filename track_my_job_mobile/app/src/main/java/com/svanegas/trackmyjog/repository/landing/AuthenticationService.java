@@ -1,4 +1,4 @@
-package com.svanegas.trackmyjog.repository.landing.register;
+package com.svanegas.trackmyjog.repository.landing;
 
 import com.svanegas.trackmyjog.repository.landing.register.model.User;
 
@@ -7,11 +7,16 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
-public interface RegisterService {
+public interface AuthenticationService {
 
     @POST("auths")
     @FormUrlEncoded
     Single<User> registerUser(@Field("name") String name,
                               @Field("email") String email,
                               @Field("password") String password);
+
+    @POST("auths/sign_in")
+    @FormUrlEncoded
+    Single<User> loginUser(@Field("email") String email,
+                           @Field("password") String password);
 }

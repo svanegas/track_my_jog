@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="register_submit_button_horizontal_margin">3dp</dimen>
-    <dimen name="register_progress_horizontal_margin">4dp</dimen>
-
-    <dimen name="register_error_margin">5dp</dimen>
-    <dimen name="register_error_font_size">14sp</dimen>
-</resources>
