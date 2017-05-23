@@ -26,4 +26,9 @@ public class RemoteAuthenticationRepository implements AuthenticationRepository 
     public Single<User> loginUser(String email, String password) {
         return mService.loginUser(email, password);
     }
+
+    @Override
+    public Single<Object> logoutUser() {
+        return mService.logoutUser();
+    }
 }

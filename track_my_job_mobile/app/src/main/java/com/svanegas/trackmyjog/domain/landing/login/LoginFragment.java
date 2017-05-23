@@ -122,6 +122,11 @@ public class LoginFragment extends Fragment implements LoginView {
         mViewHolder.errorMessage.setText(R.string.error_unknown);
     }
 
+    @Override
+    public void onLoginSuccess() {
+        mListener.goToMainScreen();
+    }
+
     private void setLoadingAndFieldsEnabled(boolean enabled) {
         mViewHolder.progressBar.setVisibility(enabled ? View.GONE : View.VISIBLE);
         mViewHolder.submitButton.setEnabled(enabled);
@@ -154,5 +159,7 @@ public class LoginFragment extends Fragment implements LoginView {
     public interface OnLoginInteractionListener {
 
         void onActivityTitleRequested(int titleResId, boolean showBackArrow);
+
+        void goToMainScreen();
     }
 }

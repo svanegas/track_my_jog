@@ -4,7 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.svanegas.trackmyjog.TrackMyJogApplication;
-import com.svanegas.trackmyjog.domain.landing.login.interactor.LoginInteractor;
+import com.svanegas.trackmyjog.interactor.AuthenticationInteractor;
 import com.svanegas.trackmyjog.repository.model.APIError;
 
 import java.net.SocketTimeoutException;
@@ -26,7 +26,7 @@ public class LoginPresenterImpl implements LoginPresenter {
     private LoginView mView;
 
     @Inject
-    LoginInteractor mLoginInteractor;
+    AuthenticationInteractor mAuthInteractor;
 
     LoginPresenterImpl(LoginView loginView) {
         mView = loginView;
@@ -47,10 +47,10 @@ public class LoginPresenterImpl implements LoginPresenter {
     }
 
     private void loginUser(String email, String password) {
-        mLoginInteractor.loginUser(email, password)
+        mAuthInteractor.loginUser(email, password)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(user -> mView.hideLoadingAndEnableFields(),
+                .subscribe(user -> mView.onLoginSuccess(),
                         throwable -> {
                             mView.hideLoadingAndEnableFields();
                             if (throwable instanceof SocketTimeoutException) {

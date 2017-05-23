@@ -4,7 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.svanegas.trackmyjog.TrackMyJogApplication;
-import com.svanegas.trackmyjog.domain.landing.register.interactor.RegisterInteractor;
+import com.svanegas.trackmyjog.interactor.AuthenticationInteractor;
 import com.svanegas.trackmyjog.repository.model.APIError;
 
 import java.net.SocketTimeoutException;
@@ -28,7 +28,7 @@ public class RegisterPresenterImpl implements RegisterPresenter {
     private RegisterView mView;
 
     @Inject
-    RegisterInteractor mRegisterInteractor;
+    AuthenticationInteractor mAutheInteractor;
 
     RegisterPresenterImpl(RegisterView registerView) {
         mView = registerView;
@@ -52,10 +52,10 @@ public class RegisterPresenterImpl implements RegisterPresenter {
     }
 
     private void registerUser(String name, String email, String password) {
-        mRegisterInteractor.registerUser(name, email, password)
+        mAutheInteractor.registerUser(name, email, password)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(user -> mView.hideLoadingAndEnableFields(),
+                .subscribe(user -> mView.onRegisterSuccess(),
                         throwable -> {
                             mView.hideLoadingAndEnableFields();
                             if (throwable instanceof SocketTimeoutException) {

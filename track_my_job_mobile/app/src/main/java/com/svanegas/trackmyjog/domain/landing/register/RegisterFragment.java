@@ -157,6 +157,11 @@ public class RegisterFragment extends Fragment implements RegisterView {
         mViewHolder.errorMessage.setText(R.string.error_unknown);
     }
 
+    @Override
+    public void onRegisterSuccess() {
+        mListener.goToMainScreen();
+    }
+
     private void setLoadingAndFieldsEnabled(boolean enabled) {
         mViewHolder.progressBar.setVisibility(enabled ? View.GONE : View.VISIBLE);
         mViewHolder.submitButton.setEnabled(enabled);
@@ -197,5 +202,7 @@ public class RegisterFragment extends Fragment implements RegisterView {
     public interface OnRegisterInteractionListener {
 
         void onActivityTitleRequested(int titleResId, boolean showBackArrow);
+
+        void goToMainScreen();
     }
 }

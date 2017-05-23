@@ -1,8 +1,7 @@
 package com.svanegas.trackmyjog.interactor;
 
-import com.svanegas.trackmyjog.domain.landing.login.interactor.LoginInteractor;
-import com.svanegas.trackmyjog.domain.landing.register.interactor.RegisterInteractor;
 import com.svanegas.trackmyjog.repository.landing.RemoteAuthenticationRepository;
+import com.svanegas.trackmyjog.repository.main.RemoteTimeEntryRepository;
 
 import javax.inject.Singleton;
 
@@ -14,13 +13,15 @@ public class InteractorsModule {
 
     @Provides
     @Singleton
-    public RegisterInteractor provideRegisterInteractor(RemoteAuthenticationRepository remoteRepository) {
-        return new RegisterInteractor(remoteRepository);
+    public AuthenticationInteractor provideAuthenticationInteractor(
+            RemoteAuthenticationRepository remoteRepository) {
+        return new AuthenticationInteractor(remoteRepository);
     }
 
     @Provides
     @Singleton
-    public LoginInteractor provideLoginInteractor(RemoteAuthenticationRepository remoteRepository) {
-        return new LoginInteractor(remoteRepository);
+    public TimeEntryInteractor provideTimeEntryInteractor(
+            RemoteTimeEntryRepository remoteRepository) {
+        return new TimeEntryInteractor(remoteRepository);
     }
 }

@@ -9,4 +9,6 @@ public interface AuthenticationRepository {
     Single<User> registerUser(String name, String email, String password);
 
     Single<User> loginUser(String email, String password);
+
+    Single<Object> logoutUser();
 }

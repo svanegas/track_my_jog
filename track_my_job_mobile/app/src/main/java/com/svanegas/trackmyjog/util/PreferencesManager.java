@@ -31,11 +31,23 @@ public class PreferencesManager {
         return mPreferences.getString(UID_KEY, null);
     }
 
+    public boolean isLoggedIn() {
+        return getAuthToken() != null && getClient() != null && getUid() != null;
+    }
+
     public void saveAuthHeaders(String accessToken, String client, String uid) {
         SharedPreferences.Editor editor = mPreferences.edit();
         editor.putString(ACCESS_TOKEN_KEY, accessToken);
         editor.putString(CLIENT_KEY, client);
         editor.putString(UID_KEY, uid);
+        editor.apply();
+    }
+
+    public void removeAuthHeaders() {
+        SharedPreferences.Editor editor = mPreferences.edit();
+        editor.remove(ACCESS_TOKEN_KEY);
+        editor.remove(CLIENT_KEY);
+        editor.remove(UID_KEY);
         editor.apply();
     }
 }

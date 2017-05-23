@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.svanegas.trackmyjog.BuildConfig;
 import com.svanegas.trackmyjog.repository.landing.AuthenticationService;
+import com.svanegas.trackmyjog.repository.main.TimeEntryService;
 import com.svanegas.trackmyjog.util.PreferencesManager;
 
 import javax.inject.Singleton;
@@ -16,13 +17,24 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    public AuthenticationService provideRegisterService(AuthorizationInterceptor authInterceptor,
-                                                        ConnectionInterceptor connectionInterceptor) {
+    public AuthenticationService provideAuthorizationService(
+            AuthorizationInterceptor authInterceptor, ConnectionInterceptor connectionInterceptor) {
         return new ServiceFactory.Builder()
                 .withBaseUrl(BuildConfig.API_BASE_URL)
                 .addInterceptor(authInterceptor)
                 .addInterceptor(connectionInterceptor)
                 .buildService(AuthenticationService.class);
+    }
+
+    @Provides
+    @Singleton
+    public TimeEntryService provideTimeEntryService(AuthorizationInterceptor authInterceptor,
+                                                    ConnectionInterceptor connectionInterceptor) {
+        return new ServiceFactory.Builder()
+                .withBaseUrl(BuildConfig.API_BASE_URL)
+                .addInterceptor(authInterceptor)
+                .addInterceptor(connectionInterceptor)
+                .buildService(TimeEntryService.class);
     }
 
     @Provides

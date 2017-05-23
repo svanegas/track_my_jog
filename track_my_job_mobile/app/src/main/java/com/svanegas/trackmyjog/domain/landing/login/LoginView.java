@@ -21,4 +21,6 @@ interface LoginView {
     void showDisplayableError(String errorMessage);
 
     void showUnknownError();
+
+    void onLoginSuccess();
 }

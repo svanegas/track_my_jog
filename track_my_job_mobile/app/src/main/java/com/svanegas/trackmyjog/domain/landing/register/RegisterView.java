@@ -33,4 +33,6 @@ interface RegisterView {
     void showDisplayableError(String errorMessage);
 
     void showUnknownError();
+
+    void onRegisterSuccess();
 }
