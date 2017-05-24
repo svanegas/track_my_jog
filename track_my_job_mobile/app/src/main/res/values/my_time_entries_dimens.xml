@@ -8,4 +8,6 @@
     <dimen name="my_time_entries_duration_horizontal_margin">10dp</dimen>
     <dimen name="my_time_entries_duration_drawable_padding">5dp</dimen>
     <dimen name="my_time_entries_duration_text_size">25sp</dimen>
+    <dimen name="my_time_entries_fab_margin">16dp</dimen>
+    <dimen name="my_time_entries_list_bottom_padding">72dp</dimen>
 </resources>

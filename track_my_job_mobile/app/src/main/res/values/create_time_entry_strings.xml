@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="create_time_entry_title">Add a record</string>
+
+    <string name="create_time_entry_date_label">Date</string>
+    <string name="create_time_entry_distance">Distance</string>
+    <string name="create_time_entry_duration">Duration</string>
+    <string name="create_time_entry_submit_text">Create</string>
+</resources>

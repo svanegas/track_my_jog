@@ -76,7 +76,7 @@
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/submit_button"
-                style="@style/Landing.SubmitButton"
+                style="@style/AppTheme.SubmitButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/register_sign_up_button" />

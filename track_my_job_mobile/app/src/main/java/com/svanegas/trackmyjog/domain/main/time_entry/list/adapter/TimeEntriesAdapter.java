@@ -1,4 +1,4 @@
-package com.svanegas.trackmyjog.domain.main.time_entry.adapter;
+package com.svanegas.trackmyjog.domain.main.time_entry.list.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatTextView;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.svanegas.trackmyjog.R;
-import com.svanegas.trackmyjog.domain.main.time_entry.TimeEntriesListPresenter;
+import com.svanegas.trackmyjog.domain.main.time_entry.list.TimeEntriesListPresenter;
 import com.svanegas.trackmyjog.repository.model.TimeEntry;
 
 import java.text.ParseException;
@@ -61,7 +61,7 @@ public class TimeEntriesAdapter extends RecyclerView.Adapter<TimeEntriesAdapter.
     public void updateData(List<TimeEntry> timeEntries) {
         mTimeEntries.clear();
         mTimeEntries.addAll(timeEntries);
-        notifyDataSetChanged();
+        this.notifyDataSetChanged();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

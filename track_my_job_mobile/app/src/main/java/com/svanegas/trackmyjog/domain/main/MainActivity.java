@@ -18,13 +18,16 @@ import android.view.ViewGroup;
 
 import com.svanegas.trackmyjog.R;
 import com.svanegas.trackmyjog.domain.landing.LandingActivity;
-import com.svanegas.trackmyjog.domain.main.time_entry.TimeEntriesListFragment;
+import com.svanegas.trackmyjog.domain.main.time_entry.create.CreateTimeEntryFragment;
+import com.svanegas.trackmyjog.domain.main.time_entry.list.TimeEntriesListFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements MainView,
-        NavigationView.OnNavigationItemSelectedListener, TimeEntriesListFragment.OnMyRecordsInteractionListener {
+        NavigationView.OnNavigationItemSelectedListener,
+        TimeEntriesListFragment.OnMyTimeEntriesListInteractionListener,
+        CreateTimeEntryFragment.OnCreateTimeEntryListener {
 
     @BindView(R.id.drawer_layout)
     ViewGroup rootView;
@@ -88,7 +91,17 @@ public class MainActivity extends AppCompatActivity implements MainView,
     }
 
     @Override
+    public void onAddTimeEntryRequested() {
+        CreateTimeEntryFragment fragment = CreateTimeEntryFragment.newInstance();
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    @Override
     public void goToTimeEntriesList() {
+        mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         TimeEntriesListFragment fragment = TimeEntriesListFragment.newInstance();
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);

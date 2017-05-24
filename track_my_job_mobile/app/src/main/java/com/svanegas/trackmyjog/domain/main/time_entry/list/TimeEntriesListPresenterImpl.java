@@ -1,4 +1,4 @@
-package com.svanegas.trackmyjog.domain.main.time_entry;
+package com.svanegas.trackmyjog.domain.main.time_entry.list;
 
 import android.content.Context;
 import android.text.Spannable;
@@ -51,16 +51,16 @@ public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
     }
 
     @Override
-    public void fetchTimeEntries() {
-        mView.showLoading();
+    public void fetchTimeEntries(boolean pulledToRefresh) {
+        mView.showLoading(pulledToRefresh);
         mInteractor.fetchTimeEntries()
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(timeEntries -> {
-                    mView.hideLoading();
+                    mView.hideLoading(pulledToRefresh);
                     mView.populateTimeEntries(timeEntries);
                 }, throwable -> {
-                    mView.hideLoading();
+                    mView.hideLoading(pulledToRefresh);
                     if (throwable instanceof SocketTimeoutException) {
                         mView.showTimeoutError();
                     } else if (isInternetConnectionError(throwable)) {

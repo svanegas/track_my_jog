@@ -15,4 +15,27 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <style name="AppTheme.SubmitButton" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="android:layout_marginTop">@dimen/landing_submit_button_horizontal_margin</item>
+    </style>
+
+    <style name="AppTheme.ErrorIndicator">
+        <item name="android:background">@color/red_opaque</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/error_indicator_padding</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="AppTheme.ScreenProgress">
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="AppTheme.Fab">
+        <item name="android:layout_gravity">end|bottom</item>
+        <item name="android:layout_margin">@dimen/my_time_entries_fab_margin</item>
+        <item name="android:clickable">true</item>
+        <item name="android:tint">@android:color/white</item>
+    </style>
 </resources>
