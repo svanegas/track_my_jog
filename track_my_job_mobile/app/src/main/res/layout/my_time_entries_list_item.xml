@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/TimeEntriesList.Container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        style="@style/TimeEntriesList.Content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/date_value"
+            style="@style/TimeEntriesList.Date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/distance_value"
+                style="@style/TimeEntriesList.Distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <include
+                layout="@layout/my_time_entries_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|top"/>
+
+        </FrameLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

@@ -3,22 +3,29 @@ package com.svanegas.trackmyjog.domain.main.time_entry;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.svanegas.trackmyjog.R;
+import com.svanegas.trackmyjog.domain.main.time_entry.adapter.TimeEntriesAdapter;
 import com.svanegas.trackmyjog.repository.model.TimeEntry;
 
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TimeEntriesListFragment extends Fragment implements TimeEntriesListView {
 
     private OnMyRecordsInteractionListener mListener;
     private TimeEntriesListPresenter mPresenter;
+    private ViewHolder mViewHolder;
+    private TimeEntriesAdapter mAdapter;
 
     public static TimeEntriesListFragment newInstance() {
         return new TimeEntriesListFragment();
@@ -35,6 +42,7 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
                              Bundle savedInstanceState) {
         mListener.onActivityTitleRequested(R.string.my_time_entries_title);
         View rootView = inflater.inflate(R.layout.my_time_entries_fragment, container, false);
+        mViewHolder = new ViewHolder(rootView);
         ButterKnife.bind(this, rootView);
         mPresenter.fetchTimeEntries();
         return rootView;
@@ -59,18 +67,21 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
 
     @Override
     public void showLoading() {
-        Toast.makeText(getContext(), "Loading", Toast.LENGTH_SHORT).show();
+        mViewHolder.progress.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
-
+        mViewHolder.progress.setVisibility(View.GONE);
     }
 
     @Override
     public void populateTimeEntries(List<TimeEntry> timeEntries) {
-        Toast.makeText(getContext(), "Populating " + timeEntries.size() + " entries",
-                Toast.LENGTH_SHORT).show();
+        if (mAdapter == null) {
+            mAdapter = new TimeEntriesAdapter(mPresenter, timeEntries);
+            mViewHolder.timeEntriesList.setLayoutManager(new LinearLayoutManager(getContext()));
+            mViewHolder.timeEntriesList.setAdapter(mAdapter);
+        } else mAdapter.updateData(timeEntries);
     }
 
     @Override
@@ -98,8 +109,21 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
         Toast.makeText(getContext(), "Unknown error", Toast.LENGTH_SHORT).show();
     }
 
-    public interface OnMyRecordsInteractionListener {
+    static class ViewHolder {
 
+        @BindView(R.id.time_entries_list)
+        RecyclerView timeEntriesList;
+
+        @BindView(R.id.progress)
+        ProgressBar progress;
+
+        ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    public interface OnMyRecordsInteractionListener {
         void onActivityTitleRequested(int titleResId);
+
     }
 }

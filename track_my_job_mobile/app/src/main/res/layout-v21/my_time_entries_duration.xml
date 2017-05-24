@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.AppCompatTextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/duration_value"
+    style="@style/TimeEntriesList.Duration"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:drawablePadding="@dimen/my_time_entries_duration_drawable_padding"
+    android:drawableStart="@drawable/ic_time_duration"/>

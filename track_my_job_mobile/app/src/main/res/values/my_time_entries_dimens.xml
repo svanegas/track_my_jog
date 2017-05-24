@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="my_time_entries_container_margin">5dp</dimen>
+    <dimen name="my_time_entries_content_padding">10dp</dimen>
+    <dimen name="my_time_entries_date_font_size">20sp</dimen>
+    <dimen name="my_time_entries_distance_margin">10dp</dimen>
+    <dimen name="my_time_entries_distance_text_size">52sp</dimen>
+    <dimen name="my_time_entries_duration_horizontal_margin">10dp</dimen>
+    <dimen name="my_time_entries_duration_drawable_padding">5dp</dimen>
+    <dimen name="my_time_entries_duration_text_size">25sp</dimen>
+</resources>

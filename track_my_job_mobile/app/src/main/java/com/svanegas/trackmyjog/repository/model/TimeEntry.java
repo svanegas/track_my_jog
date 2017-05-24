@@ -10,4 +10,16 @@ public class TimeEntry {
     private long duration;
     @SerializedName("user_id")
     private long userId;
+
+    public String getDate() {
+        return date;
+    }
+
+    public long getDistance() {
+        return distance;
+    }
+
+    public long getDuration() {
+        return duration;
+    }
 }

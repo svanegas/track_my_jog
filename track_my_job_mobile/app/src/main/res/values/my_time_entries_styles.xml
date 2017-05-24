@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TimeEntriesList"/>
+
+    <style name="TimeEntriesList.Container">
+        <item name="android:layout_margin">@dimen/my_time_entries_container_margin</item>
+    </style>
+
+    <style name="TimeEntriesList.Content">
+        <item name="android:padding">@dimen/my_time_entries_content_padding</item>
+    </style>
+
+    <style name="TimeEntriesList.Date">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">@dimen/my_time_entries_date_font_size</item>
+    </style>
+
+    <style name="TimeEntriesList.Distance">
+        <item name="android:layout_gravity">start|center_vertical</item>
+        <item name="android:layout_margin">@dimen/my_time_entries_distance_margin</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textSize">@dimen/my_time_entries_distance_text_size</item>
+    </style>
+
+    <style name="TimeEntriesList.Duration">
+        <item name="android:layout_marginEnd">@dimen/my_time_entries_duration_horizontal_margin
+        </item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textSize">@dimen/my_time_entries_duration_text_size</item>
+    </style>
+</resources>
