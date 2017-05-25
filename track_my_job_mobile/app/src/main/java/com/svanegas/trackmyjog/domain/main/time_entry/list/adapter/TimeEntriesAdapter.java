@@ -59,10 +59,8 @@ public class TimeEntriesAdapter extends RecyclerView.Adapter<TimeEntriesAdapter.
         return mTimeEntries != null ? mTimeEntries.size() : 0;
     }
 
-    public void updateData(List<TimeEntry> timeEntries) {
-        mTimeEntries.clear();
-        mTimeEntries.addAll(timeEntries);
-        this.notifyDataSetChanged();
+    public List<TimeEntry> getItems() {
+        return mTimeEntries;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

@@ -1,4 +1,4 @@
-package com.svanegas.trackmyjog.domain.main.time_entry.form;
+package com.svanegas.trackmyjog.domain.main.time_entry.dialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -36,7 +36,7 @@ public class DeleteConfirmDialogFragment extends DialogFragment {
         return builder.create();
     }
 
-    interface Callback extends Serializable {
+    public interface Callback extends Serializable {
 
         void onDeleteConfirmed();
     }

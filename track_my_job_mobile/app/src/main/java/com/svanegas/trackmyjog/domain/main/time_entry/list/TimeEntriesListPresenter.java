@@ -5,6 +5,7 @@ import android.text.Spannable;
 import com.svanegas.trackmyjog.repository.model.TimeEntry;
 
 import java.text.ParseException;
+import java.util.List;
 
 public interface TimeEntriesListPresenter {
 
@@ -15,6 +16,8 @@ public interface TimeEntriesListPresenter {
     void fetchTimeEntries(boolean pulledToRefresh);
 
     void fetchTimeEntriesByCurrentUser(boolean pulledToRefresh);
+
+    void sortTimeEntries(int sortOption, List<TimeEntry> timeEntries);
 
     String setupFormattedDate(String date) throws ParseException;
 

@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +18,7 @@ import android.widget.DatePicker;
 import android.widget.ProgressBar;
 
 import com.svanegas.trackmyjog.R;
+import com.svanegas.trackmyjog.domain.main.time_entry.dialog.DeleteConfirmDialogFragment;
 
 import java.util.Calendar;
 import java.util.Date;

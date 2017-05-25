@@ -28,6 +28,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
+import static com.svanegas.trackmyjog.domain.main.time_entry.dialog.SortByDialogFragment.DATE_SORT_INDEX;
+import static com.svanegas.trackmyjog.domain.main.time_entry.dialog.SortByDialogFragment.DISTANCE_SORT_INDEX;
+import static com.svanegas.trackmyjog.domain.main.time_entry.dialog.SortByDialogFragment.DURATION_SORT_INDEX;
 import static com.svanegas.trackmyjog.network.ConnectionInterceptor.isInternetConnectionError;
 import static com.svanegas.trackmyjog.util.HttpErrorHelper.isHttpError;
 import static com.svanegas.trackmyjog.util.HttpErrorHelper.isUnauthorizedError;
@@ -83,6 +86,17 @@ public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
     public void fetchTimeEntriesByCurrentUser(boolean pulledToRefresh) {
         Single<List<TimeEntry>> single = mInteractor.fetchTimeEntries(mPreferencesManager.getId());
         processTimeEntries(single, pulledToRefresh);
+    }
+
+    @Override
+    public void sortTimeEntries(int sortOption, List<TimeEntry> timeEntries) {
+        if (sortOption == DATE_SORT_INDEX) {
+            timeEntries.sort((o1, o2) -> o2.getDate().compareTo(o1.getDate()));
+        } else if (sortOption == DISTANCE_SORT_INDEX) {
+            timeEntries.sort((o1, o2) -> Long.compare(o2.getDistance(), o1.getDistance()));
+        } else if (sortOption == DURATION_SORT_INDEX) {
+            timeEntries.sort((o1, o2) -> Long.compare(o2.getDuration(), o1.getDuration()));
+        }
     }
 
     @Override

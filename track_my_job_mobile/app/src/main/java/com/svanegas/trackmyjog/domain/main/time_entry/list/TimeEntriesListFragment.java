@@ -3,6 +3,7 @@ package com.svanegas.trackmyjog.domain.main.time_entry.list;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.svanegas.trackmyjog.R;
+import com.svanegas.trackmyjog.domain.main.time_entry.dialog.SortByDialogFragment;
 import com.svanegas.trackmyjog.domain.main.time_entry.list.adapter.TimeEntriesAdapter;
 import com.svanegas.trackmyjog.repository.model.TimeEntry;
 
@@ -23,8 +25,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.svanegas.trackmyjog.domain.main.time_entry.dialog.SortByDialogFragment.DATE_SORT_INDEX;
+
 public class TimeEntriesListFragment extends Fragment implements TimeEntriesListView,
-        SwipeRefreshLayout.OnRefreshListener {
+        SwipeRefreshLayout.OnRefreshListener, SortByDialogFragment.Callback {
 
     private static final int ALL_RECORDS_INDEX = 0;
 
@@ -32,7 +36,8 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
     private TimeEntriesListPresenter mPresenter;
     private ViewHolder mViewHolder;
     private TimeEntriesAdapter mAdapter;
-    private int mSelectedSpinnerIndex;
+    private int mSelectedRecordsSpinnerIndex;
+    private int mCurrentSortOption;
 
     public static TimeEntriesListFragment newInstance() {
         return new TimeEntriesListFragment();
@@ -42,6 +47,7 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter = new TimeEntriesListPresenterImpl(this);
+        mCurrentSortOption = DATE_SORT_INDEX;
     }
 
     @Override
@@ -51,14 +57,9 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
         mViewHolder = new ViewHolder(rootView);
         ButterKnife.bind(this, rootView);
         mViewHolder.swipeRefreshLayout.setOnRefreshListener(this);
-        mSelectedSpinnerIndex = -1;
+        mSelectedRecordsSpinnerIndex = -1;
         mPresenter.determineActivityTitle();
         return rootView;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
     }
 
     @Override
@@ -80,8 +81,26 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
 
     @Override
     public void onRefresh() {
-        if (mSelectedSpinnerIndex == ALL_RECORDS_INDEX) mPresenter.fetchTimeEntries(true);
+        if (mSelectedRecordsSpinnerIndex == ALL_RECORDS_INDEX) mPresenter.fetchTimeEntries(true);
         else mPresenter.fetchTimeEntriesByCurrentUser(true);
+    }
+
+    @OnClick(R.id.sort_by)
+    public void sortBy() {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        SortByDialogFragment dialog = SortByDialogFragment.newInstance(this);
+        dialog.show(fm, SortByDialogFragment.class.getSimpleName());
+    }
+
+    @Override
+    public void onSortOptionSelected(int position) {
+        if (mCurrentSortOption != position) {
+            mCurrentSortOption = position;
+            String optionName = getResources()
+                    .getStringArray(R.array.time_entries_list_sort_options)[position];
+            mViewHolder.sortByLabel.setText(optionName);
+            populateTimeEntries(mAdapter.getItems());
+        }
     }
 
     @OnClick(R.id.add_button)
@@ -118,9 +137,8 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
 
     @Override
     public void populateTimeEntries(List<TimeEntry> timeEntries) {
-        if (mAdapter == null) {
-            mAdapter = new TimeEntriesAdapter(mPresenter, timeEntries);
-        } else mAdapter.updateData(timeEntries);
+        mPresenter.sortTimeEntries(mCurrentSortOption, timeEntries);
+        mAdapter = new TimeEntriesAdapter(mPresenter, timeEntries);
         mViewHolder.timeEntriesList.setLayoutManager(new LinearLayoutManager(getContext()));
         mViewHolder.timeEntriesList.setAdapter(mAdapter);
     }
@@ -155,14 +173,18 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
     }
 
     public void toolbarSpinnerItemSelected(int position) {
-        if (position != mSelectedSpinnerIndex) {
-            mSelectedSpinnerIndex = position;
-            if (mSelectedSpinnerIndex == ALL_RECORDS_INDEX) mPresenter.fetchTimeEntries(false);
+        if (position != mSelectedRecordsSpinnerIndex) {
+            mSelectedRecordsSpinnerIndex = position;
+            if (mSelectedRecordsSpinnerIndex == ALL_RECORDS_INDEX)
+                mPresenter.fetchTimeEntries(false);
             else mPresenter.fetchTimeEntriesByCurrentUser(false);
         }
     }
 
     static class ViewHolder {
+
+        @BindView(R.id.sort_by)
+        AppCompatTextView sortByLabel;
 
         @BindView(R.id.swipe_refresh_layout)
         SwipeRefreshLayout swipeRefreshLayout;

@@ -4,9 +4,20 @@
     <string name="time_entries_list_my_records">My records</string>
     <string name="time_entries_list_all_records">All records</string>
 
-    <string-array name="spinner_options">
+    <string-array name="time_entries_list_spinner_records_options">
         <item>@string/time_entries_list_all_records</item>
         <item>@string/time_entries_list_my_records</item>
+    </string-array>
+
+    <string name="time_entries_list_sort_by">Sort by</string>
+    <string name="time_entries_list_sort_date">Date</string>
+    <string name="time_entries_list_sort_distance">Distance</string>
+    <string name="time_entries_list_sort_duration">Duration</string>
+
+    <string-array name="time_entries_list_sort_options">
+        <item>@string/time_entries_list_sort_date</item>
+        <item>@string/time_entries_list_sort_distance</item>
+        <item>@string/time_entries_list_sort_duration</item>
     </string-array>
 
     <string name="time_entries_list_no_date_available">No date available</string>

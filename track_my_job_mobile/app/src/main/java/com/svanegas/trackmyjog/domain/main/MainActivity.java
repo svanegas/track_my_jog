@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements MainView,
     public void onActivityTitleSpinnerRequested() {
         setTitle("");
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.spinner_options, R.layout.main_toolbar_spinner_item);
+                R.array.time_entries_list_spinner_records_options, R.layout.main_toolbar_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mViewHolder.spinner.setAdapter(adapter);
         if (mToolbarSpinnerSelectedPos != -1)
