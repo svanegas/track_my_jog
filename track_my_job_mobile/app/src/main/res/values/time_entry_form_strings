@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Create form -->
+    <string name="time_entry_form_create_title">Add a record</string>
+    <string name="time_entry_form_date_label">Date</string>
+    <string name="time_entry_form_distance">Distance</string>
+    <string name="time_entry_form_duration">Duration</string>
+    <string name="time_entry_form_hours_hint">00</string>
+    <string name="time_entry_form_hours_label">hr</string>
+    <string name="time_entry_form_minutes_hint">00</string>
+    <string name="time_entry_form_minutes_label">min</string>
+    <string name="time_entry_form_create_submit_text">Create</string>
+    <string name="time_entry_form_create_success">Record created successfully</string>
+
+    <!-- Update form -->
+    <string name="time_entry_form_update_title">Update a record</string>
+    <string name="time_entry_form_update_submit_text">Update</string>
+    <string name="time_entry_form_update_success">Record updated successfully</string>
+
+    <!-- Errors -->
+    <string name="time_entry_form_error_negative">This field can\'t be negative</string>
+    <string name="time_entry_form_error_invalid">This field is not valid</string>
+    <string name="time_entry_form_error_parsing_date">Could not populate the date correctly</string>
+</resources>

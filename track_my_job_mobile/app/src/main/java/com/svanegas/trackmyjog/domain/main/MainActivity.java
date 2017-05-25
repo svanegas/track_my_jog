@@ -11,14 +11,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.svanegas.trackmyjog.R;
 import com.svanegas.trackmyjog.domain.landing.LandingActivity;
-import com.svanegas.trackmyjog.domain.main.time_entry.create.CreateTimeEntryFragment;
+import com.svanegas.trackmyjog.domain.main.time_entry.form.TimeEntryFormFormFragment;
 import com.svanegas.trackmyjog.domain.main.time_entry.list.TimeEntriesListFragment;
 
 import butterknife.BindView;
@@ -26,8 +25,8 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements MainView,
         NavigationView.OnNavigationItemSelectedListener,
-        TimeEntriesListFragment.OnMyTimeEntriesListInteractionListener,
-        CreateTimeEntryFragment.OnCreateTimeEntryListener {
+        TimeEntriesListFragment.OnTimeEntriesListInteractionListener,
+        TimeEntryFormFormFragment.OnTimeEntryFormListener {
 
     @BindView(R.id.drawer_layout)
     ViewGroup rootView;
@@ -86,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements MainView,
 
     @Override
     public void onAddTimeEntryRequested() {
-        CreateTimeEntryFragment fragment = CreateTimeEntryFragment.newInstance();
+        TimeEntryFormFormFragment fragment = TimeEntryFormFormFragment.newInstance();
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.addToBackStack(null);
@@ -95,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements MainView,
 
     @Override
     public void onUpdateTimeEntryRequested(long timeEntryId) {
-        CreateTimeEntryFragment fragment = CreateTimeEntryFragment.newInstance(timeEntryId);
+        TimeEntryFormFormFragment fragment = TimeEntryFormFormFragment.newInstance(timeEntryId);
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.addToBackStack(null);
@@ -137,10 +136,10 @@ public class MainActivity extends AppCompatActivity implements MainView,
 
     private void setupInitialSelection() {
         MenuItem myRecordsItem = mViewHolder.navigationView.getMenu()
-                .findItem(R.id.nav_my_time_entries);
+                .findItem(R.id.nav_time_entries_list);
         myRecordsItem.setChecked(true);
         onNavigationItemSelected(myRecordsItem);
-        mDrawerSelectedId = R.id.nav_my_time_entries;
+        mDrawerSelectedId = R.id.nav_time_entries_list;
     }
 
     static class ViewHolder {

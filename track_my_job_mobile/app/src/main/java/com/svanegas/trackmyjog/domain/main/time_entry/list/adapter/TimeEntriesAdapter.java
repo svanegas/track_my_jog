@@ -34,7 +34,7 @@ public class TimeEntriesAdapter extends RecyclerView.Adapter<TimeEntriesAdapter.
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemRow = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.my_time_entries_list_item, parent, false);
+                .inflate(R.layout.time_entries_list_item, parent, false);
         return new ViewHolder(itemRow);
     }
 
@@ -46,7 +46,7 @@ public class TimeEntriesAdapter extends RecyclerView.Adapter<TimeEntriesAdapter.
             holder.dateValue.setText(mPresenter.setupFormattedDate(timeEntry.getDate()));
         } catch (ParseException e) {
             Log.e(TAG, "There was an error parsing the date of time entry " + position, e);
-            holder.dateValue.setText(R.string.my_time_entries_no_date_available);
+            holder.dateValue.setText(R.string.time_entries_list_no_date_available);
         }
 
         holder.distanceValue.setText(mPresenter.setupDistanceText(timeEntry.getDistance()));

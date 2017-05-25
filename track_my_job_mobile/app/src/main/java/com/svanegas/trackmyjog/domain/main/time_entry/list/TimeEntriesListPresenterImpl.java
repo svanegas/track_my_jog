@@ -93,8 +93,8 @@ public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
         entryDate.setTime(inputFormat.parse(date));
         String outFormatString;
         if (currentYear == entryDate.get(Calendar.YEAR)) {
-            outFormatString = mContext.getString(R.string.my_time_entries_without_year_format);
-        } else outFormatString = mContext.getString(R.string.my_time_entries_with_year_format);
+            outFormatString = mContext.getString(R.string.time_entries_list_without_year_format);
+        } else outFormatString = mContext.getString(R.string.time_entries_list_with_year_format);
         return new SimpleDateFormat(outFormatString, Locale.US).format(entryDate.getTime());
     }
 

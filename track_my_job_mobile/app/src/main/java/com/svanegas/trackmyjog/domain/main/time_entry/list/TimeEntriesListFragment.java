@@ -26,7 +26,7 @@ import butterknife.OnClick;
 public class TimeEntriesListFragment extends Fragment implements TimeEntriesListView,
         SwipeRefreshLayout.OnRefreshListener {
 
-    private OnMyTimeEntriesListInteractionListener mListener;
+    private OnTimeEntriesListInteractionListener mListener;
     private TimeEntriesListPresenter mPresenter;
     private ViewHolder mViewHolder;
     private TimeEntriesAdapter mAdapter;
@@ -44,8 +44,8 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mListener.onActivityTitleRequested(R.string.my_time_entries_title);
-        View rootView = inflater.inflate(R.layout.my_time_entries_fragment, container, false);
+        mListener.onActivityTitleRequested(R.string.time_entries_list_title);
+        View rootView = inflater.inflate(R.layout.time_entries_list_fragment, container, false);
         mViewHolder = new ViewHolder(rootView);
         ButterKnife.bind(this, rootView);
         mViewHolder.swipeRefreshLayout.setOnRefreshListener(this);
@@ -61,11 +61,11 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnMyTimeEntriesListInteractionListener) {
-            mListener = (OnMyTimeEntriesListInteractionListener) context;
+        if (context instanceof OnTimeEntriesListInteractionListener) {
+            mListener = (OnTimeEntriesListInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement " + OnMyTimeEntriesListInteractionListener.class.getSimpleName());
+                    + " must implement " + OnTimeEntriesListInteractionListener.class.getSimpleName());
         }
     }
 
@@ -162,7 +162,7 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
         }
     }
 
-    public interface OnMyTimeEntriesListInteractionListener {
+    public interface OnTimeEntriesListInteractionListener {
 
         void onActivityTitleRequested(int titleResId);
 

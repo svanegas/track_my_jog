@@ -28,7 +28,7 @@ public class MainPresenterImpl implements MainPresenter {
     @Override
     public boolean menuItemClicked(int itemId) {
         switch (itemId) {
-            case R.id.nav_my_time_entries:
+            case R.id.nav_time_entries_list:
                 mView.goToTimeEntriesList();
                 return true;
             case R.id.nav_logout:

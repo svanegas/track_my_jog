@@ -23,35 +23,35 @@
             android:padding="@dimen/activity_content_padding">
 
             <android.support.v7.widget.AppCompatTextView
-                style="@style/CreateTimeEntry.Label"
+                style="@style/TimeEntryForm.Label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/create_time_entry_date_label" />
+                android:text="@string/time_entry_form_date_label" />
 
             <DatePicker
                 android:id="@+id/date_picker"
-                style="@style/CreateTimeEntry.DatePicker"
+                style="@style/TimeEntryForm.DatePicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <android.support.v7.widget.AppCompatTextView
-                style="@style/CreateTimeEntry.Label"
+                style="@style/TimeEntryForm.Label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/create_time_entry_distance" />
+                android:text="@string/time_entry_form_distance" />
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/distance_field"
-                style="@style/CreateTimeEntry.InputLarge"
+                style="@style/TimeEntryForm.InputLarge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/create_time_entry_distance" />
+                android:hint="@string/time_entry_form_distance" />
 
             <android.support.v7.widget.AppCompatTextView
-                style="@style/CreateTimeEntry.Label"
+                style="@style/TimeEntryForm.Label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/create_time_entry_duration" />
+                android:text="@string/time_entry_form_duration" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -64,46 +64,46 @@
                     android:layout_height="wrap_content">
 
                     <android.support.v7.widget.AppCompatTextView
-                        style="@style/CreateTimeEntry.InputSmall.Hint"
+                        style="@style/TimeEntryForm.InputSmall.Hint"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="@string/create_time_entry_hours_hint" />
+                        android:text="@string/time_entry_form_hours_hint" />
 
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/hours_field"
-                        style="@style/CreateTimeEntry.InputSmall"
+                        style="@style/TimeEntryForm.InputSmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </FrameLayout>
 
                 <android.support.v7.widget.AppCompatTextView
-                    style="@style/CreateTimeEntry.DurationLabel"
+                    style="@style/TimeEntryForm.DurationLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/create_time_entry_hours_label" />
+                    android:text="@string/time_entry_form_hours_label" />
 
                 <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
                     <android.support.v7.widget.AppCompatTextView
-                        style="@style/CreateTimeEntry.InputSmall.Hint"
+                        style="@style/TimeEntryForm.InputSmall.Hint"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="@string/create_time_entry_minutes_hint" />
+                        android:text="@string/time_entry_form_minutes_hint" />
 
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/minutes_field"
-                        style="@style/CreateTimeEntry.InputSmall"
+                        style="@style/TimeEntryForm.InputSmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </FrameLayout>
 
                 <android.support.v7.widget.AppCompatTextView
-                    style="@style/CreateTimeEntry.DurationLabel"
+                    style="@style/TimeEntryForm.DurationLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/create_time_entry_minutes_label" />
+                    android:text="@string/time_entry_form_minutes_label" />
             </LinearLayout>
 
             <FrameLayout
@@ -115,7 +115,7 @@
                     style="@style/AppTheme.SubmitButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/create_time_entry_submit_text" />
+                    android:text="@string/time_entry_form_create_submit_text" />
 
                 <ProgressBar
                     android:id="@+id/progress_bar"

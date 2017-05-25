@@ -1,8 +1,8 @@
-package com.svanegas.trackmyjog.domain.main.time_entry.create;
+package com.svanegas.trackmyjog.domain.main.time_entry.form;
 
 import java.util.Calendar;
 
-interface CreateTimeEntryView {
+interface TimeEntryFormView {
 
     Calendar date();
 

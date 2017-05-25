@@ -1,4 +1,4 @@
-package com.svanegas.trackmyjog.domain.main.time_entry.create;
+package com.svanegas.trackmyjog.domain.main.time_entry.form;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -27,17 +27,17 @@ import static com.svanegas.trackmyjog.network.ConnectionInterceptor.isInternetCo
 import static com.svanegas.trackmyjog.util.HttpErrorHelper.isHttpError;
 import static com.svanegas.trackmyjog.util.HttpErrorHelper.parseHttpError;
 
-public class CreateTimeEntryPresenterImpl implements CreateTimeEntryPresenter {
+public class TimeEntryFormPresenterImpl implements TimeEntryFormPresenter {
 
-    private static final String TAG = CreateTimeEntryPresenterImpl.class.getSimpleName();
+    private static final String TAG = TimeEntryFormPresenterImpl.class.getSimpleName();
 
-    private CreateTimeEntryView mView;
+    private TimeEntryFormView mView;
 
     @Inject
     TimeEntryInteractor mInteractor;
 
-    CreateTimeEntryPresenterImpl(CreateTimeEntryView createTimeEntryView) {
-        mView = createTimeEntryView;
+    TimeEntryFormPresenterImpl(TimeEntryFormView timeEntryFormView) {
+        mView = timeEntryFormView;
         TrackMyJogApplication.getInstance().getApplicationComponent().inject(this);
     }
 

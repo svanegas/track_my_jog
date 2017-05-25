@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content" />
 
             <include
-                layout="@layout/my_time_entries_duration"
+                layout="@layout/time_entries_list_item_duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|top" />

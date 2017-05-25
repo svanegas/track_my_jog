@@ -1,4 +1,4 @@
-package com.svanegas.trackmyjog.domain.main.time_entry.create;
+package com.svanegas.trackmyjog.domain.main.time_entry.form;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -25,22 +25,22 @@ import butterknife.OnClick;
 
 import static android.support.design.widget.Snackbar.LENGTH_LONG;
 
-public class CreateTimeEntryFragment extends Fragment implements CreateTimeEntryView {
+public class TimeEntryFormFormFragment extends Fragment implements TimeEntryFormView {
 
     private static final String TIME_ENTRY_ID_KEY = "time_entry_id";
 
-    private OnCreateTimeEntryListener mListener;
-    private CreateTimeEntryPresenter mPresenter;
+    private OnTimeEntryFormListener mListener;
+    private TimeEntryFormPresenter mPresenter;
     private ViewHolder mViewHolder;
     private long mTimeEntryId;
     private boolean mIsUpdate;
 
-    public static CreateTimeEntryFragment newInstance() {
-        return new CreateTimeEntryFragment();
+    public static TimeEntryFormFormFragment newInstance() {
+        return new TimeEntryFormFormFragment();
     }
 
-    public static CreateTimeEntryFragment newInstance(long timeEntryId) {
-        CreateTimeEntryFragment fragment = new CreateTimeEntryFragment();
+    public static TimeEntryFormFormFragment newInstance(long timeEntryId) {
+        TimeEntryFormFormFragment fragment = new TimeEntryFormFormFragment();
         Bundle bundle = new Bundle();
         bundle.putLong(TIME_ENTRY_ID_KEY, timeEntryId);
         fragment.setArguments(bundle);
@@ -50,7 +50,7 @@ public class CreateTimeEntryFragment extends Fragment implements CreateTimeEntry
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = new CreateTimeEntryPresenterImpl(this);
+        mPresenter = new TimeEntryFormPresenterImpl(this);
         Bundle args = getArguments();
         if (args != null && args.containsKey(TIME_ENTRY_ID_KEY)) {
             mTimeEntryId = args.getLong(TIME_ENTRY_ID_KEY);
@@ -64,9 +64,9 @@ public class CreateTimeEntryFragment extends Fragment implements CreateTimeEntry
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (mIsUpdate) mListener.onActivityTitleRequested(R.string.update_time_entry_title);
-        else mListener.onActivityTitleRequested(R.string.create_time_entry_title);
-        View rootView = inflater.inflate(R.layout.create_time_entry_fragment, container, false);
+        if (mIsUpdate) mListener.onActivityTitleRequested(R.string.time_entry_form_update_title);
+        else mListener.onActivityTitleRequested(R.string.time_entry_form_create_title);
+        View rootView = inflater.inflate(R.layout.time_entry_form_fragment, container, false);
         mViewHolder = new ViewHolder(rootView);
         ButterKnife.bind(this, rootView);
 
@@ -79,11 +79,11 @@ public class CreateTimeEntryFragment extends Fragment implements CreateTimeEntry
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnCreateTimeEntryListener) {
-            mListener = (OnCreateTimeEntryListener) context;
+        if (context instanceof OnTimeEntryFormListener) {
+            mListener = (OnTimeEntryFormListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement " + OnCreateTimeEntryListener.class.getSimpleName());
+                    + " must implement " + OnTimeEntryFormListener.class.getSimpleName());
         }
     }
 
@@ -104,9 +104,9 @@ public class CreateTimeEntryFragment extends Fragment implements CreateTimeEntry
 
     private void setupSubmitButton() {
         if (mIsUpdate) {
-            mViewHolder.submitButton.setText(R.string.update_time_entry_submit_text);
+            mViewHolder.submitButton.setText(R.string.time_entry_form_update_submit_text);
         } else {
-            mViewHolder.submitButton.setText(R.string.create_time_entry_submit_text);
+            mViewHolder.submitButton.setText(R.string.time_entry_form_create_submit_text);
         }
     }
 
@@ -148,13 +148,13 @@ public class CreateTimeEntryFragment extends Fragment implements CreateTimeEntry
 
     @Override
     public void onCreationSuccess() {
-        Snackbar.make(mViewHolder.rootView, R.string.create_time_entry_success, LENGTH_LONG).show();
+        Snackbar.make(mViewHolder.rootView, R.string.time_entry_form_create_success, LENGTH_LONG).show();
         mListener.goToTimeEntriesList();
     }
 
     @Override
     public void onUpdateSuccess() {
-        Snackbar.make(mViewHolder.rootView, R.string.update_time_entry_success, LENGTH_LONG).show();
+        Snackbar.make(mViewHolder.rootView, R.string.time_entry_form_update_success, LENGTH_LONG).show();
         mListener.goToTimeEntriesList();
     }
 
@@ -184,13 +184,13 @@ public class CreateTimeEntryFragment extends Fragment implements CreateTimeEntry
 
     @Override
     public void showNegativeDurationError() {
-        mViewHolder.minutesField.setError(getString(R.string.create_time_entry_error_negative));
+        mViewHolder.minutesField.setError(getString(R.string.time_entry_form_error_negative));
         mViewHolder.minutesField.requestFocus();
     }
 
     @Override
     public void showInvalidDurationError() {
-        mViewHolder.minutesField.setError(getString(R.string.create_time_entry_error_invalid));
+        mViewHolder.minutesField.setError(getString(R.string.time_entry_form_error_invalid));
         mViewHolder.minutesField.requestFocus();
     }
 
@@ -202,13 +202,13 @@ public class CreateTimeEntryFragment extends Fragment implements CreateTimeEntry
 
     @Override
     public void showNegativeDistanceError() {
-        mViewHolder.distanceField.setError(getString(R.string.create_time_entry_error_negative));
+        mViewHolder.distanceField.setError(getString(R.string.time_entry_form_error_negative));
         mViewHolder.distanceField.requestFocus();
     }
 
     @Override
     public void showInvalidDistanceError() {
-        mViewHolder.distanceField.setError(getString(R.string.create_time_entry_error_invalid));
+        mViewHolder.distanceField.setError(getString(R.string.time_entry_form_error_invalid));
         mViewHolder.distanceField.requestFocus();
     }
 
@@ -233,7 +233,7 @@ public class CreateTimeEntryFragment extends Fragment implements CreateTimeEntry
     @Override
     public void showUnableToParseDateError() {
         mViewHolder.errorMessage.setVisibility(View.VISIBLE);
-        mViewHolder.errorMessage.setText(R.string.create_time_entry_error_parsing_date);
+        mViewHolder.errorMessage.setText(R.string.time_entry_form_error_parsing_date);
     }
 
     @Override
@@ -283,7 +283,7 @@ public class CreateTimeEntryFragment extends Fragment implements CreateTimeEntry
         }
     }
 
-    public interface OnCreateTimeEntryListener {
+    public interface OnTimeEntryFormListener {
 
         void onActivityTitleRequested(int titleResId);
 
