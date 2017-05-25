@@ -6,6 +6,7 @@ import android.util.Log;
 import com.svanegas.trackmyjog.TrackMyJogApplication;
 import com.svanegas.trackmyjog.interactor.AuthenticationInteractor;
 import com.svanegas.trackmyjog.repository.model.APIError;
+import com.svanegas.trackmyjog.util.PreferencesManager;
 
 import java.net.SocketTimeoutException;
 
@@ -29,6 +30,9 @@ public class RegisterPresenterImpl implements RegisterPresenter {
 
     @Inject
     AuthenticationInteractor mAutheInteractor;
+
+    @Inject
+    PreferencesManager mPreferencesManager;
 
     RegisterPresenterImpl(RegisterView registerView) {
         mView = registerView;
@@ -55,23 +59,25 @@ public class RegisterPresenterImpl implements RegisterPresenter {
         mAutheInteractor.registerUser(name, email, password)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(user -> mView.onRegisterSuccess(),
-                        throwable -> {
-                            mView.hideLoadingAndEnableFields();
-                            if (throwable instanceof SocketTimeoutException) {
-                                mView.showTimeoutError();
-                            } else if (isInternetConnectionError(throwable)) {
-                                mView.showNoConnectionError();
-                            } else if (isHttpError(throwable)) {
-                                APIError error = parseHttpError((HttpException) throwable);
-                                if (error != null && error.getErrorMessage() != null) {
-                                    mView.showDisplayableError(error.errorMessage);
-                                } else mView.showUnknownError();
-                            } else {
-                                Log.e(TAG, "Could not register due unknown error: ", throwable);
-                                mView.showUnknownError();
-                            }
-                        });
+                .subscribe(user -> {
+                    mPreferencesManager.saveUserInfo(user);
+                    mView.onRegisterSuccess();
+                }, throwable -> {
+                    mView.hideLoadingAndEnableFields();
+                    if (throwable instanceof SocketTimeoutException) {
+                        mView.showTimeoutError();
+                    } else if (isInternetConnectionError(throwable)) {
+                        mView.showNoConnectionError();
+                    } else if (isHttpError(throwable)) {
+                        APIError error = parseHttpError((HttpException) throwable);
+                        if (error != null && error.getErrorMessage() != null) {
+                            mView.showDisplayableError(error.errorMessage);
+                        } else mView.showUnknownError();
+                    } else {
+                        Log.e(TAG, "Could not register due unknown error: ", throwable);
+                        mView.showUnknownError();
+                    }
+                });
     }
 
     private boolean validateName(String name) {

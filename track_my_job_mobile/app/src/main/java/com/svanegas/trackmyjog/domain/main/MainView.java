@@ -5,4 +5,8 @@ interface MainView {
     void goToTimeEntriesList();
 
     void goToWelcome();
+
+    void populateHeaderName(String name);
+
+    void populateHeaderRole(int roleResId);
 }

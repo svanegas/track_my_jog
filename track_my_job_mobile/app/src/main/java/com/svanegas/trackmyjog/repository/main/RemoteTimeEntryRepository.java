@@ -25,6 +25,11 @@ public class RemoteTimeEntryRepository implements TimeEntryRepository {
     }
 
     @Override
+    public Single<List<TimeEntry>> fetchTimeEntries(long userId) {
+        return mService.fetchTimeEntries(userId);
+    }
+
+    @Override
     public Single<TimeEntry> fetchTimeEntry(long timeEntryId) {
         return mService.fetchTimeEntry(timeEntryId);
     }

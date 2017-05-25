@@ -8,9 +8,13 @@ import java.text.ParseException;
 
 public interface TimeEntriesListPresenter {
 
+    void determineActivityTitle();
+
     void timeEntryClicked(TimeEntry timeEntry);
 
     void fetchTimeEntries(boolean pulledToRefresh);
+
+    void fetchTimeEntriesByCurrentUser(boolean pulledToRefresh);
 
     String setupFormattedDate(String date) throws ParseException;
 

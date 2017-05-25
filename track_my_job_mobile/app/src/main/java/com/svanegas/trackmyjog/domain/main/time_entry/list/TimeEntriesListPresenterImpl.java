@@ -11,16 +11,19 @@ import com.svanegas.trackmyjog.TrackMyJogApplication;
 import com.svanegas.trackmyjog.interactor.TimeEntryInteractor;
 import com.svanegas.trackmyjog.repository.model.APIError;
 import com.svanegas.trackmyjog.repository.model.TimeEntry;
+import com.svanegas.trackmyjog.util.PreferencesManager;
 
 import java.net.SocketTimeoutException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
 
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
@@ -46,9 +49,23 @@ public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
     @Inject
     TimeEntryInteractor mInteractor;
 
+    @Inject
+    PreferencesManager mPreferencesManager;
+
     TimeEntriesListPresenterImpl(TimeEntriesListView timeEntriesListView) {
         mView = timeEntriesListView;
         TrackMyJogApplication.getInstance().getApplicationComponent().inject(this);
+    }
+
+    @Override
+    public void determineActivityTitle() {
+        if (mPreferencesManager.isAdmin()) mView.setupSpinnerAsTitle();
+        else {
+            // We need to fetch time entries, because there won't be spinner selection that triggers
+            // a fetch.
+            mView.setupRegularTitle();
+            fetchTimeEntries(false);
+        }
     }
 
     @Override
@@ -58,31 +75,14 @@ public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
 
     @Override
     public void fetchTimeEntries(boolean pulledToRefresh) {
-        mView.showLoading(pulledToRefresh);
-        mInteractor.fetchTimeEntries()
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(timeEntries -> {
-                    mView.hideLoading(pulledToRefresh);
-                    mView.populateTimeEntries(timeEntries);
-                }, throwable -> {
-                    mView.hideLoading(pulledToRefresh);
-                    if (throwable instanceof SocketTimeoutException) {
-                        mView.showTimeoutError();
-                    } else if (isInternetConnectionError(throwable)) {
-                        mView.showNoConnectionError();
-                    } else if (isUnauthorizedError(throwable)) {
-                        mView.goToWelcomeDueUnauthorized();
-                    } else if (isHttpError(throwable)) {
-                        APIError error = parseHttpError((HttpException) throwable);
-                        if (error != null && error.getErrorMessage() != null) {
-                            mView.showDisplayableError(error.errorMessage);
-                        } else mView.showUnknownError();
-                    } else {
-                        Log.e(TAG, "Could not fetch time entries due unknown error: ", throwable);
-                        mView.showUnknownError();
-                    }
-                });
+        Single<List<TimeEntry>> single = mInteractor.fetchTimeEntries();
+        processTimeEntries(single, pulledToRefresh);
+    }
+
+    @Override
+    public void fetchTimeEntriesByCurrentUser(boolean pulledToRefresh) {
+        Single<List<TimeEntry>> single = mInteractor.fetchTimeEntries(mPreferencesManager.getId());
+        processTimeEntries(single, pulledToRefresh);
     }
 
     @Override
@@ -120,6 +120,35 @@ public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
             if (minutes != 0) return String.format(Locale.US, "%d hr %d min", hours, minutes);
             else return String.format(Locale.US, "%d hr", hours);
         } else return String.format(Locale.US, "%d min", minutes);
+    }
+
+    private void processTimeEntries(Single<List<TimeEntry>> timeEntriesSingle,
+                                    boolean pulledToRefresh) {
+        mView.showLoading(pulledToRefresh);
+        timeEntriesSingle
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(timeEntries -> {
+                    mView.hideLoading(pulledToRefresh);
+                    mView.populateTimeEntries(timeEntries);
+                }, throwable -> {
+                    mView.hideLoading(pulledToRefresh);
+                    if (throwable instanceof SocketTimeoutException) {
+                        mView.showTimeoutError();
+                    } else if (isInternetConnectionError(throwable)) {
+                        mView.showNoConnectionError();
+                    } else if (isUnauthorizedError(throwable)) {
+                        mView.goToWelcomeDueUnauthorized();
+                    } else if (isHttpError(throwable)) {
+                        APIError error = parseHttpError((HttpException) throwable);
+                        if (error != null && error.getErrorMessage() != null) {
+                            mView.showDisplayableError(error.errorMessage);
+                        } else mView.showUnknownError();
+                    } else {
+                        Log.e(TAG, "Could not fetch time entries due unknown error: ", throwable);
+                        mView.showUnknownError();
+                    }
+                });
     }
 
     /**

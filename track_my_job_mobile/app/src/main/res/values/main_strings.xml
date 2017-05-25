@@ -7,4 +7,8 @@
     <string name="main_drawer_close">Close navigation drawer</string>
 
     <string name="main_action_settings">Settings</string>
+
+    <string name="main_admin_role">Administrator</string>
+    <string name="main_manager_role">Manager</string>
+    <string name="main_regular_role">Regular user</string>
 </resources>

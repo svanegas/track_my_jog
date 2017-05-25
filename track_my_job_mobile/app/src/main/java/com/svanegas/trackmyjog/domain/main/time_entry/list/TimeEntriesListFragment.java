@@ -26,10 +26,13 @@ import butterknife.OnClick;
 public class TimeEntriesListFragment extends Fragment implements TimeEntriesListView,
         SwipeRefreshLayout.OnRefreshListener {
 
+    private static final int ALL_RECORDS_INDEX = 0;
+
     private OnTimeEntriesListInteractionListener mListener;
     private TimeEntriesListPresenter mPresenter;
     private ViewHolder mViewHolder;
     private TimeEntriesAdapter mAdapter;
+    private int mSelectedSpinnerIndex;
 
     public static TimeEntriesListFragment newInstance() {
         return new TimeEntriesListFragment();
@@ -44,12 +47,12 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mListener.onActivityTitleRequested(R.string.time_entries_list_title);
         View rootView = inflater.inflate(R.layout.time_entries_list_fragment, container, false);
         mViewHolder = new ViewHolder(rootView);
         ButterKnife.bind(this, rootView);
         mViewHolder.swipeRefreshLayout.setOnRefreshListener(this);
-        mPresenter.fetchTimeEntries(false);
+        mSelectedSpinnerIndex = -1;
+        mPresenter.determineActivityTitle();
         return rootView;
     }
 
@@ -77,12 +80,23 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
 
     @Override
     public void onRefresh() {
-        mPresenter.fetchTimeEntries(true);
+        if (mSelectedSpinnerIndex == ALL_RECORDS_INDEX) mPresenter.fetchTimeEntries(true);
+        else mPresenter.fetchTimeEntriesByCurrentUser(true);
     }
 
     @OnClick(R.id.add_button)
     public void onAddClicked() {
         mListener.onAddTimeEntryRequested();
+    }
+
+    @Override
+    public void setupSpinnerAsTitle() {
+        mListener.onActivityTitleSpinnerRequested();
+    }
+
+    @Override
+    public void setupRegularTitle() {
+        mListener.onActivityTitleRequested(R.string.time_entries_list_my_records);
     }
 
     @Override
@@ -140,6 +154,14 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
         mViewHolder.errorMessage.setText(R.string.error_unknown);
     }
 
+    public void toolbarSpinnerItemSelected(int position) {
+        if (position != mSelectedSpinnerIndex) {
+            mSelectedSpinnerIndex = position;
+            if (mSelectedSpinnerIndex == ALL_RECORDS_INDEX) mPresenter.fetchTimeEntries(false);
+            else mPresenter.fetchTimeEntriesByCurrentUser(false);
+        }
+    }
+
     static class ViewHolder {
 
         @BindView(R.id.swipe_refresh_layout)
@@ -165,6 +187,8 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
     public interface OnTimeEntriesListInteractionListener {
 
         void onActivityTitleRequested(int titleResId);
+
+        void onActivityTitleSpinnerRequested();
 
         void onAddTimeEntryRequested();
 

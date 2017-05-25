@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="time_entries_list_title">My records</string>
+    <string name="time_entries_list_title">Records</string>
+    <string name="time_entries_list_my_records">My records</string>
+    <string name="time_entries_list_all_records">All records</string>
+
+    <string-array name="spinner_options">
+        <item>@string/time_entries_list_all_records</item>
+        <item>@string/time_entries_list_my_records</item>
+    </string-array>
 
     <string name="time_entries_list_no_date_available">No date available</string>
     <string name="time_entries_list_without_year_format">EE, MMMM dd</string>

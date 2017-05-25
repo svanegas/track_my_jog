@@ -6,6 +6,10 @@ import java.util.List;
 
 interface TimeEntriesListView {
 
+    void setupSpinnerAsTitle();
+
+    void setupRegularTitle();
+
     void onTimeEntryClicked(TimeEntry timeEntry);
 
     void showLoading(boolean pulledToRefresh);

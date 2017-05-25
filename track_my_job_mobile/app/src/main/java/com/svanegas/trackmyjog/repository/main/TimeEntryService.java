@@ -12,11 +12,15 @@ import retrofit2.http.GET;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface TimeEntryService {
 
     @GET("time_entries")
     Single<List<TimeEntry>> fetchTimeEntries();
+
+    @GET("time_entries")
+    Single<List<TimeEntry>> fetchTimeEntries(@Query("user_id") long userId);
 
     @POST("time_entries")
     @FormUrlEncoded

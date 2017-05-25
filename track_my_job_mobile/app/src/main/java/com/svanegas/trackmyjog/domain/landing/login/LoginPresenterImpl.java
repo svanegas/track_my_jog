@@ -6,6 +6,8 @@ import android.util.Log;
 import com.svanegas.trackmyjog.TrackMyJogApplication;
 import com.svanegas.trackmyjog.interactor.AuthenticationInteractor;
 import com.svanegas.trackmyjog.repository.model.APIError;
+import com.svanegas.trackmyjog.repository.model.User;
+import com.svanegas.trackmyjog.util.PreferencesManager;
 
 import java.net.SocketTimeoutException;
 
@@ -27,6 +29,9 @@ public class LoginPresenterImpl implements LoginPresenter {
 
     @Inject
     AuthenticationInteractor mAuthInteractor;
+
+    @Inject
+    PreferencesManager mPreferencesManager;
 
     LoginPresenterImpl(LoginView loginView) {
         mView = loginView;
@@ -50,23 +55,25 @@ public class LoginPresenterImpl implements LoginPresenter {
         mAuthInteractor.loginUser(email, password)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(user -> mView.onLoginSuccess(),
-                        throwable -> {
-                            mView.hideLoadingAndEnableFields();
-                            if (throwable instanceof SocketTimeoutException) {
-                                mView.showTimeoutError();
-                            } else if (isInternetConnectionError(throwable)) {
-                                mView.showNoConnectionError();
-                            } else if (isHttpError(throwable)) {
-                                APIError error = parseHttpError((HttpException) throwable);
-                                if (error != null && error.getErrorMessage() != null) {
-                                    mView.showDisplayableError(error.errorMessage);
-                                } else mView.showUnknownError();
-                            } else {
-                                Log.e(TAG, "Could not login due unknown error: ", throwable);
-                                mView.showUnknownError();
-                            }
-                        });
+                .subscribe(user -> {
+                    mPreferencesManager.saveUserInfo(user);
+                    mView.onLoginSuccess();
+                }, throwable -> {
+                    mView.hideLoadingAndEnableFields();
+                    if (throwable instanceof SocketTimeoutException) {
+                        mView.showTimeoutError();
+                    } else if (isInternetConnectionError(throwable)) {
+                        mView.showNoConnectionError();
+                    } else if (isHttpError(throwable)) {
+                        APIError error = parseHttpError((HttpException) throwable);
+                        if (error != null && error.getErrorMessage() != null) {
+                            mView.showDisplayableError(error.errorMessage);
+                        } else mView.showUnknownError();
+                    } else {
+                        Log.e(TAG, "Could not login due unknown error: ", throwable);
+                        mView.showUnknownError();
+                    }
+                });
     }
 
     private boolean validateEmail(String email) {

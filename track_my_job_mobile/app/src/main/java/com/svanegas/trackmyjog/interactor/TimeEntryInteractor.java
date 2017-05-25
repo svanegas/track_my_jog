@@ -26,6 +26,10 @@ public class TimeEntryInteractor {
         return mRemoteRepository.fetchTimeEntries();
     }
 
+    public Single<List<TimeEntry>> fetchTimeEntries(long userId) {
+        return mRemoteRepository.fetchTimeEntries(userId);
+    }
+
     public Single<TimeEntry> fetchTimeEntry(long timeEntryId) {
         return mRemoteRepository.fetchTimeEntry(timeEntryId);
     }

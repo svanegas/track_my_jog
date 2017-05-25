@@ -10,6 +10,8 @@ public interface TimeEntryRepository {
 
     Single<List<TimeEntry>> fetchTimeEntries();
 
+    Single<List<TimeEntry>> fetchTimeEntries(long userId);
+
     Single<TimeEntry> fetchTimeEntry(long timeEntryId);
 
     Single<TimeEntry> createTimeEntry(String date, String distance, long duration);

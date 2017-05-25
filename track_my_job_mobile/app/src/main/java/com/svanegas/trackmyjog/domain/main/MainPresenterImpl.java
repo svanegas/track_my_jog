@@ -36,6 +36,7 @@ public class MainPresenterImpl implements MainPresenter {
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doAfterTerminate(() -> {
+                            mPreferencesManager.removeUserInfo();
                             mPreferencesManager.removeAuthHeaders();
                             mView.goToWelcome();
                         })
@@ -43,5 +44,15 @@ public class MainPresenterImpl implements MainPresenter {
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public void requestHeaderPopulation() {
+        mView.populateHeaderName(mPreferencesManager.getName());
+        int displayableRoleResId;
+        if (mPreferencesManager.isAdmin()) displayableRoleResId = R.string.main_admin_role;
+        else if (mPreferencesManager.isManager()) displayableRoleResId = R.string.main_manager_role;
+        else displayableRoleResId = R.string.main_regular_role;
+        mView.populateHeaderRole(displayableRoleResId);
     }
 }
