@@ -4,5 +4,7 @@ interface TimeEntryFormPresenter {
 
     void submitTimeEntry(long timeEntryId);
 
-    void fetchTimeEntry(long mTimeEntryId);
+    void fetchTimeEntry(long timeEntryId);
+
+    void deleteTimeEntry(long timeEntryId);
 }

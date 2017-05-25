@@ -5,6 +5,7 @@ import com.svanegas.trackmyjog.repository.model.TimeEntry;
 import java.util.List;
 
 import io.reactivex.Single;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -32,4 +33,7 @@ public interface TimeEntryService {
                                       @Field("date") String date,
                                       @Field("distance") String distance,
                                       @Field("duration") long duration);
+
+    @DELETE("time_entries/{timeEntryId}")
+    Single<Object> deleteTimeEntry(@Path("timeEntryId") long timeEntryId);
 }

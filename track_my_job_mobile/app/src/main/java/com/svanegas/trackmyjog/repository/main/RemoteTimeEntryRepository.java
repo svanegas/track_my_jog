@@ -41,4 +41,9 @@ public class RemoteTimeEntryRepository implements TimeEntryRepository {
                                              long duration) {
         return mService.updateTimeEntry(timeEntryId, date, distance, duration);
     }
+
+    @Override
+    public Single<Object> deleteTimeEntry(long timeEntryId) {
+        return mService.deleteTimeEntry(timeEntryId);
+    }
 }

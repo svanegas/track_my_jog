@@ -96,6 +96,31 @@ public class TimeEntryFormPresenterImpl implements TimeEntryFormPresenter {
                 });
     }
 
+    @Override
+    public void deleteTimeEntry(long timeEntryId) {
+        mView.showLoadingAndDisableFields();
+        mInteractor.deleteTimeEntry(timeEntryId)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(trash -> mView.onDeletionSuccess(), throwable -> {
+                    mView.hideLoadingAndEnableFields();
+                    if (throwable instanceof SocketTimeoutException) {
+                        mView.showTimeoutError();
+                    } else if (isInternetConnectionError(throwable)) {
+                        mView.showNoConnectionError();
+                    } else if (isHttpError(throwable)) {
+                        APIError error = parseHttpError((HttpException) throwable);
+                        if (error != null && error.getErrorMessage() != null) {
+                            mView.showDisplayableError(error.errorMessage);
+                        } else mView.showUnknownError();
+                    } else {
+                        Log.e(TAG, "Could not delete Time Entry due unknown error: ",
+                                throwable);
+                        mView.showUnknownError();
+                    }
+                });
+    }
+
     private void processTimeEntry(long timeEntryId, Calendar date, String distance, long duration) {
         String dateString = String.format(Locale.US, "%d-%d-%d",
                 date.get(Calendar.YEAR),

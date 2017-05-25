@@ -20,6 +20,8 @@ interface TimeEntryFormView {
 
     void onUpdateSuccess();
 
+    void onDeletionSuccess();
+
     void populateDate(Calendar calendar);
 
     void populateDistance(long distance);

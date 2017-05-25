@@ -40,4 +40,8 @@ public class TimeEntryInteractor {
                                              long duration) {
         return mRemoteRepository.updateTimeEntry(timeEntryId, date, distance, duration);
     }
+
+    public Single<Object> deleteTimeEntry(long timeEntryId) {
+        return mRemoteRepository.deleteTimeEntry(timeEntryId);
+    }
 }

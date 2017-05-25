@@ -52,7 +52,15 @@ class TimeEntriesController < ApplicationController
 
   # DELETE /time_entries/1
   def destroy
-    @time_entry.destroy
+    if @time_entry.destroy
+      render json: {
+        success: true
+      }
+    else
+      render json: {
+        errors: @time_entry.errors.full_messages
+      }, status: :unprocessable_entity
+    end
   end
 
   private

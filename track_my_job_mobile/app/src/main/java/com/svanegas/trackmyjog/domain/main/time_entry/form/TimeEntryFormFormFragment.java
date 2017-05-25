@@ -4,10 +4,15 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
@@ -25,7 +30,8 @@ import butterknife.OnClick;
 
 import static android.support.design.widget.Snackbar.LENGTH_LONG;
 
-public class TimeEntryFormFormFragment extends Fragment implements TimeEntryFormView {
+public class TimeEntryFormFormFragment extends Fragment implements TimeEntryFormView,
+        DeleteConfirmDialogFragment.Callback {
 
     private static final String TIME_ENTRY_ID_KEY = "time_entry_id";
 
@@ -55,6 +61,7 @@ public class TimeEntryFormFormFragment extends Fragment implements TimeEntryForm
         if (args != null && args.containsKey(TIME_ENTRY_ID_KEY)) {
             mTimeEntryId = args.getLong(TIME_ENTRY_ID_KEY);
             mIsUpdate = true;
+            setHasOptionsMenu(true);
         } else {
             mTimeEntryId = -1;
             mIsUpdate = false;
@@ -91,6 +98,21 @@ public class TimeEntryFormFormFragment extends Fragment implements TimeEntryForm
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_time_entry_update, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_delete:
+                showDeleteConfirmationDialog();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @OnClick(R.id.submit_button)
@@ -148,13 +170,22 @@ public class TimeEntryFormFormFragment extends Fragment implements TimeEntryForm
 
     @Override
     public void onCreationSuccess() {
-        Snackbar.make(mViewHolder.rootView, R.string.time_entry_form_create_success, LENGTH_LONG).show();
+        Snackbar.make(mViewHolder.rootView,
+                R.string.time_entry_form_create_success, LENGTH_LONG).show();
         mListener.goToTimeEntriesList();
     }
 
     @Override
     public void onUpdateSuccess() {
-        Snackbar.make(mViewHolder.rootView, R.string.time_entry_form_update_success, LENGTH_LONG).show();
+        Snackbar.make(mViewHolder.rootView,
+                R.string.time_entry_form_update_success, LENGTH_LONG).show();
+        mListener.goToTimeEntriesList();
+    }
+
+    @Override
+    public void onDeletionSuccess() {
+        Snackbar.make(mViewHolder.rootView,
+                R.string.time_entry_form_delete_success, LENGTH_LONG).show();
         mListener.goToTimeEntriesList();
     }
 
@@ -251,6 +282,16 @@ public class TimeEntryFormFormFragment extends Fragment implements TimeEntryForm
         mViewHolder.submitButton.setEnabled(enabled);
     }
 
+    private void showDeleteConfirmationDialog() {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        DeleteConfirmDialogFragment alert = DeleteConfirmDialogFragment.newInstance(this);
+        alert.show(fm, DeleteConfirmDialogFragment.class.getSimpleName());
+    }
+
+    @Override
+    public void onDeleteConfirmed() {
+        mPresenter.deleteTimeEntry(mTimeEntryId);
+    }
 
     static class ViewHolder {
 

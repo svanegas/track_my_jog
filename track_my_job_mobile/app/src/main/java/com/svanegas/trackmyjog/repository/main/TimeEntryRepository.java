@@ -18,4 +18,6 @@ public interface TimeEntryRepository {
                                       String date,
                                       String distance,
                                       long duration);
+
+    Single<Object> deleteTimeEntry(long timeEntryId);
 }
