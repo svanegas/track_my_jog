@@ -11,6 +11,10 @@ public class TimeEntry {
     @SerializedName("user_id")
     private long userId;
 
+    public long getId() {
+        return id;
+    }
+
     public String getDate() {
         return date;
     }

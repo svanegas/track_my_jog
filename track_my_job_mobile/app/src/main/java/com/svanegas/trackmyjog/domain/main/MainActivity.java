@@ -64,12 +64,6 @@ public class MainActivity extends AppCompatActivity implements MainView,
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return mPresenter.menuItemClicked(item.getItemId()) || super.onOptionsItemSelected(item);
     }
@@ -93,6 +87,15 @@ public class MainActivity extends AppCompatActivity implements MainView,
     @Override
     public void onAddTimeEntryRequested() {
         CreateTimeEntryFragment fragment = CreateTimeEntryFragment.newInstance();
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onUpdateTimeEntryRequested(long timeEntryId) {
+        CreateTimeEntryFragment fragment = CreateTimeEntryFragment.newInstance(timeEntryId);
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.addToBackStack(null);

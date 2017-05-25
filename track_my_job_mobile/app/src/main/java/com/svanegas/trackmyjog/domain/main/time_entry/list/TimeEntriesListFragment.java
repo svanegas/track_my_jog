@@ -86,6 +86,11 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
     }
 
     @Override
+    public void onTimeEntryClicked(TimeEntry timeEntry) {
+        mListener.onUpdateTimeEntryRequested(timeEntry.getId());
+    }
+
+    @Override
     public void showLoading(boolean pulledToRefresh) {
         if (!pulledToRefresh) mViewHolder.progress.setVisibility(View.VISIBLE);
         mViewHolder.errorMessage.setVisibility(View.GONE);
@@ -162,5 +167,7 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
         void onActivityTitleRequested(int titleResId);
 
         void onAddTimeEntryRequested();
+
+        void onUpdateTimeEntryRequested(long timeEntryId);
     }
 }

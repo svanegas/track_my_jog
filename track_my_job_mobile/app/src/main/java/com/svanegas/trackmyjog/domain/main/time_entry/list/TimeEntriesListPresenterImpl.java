@@ -10,6 +10,7 @@ import com.svanegas.trackmyjog.R;
 import com.svanegas.trackmyjog.TrackMyJogApplication;
 import com.svanegas.trackmyjog.interactor.TimeEntryInteractor;
 import com.svanegas.trackmyjog.repository.model.APIError;
+import com.svanegas.trackmyjog.repository.model.TimeEntry;
 
 import java.net.SocketTimeoutException;
 import java.text.DateFormat;
@@ -33,7 +34,7 @@ public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
 
     private static final String TAG = TimeEntriesListPresenterImpl.class.getSimpleName();
 
-    private static final String INPUT_DATE_FORMAT = "yyyy-MM-dd";
+    public static final String INPUT_DATE_FORMAT = "yyyy-MM-dd";
     private static final float UNITS_RELATIVE_SIZE = 0.7f;
     private static final String KM_UNIT = "km";
 
@@ -48,6 +49,11 @@ public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
     TimeEntriesListPresenterImpl(TimeEntriesListView timeEntriesListView) {
         mView = timeEntriesListView;
         TrackMyJogApplication.getInstance().getApplicationComponent().inject(this);
+    }
+
+    @Override
+    public void timeEntryClicked(TimeEntry timeEntry) {
+        mView.onTimeEntryClicked(timeEntry);
     }
 
     @Override

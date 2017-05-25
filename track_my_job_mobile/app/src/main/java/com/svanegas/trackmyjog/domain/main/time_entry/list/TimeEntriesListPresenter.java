@@ -2,9 +2,13 @@ package com.svanegas.trackmyjog.domain.main.time_entry.list;
 
 import android.text.Spannable;
 
+import com.svanegas.trackmyjog.repository.model.TimeEntry;
+
 import java.text.ParseException;
 
 public interface TimeEntriesListPresenter {
+
+    void timeEntryClicked(TimeEntry timeEntry);
 
     void fetchTimeEntries(boolean pulledToRefresh);
 

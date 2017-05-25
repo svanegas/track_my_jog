@@ -18,6 +18,14 @@ interface CreateTimeEntryView {
 
     void onCreationSuccess();
 
+    void onUpdateSuccess();
+
+    void populateDate(Calendar calendar);
+
+    void populateDistance(long distance);
+
+    void populateDuration(long duration);
+
     void showEmptyDurationError();
 
     void showNegativeDurationError();
@@ -35,6 +43,8 @@ interface CreateTimeEntryView {
     void showNoConnectionError();
 
     void showDisplayableError(String errorMessage);
+
+    void showUnableToParseDateError();
 
     void showUnknownError();
 }

@@ -6,6 +6,8 @@ import java.util.List;
 
 interface TimeEntriesListView {
 
+    void onTimeEntryClicked(TimeEntry timeEntry);
+
     void showLoading(boolean pulledToRefresh);
 
     void hideLoading(boolean pulledToRefresh);

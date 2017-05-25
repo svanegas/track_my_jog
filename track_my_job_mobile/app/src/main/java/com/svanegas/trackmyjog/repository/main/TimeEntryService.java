@@ -8,7 +8,9 @@ import io.reactivex.Single;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface TimeEntryService {
 
@@ -19,5 +21,15 @@ public interface TimeEntryService {
     @FormUrlEncoded
     Single<TimeEntry> createTimeEntry(@Field("date") String date,
                                       @Field("distance") String distance,
-                                      @Field("duration") int duration);
+                                      @Field("duration") long duration);
+
+    @GET("time_entries/{timeEntryId}")
+    Single<TimeEntry> fetchTimeEntry(@Path("timeEntryId") long timeEntryId);
+
+    @PATCH("time_entries/{timeEntryId}")
+    @FormUrlEncoded
+    Single<TimeEntry> updateTimeEntry(@Path("timeEntryId") long timeEntryId,
+                                      @Field("date") String date,
+                                      @Field("distance") String distance,
+                                      @Field("duration") long duration);
 }

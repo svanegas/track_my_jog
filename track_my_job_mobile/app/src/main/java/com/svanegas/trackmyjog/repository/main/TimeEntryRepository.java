@@ -10,5 +10,12 @@ public interface TimeEntryRepository {
 
     Single<List<TimeEntry>> fetchTimeEntries();
 
-    Single<TimeEntry> createTimeEntry(String date, String distance, int duration);
+    Single<TimeEntry> fetchTimeEntry(long timeEntryId);
+
+    Single<TimeEntry> createTimeEntry(String date, String distance, long duration);
+
+    Single<TimeEntry> updateTimeEntry(long timeEntryId,
+                                      String date,
+                                      String distance,
+                                      long duration);
 }

@@ -51,6 +51,7 @@ public class TimeEntriesAdapter extends RecyclerView.Adapter<TimeEntriesAdapter.
 
         holder.distanceValue.setText(mPresenter.setupDistanceText(timeEntry.getDistance()));
         holder.durationValue.setText(mPresenter.setupDurationText(timeEntry.getDuration()));
+        holder.rootView.setOnClickListener(view -> mPresenter.timeEntryClicked(timeEntry));
     }
 
     @Override
@@ -65,6 +66,9 @@ public class TimeEntriesAdapter extends RecyclerView.Adapter<TimeEntriesAdapter.
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.root_view)
+        ViewGroup rootView;
 
         @BindView(R.id.date_value)
         AppCompatTextView dateValue;

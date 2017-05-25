@@ -17,6 +17,7 @@ import com.svanegas.trackmyjog.R;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,29 +27,52 @@ import static android.support.design.widget.Snackbar.LENGTH_LONG;
 
 public class CreateTimeEntryFragment extends Fragment implements CreateTimeEntryView {
 
+    private static final String TIME_ENTRY_ID_KEY = "time_entry_id";
+
     private OnCreateTimeEntryListener mListener;
     private CreateTimeEntryPresenter mPresenter;
     private ViewHolder mViewHolder;
+    private long mTimeEntryId;
+    private boolean mIsUpdate;
 
     public static CreateTimeEntryFragment newInstance() {
         return new CreateTimeEntryFragment();
+    }
+
+    public static CreateTimeEntryFragment newInstance(long timeEntryId) {
+        CreateTimeEntryFragment fragment = new CreateTimeEntryFragment();
+        Bundle bundle = new Bundle();
+        bundle.putLong(TIME_ENTRY_ID_KEY, timeEntryId);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter = new CreateTimeEntryPresenterImpl(this);
+        Bundle args = getArguments();
+        if (args != null && args.containsKey(TIME_ENTRY_ID_KEY)) {
+            mTimeEntryId = args.getLong(TIME_ENTRY_ID_KEY);
+            mIsUpdate = true;
+        } else {
+            mTimeEntryId = -1;
+            mIsUpdate = false;
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mListener.onActivityTitleRequested(R.string.create_time_entry_title);
+        if (mIsUpdate) mListener.onActivityTitleRequested(R.string.update_time_entry_title);
+        else mListener.onActivityTitleRequested(R.string.create_time_entry_title);
         View rootView = inflater.inflate(R.layout.create_time_entry_fragment, container, false);
         mViewHolder = new ViewHolder(rootView);
         ButterKnife.bind(this, rootView);
 
         setupDatePicker();
+        setupSubmitButton();
+        if (mIsUpdate) mPresenter.fetchTimeEntry(mTimeEntryId);
         return rootView;
     }
 
@@ -71,11 +95,19 @@ public class CreateTimeEntryFragment extends Fragment implements CreateTimeEntry
 
     @OnClick(R.id.submit_button)
     public void onSubmitClicked() {
-        mPresenter.validateTimeEntryCreation();
+        mPresenter.submitTimeEntry(mIsUpdate ? mTimeEntryId : -1);
     }
 
     private void setupDatePicker() {
         mViewHolder.datePicker.setMaxDate(new Date().getTime());
+    }
+
+    private void setupSubmitButton() {
+        if (mIsUpdate) {
+            mViewHolder.submitButton.setText(R.string.update_time_entry_submit_text);
+        } else {
+            mViewHolder.submitButton.setText(R.string.create_time_entry_submit_text);
+        }
     }
 
     @Override
@@ -118,6 +150,30 @@ public class CreateTimeEntryFragment extends Fragment implements CreateTimeEntry
     public void onCreationSuccess() {
         Snackbar.make(mViewHolder.rootView, R.string.create_time_entry_success, LENGTH_LONG).show();
         mListener.goToTimeEntriesList();
+    }
+
+    @Override
+    public void onUpdateSuccess() {
+        Snackbar.make(mViewHolder.rootView, R.string.update_time_entry_success, LENGTH_LONG).show();
+        mListener.goToTimeEntriesList();
+    }
+
+    @Override
+    public void populateDate(Calendar calendar) {
+        mViewHolder.datePicker.updateDate(calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+    @Override
+    public void populateDistance(long distance) {
+        mViewHolder.distanceField.setText(String.valueOf(distance));
+    }
+
+    @Override
+    public void populateDuration(long duration) {
+        mViewHolder.hoursField.setText(String.format(Locale.US, "%02d", duration / 60));
+        mViewHolder.minutesField.setText(String.format(Locale.US, "%02d", duration % 60));
     }
 
     @Override
@@ -172,6 +228,12 @@ public class CreateTimeEntryFragment extends Fragment implements CreateTimeEntry
     public void showDisplayableError(String errorMessage) {
         mViewHolder.errorMessage.setVisibility(View.VISIBLE);
         mViewHolder.errorMessage.setText(errorMessage);
+    }
+
+    @Override
+    public void showUnableToParseDateError() {
+        mViewHolder.errorMessage.setVisibility(View.VISIBLE);
+        mViewHolder.errorMessage.setText(R.string.create_time_entry_error_parsing_date);
     }
 
     @Override

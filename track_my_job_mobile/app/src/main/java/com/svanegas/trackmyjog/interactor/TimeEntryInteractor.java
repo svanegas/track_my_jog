@@ -26,7 +26,18 @@ public class TimeEntryInteractor {
         return mRemoteRepository.fetchTimeEntries();
     }
 
-    public Single<TimeEntry> createTimeEntry(String date, String distance, int duration) {
+    public Single<TimeEntry> fetchTimeEntry(long timeEntryId) {
+        return mRemoteRepository.fetchTimeEntry(timeEntryId);
+    }
+
+    public Single<TimeEntry> createTimeEntry(String date, String distance, long duration) {
         return mRemoteRepository.createTimeEntry(date, distance, duration);
+    }
+
+    public Single<TimeEntry> updateTimeEntry(long timeEntryId,
+                                             String date,
+                                             String distance,
+                                             long duration) {
+        return mRemoteRepository.updateTimeEntry(timeEntryId, date, distance, duration);
     }
 }
