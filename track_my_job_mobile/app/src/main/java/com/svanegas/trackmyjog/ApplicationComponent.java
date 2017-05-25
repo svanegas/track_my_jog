@@ -4,6 +4,7 @@ import com.svanegas.trackmyjog.domain.landing.LandingPresenterImpl;
 import com.svanegas.trackmyjog.domain.landing.login.LoginPresenterImpl;
 import com.svanegas.trackmyjog.domain.landing.register.RegisterPresenterImpl;
 import com.svanegas.trackmyjog.domain.main.MainPresenterImpl;
+import com.svanegas.trackmyjog.domain.main.time_entry.create.CreateTimeEntryPresenterImpl;
 import com.svanegas.trackmyjog.domain.main.time_entry.list.TimeEntriesListPresenterImpl;
 import com.svanegas.trackmyjog.interactor.InteractorsModule;
 import com.svanegas.trackmyjog.network.NetworkModule;
@@ -28,4 +29,6 @@ public interface ApplicationComponent {
     void inject(MainPresenterImpl mainPresenter);
 
     void inject(TimeEntriesListPresenterImpl timeEntriesListPresenter);
+
+    void inject(CreateTimeEntryPresenterImpl createTimeEntryPresenter);
 }

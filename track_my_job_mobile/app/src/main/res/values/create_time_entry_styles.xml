@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CreateTimeEntry" />
+
+    <style name="CreateTimeEntry.Label">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/create_time_entry_date_label_text_size</item>
+    </style>
+
+    <style name="CreateTimeEntry.DatePicker">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:calendarViewShown">false</item>
+    </style>
+
+    <style name="CreateTimeEntry.InputLarge">
+        <item name="android:gravity">center</item>
+        <item name="android:inputType">numberDecimal</item>
+        <item name="android:textSize">@dimen/create_time_entry_input_text_size</item>
+    </style>
+
+    <style name="CreateTimeEntry.InputSmall">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:inputType">numberDecimal</item>
+        <item name="android:maxLength">2</item>
+        <item name="android:paddingEnd">@dimen/create_time_entry_input_horizontal_padding</item>
+        <item name="android:paddingStart">@dimen/create_time_entry_input_horizontal_padding</item>
+        <item name="android:textSize">@dimen/create_time_entry_input_text_size</item>
+    </style>
+
+    <style name="CreateTimeEntry.InputSmall.Hint" parent="CreateTimeEntry.InputSmall">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@android:color/darker_gray</item>
+    </style>
+
+    <style name="CreateTimeEntry.DurationLabel">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/create_time_entry_duration_label_text_size</item>
+    </style>
+</resources>

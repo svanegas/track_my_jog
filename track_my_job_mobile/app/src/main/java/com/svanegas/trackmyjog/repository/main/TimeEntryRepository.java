@@ -9,4 +9,6 @@ import io.reactivex.Single;
 public interface TimeEntryRepository {
 
     Single<List<TimeEntry>> fetchTimeEntries();
+
+    Single<TimeEntry> createTimeEntry(String date, String distance, int duration);
 }

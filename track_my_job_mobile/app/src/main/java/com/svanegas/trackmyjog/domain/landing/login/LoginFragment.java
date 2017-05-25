@@ -88,13 +88,13 @@ public class LoginFragment extends Fragment implements LoginView {
 
     @Override
     public void showEmptyEmailError() {
-        mViewHolder.emailField.setError(getString(R.string.register_error_field_required));
+        mViewHolder.emailField.setError(getString(R.string.error_field_required));
         mViewHolder.emailField.requestFocus();
     }
 
     @Override
     public void showEmptyPasswordError() {
-        mViewHolder.passwordField.setError(getString(R.string.register_error_field_required));
+        mViewHolder.passwordField.setError(getString(R.string.error_field_required));
         mViewHolder.passwordField.requestFocus();
     }
 

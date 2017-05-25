@@ -12,12 +12,18 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppTheme.SubmitButton" parent="@style/Widget.AppCompat.Button.Colored">
-        <item name="android:layout_marginTop">@dimen/landing_submit_button_horizontal_margin</item>
+        <item name="android:layout_marginTop">@dimen/submit_button_horizontal_margin</item>
+    </style>
+
+    <style name="AppTheme.ProgressBar" parent="@style/Base.Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:layout_marginStart">@dimen/submit_progress_horizontal_margin</item>
+        <item name="android:layout_marginEnd">@dimen/submit_progress_horizontal_margin</item>
+        <item name="android:indeterminate">true</item>
     </style>
 
     <style name="AppTheme.ErrorIndicator">

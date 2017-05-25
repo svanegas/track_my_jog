@@ -23,4 +23,9 @@ public class RemoteTimeEntryRepository implements TimeEntryRepository {
     public Single<List<TimeEntry>> fetchTimeEntries() {
         return mService.fetchTimeEntries();
     }
+
+    @Override
+    public Single<TimeEntry> createTimeEntry(String date, String distance, int duration) {
+        return mService.createTimeEntry(date, distance, duration);
+    }
 }

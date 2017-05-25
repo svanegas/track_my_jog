@@ -5,5 +5,14 @@
     <string name="create_time_entry_date_label">Date</string>
     <string name="create_time_entry_distance">Distance</string>
     <string name="create_time_entry_duration">Duration</string>
+    <string name="create_time_entry_hours_hint">00</string>
+    <string name="create_time_entry_hours_label">hr</string>
+    <string name="create_time_entry_minutes_hint">00</string>
+    <string name="create_time_entry_minutes_label">min</string>
     <string name="create_time_entry_submit_text">Create</string>
+    <string name="create_time_entry_success">Record created successfully</string>
+
+    <!-- Errors -->
+    <string name="create_time_entry_error_negative">This field can\'t be negative</string>
+    <string name="create_time_entry_error_invalid">This field is not valid</string>
 </resources>

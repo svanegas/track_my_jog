@@ -98,13 +98,13 @@ public class RegisterFragment extends Fragment implements RegisterView {
 
     @Override
     public void showEmptyNameError() {
-        mViewHolder.nameField.setError(getString(R.string.register_error_field_required));
+        mViewHolder.nameField.setError(getString(R.string.error_field_required));
         mViewHolder.nameField.requestFocus();
     }
 
     @Override
     public void showEmptyEmailError() {
-        mViewHolder.emailField.setError(getString(R.string.register_error_field_required));
+        mViewHolder.emailField.setError(getString(R.string.error_field_required));
         mViewHolder.emailField.requestFocus();
     }
 
@@ -116,7 +116,7 @@ public class RegisterFragment extends Fragment implements RegisterView {
 
     @Override
     public void showEmptyPasswordError() {
-        mViewHolder.passwordField.setError(getString(R.string.register_error_field_required));
+        mViewHolder.passwordField.setError(getString(R.string.error_field_required));
         mViewHolder.passwordField.requestFocus();
     }
 

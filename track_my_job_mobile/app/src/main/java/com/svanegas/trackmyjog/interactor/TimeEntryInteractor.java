@@ -25,4 +25,8 @@ public class TimeEntryInteractor {
     public Single<List<TimeEntry>> fetchTimeEntries() {
         return mRemoteRepository.fetchTimeEntries();
     }
+
+    public Single<TimeEntry> createTimeEntry(String date, String distance, int duration) {
+        return mRemoteRepository.createTimeEntry(date, distance, duration);
+    }
 }
