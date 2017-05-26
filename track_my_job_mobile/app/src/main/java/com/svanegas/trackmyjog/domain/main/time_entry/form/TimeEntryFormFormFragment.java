@@ -111,6 +111,7 @@ public class TimeEntryFormFormFragment extends Fragment implements TimeEntryForm
         switch (item.getItemId()) {
             case R.id.action_delete:
                 showDeleteConfirmationDialog();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

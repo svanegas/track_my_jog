@@ -9,6 +9,9 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -48,6 +51,7 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
         super.onCreate(savedInstanceState);
         mPresenter = new TimeEntriesListPresenterImpl(this);
         mCurrentSortOption = DATE_SORT_INDEX;
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -80,26 +84,32 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_time_entries_list, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_sort_by:
+                showSortByDialog();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onRefresh() {
         if (mSelectedRecordsSpinnerIndex == ALL_RECORDS_INDEX) mPresenter.fetchTimeEntries(true);
         else mPresenter.fetchTimeEntriesByCurrentUser(true);
-    }
-
-    @OnClick(R.id.sort_by)
-    public void sortBy() {
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        SortByDialogFragment dialog = SortByDialogFragment.newInstance(this);
-        dialog.show(fm, SortByDialogFragment.class.getSimpleName());
     }
 
     @Override
     public void onSortOptionSelected(int position) {
         if (mCurrentSortOption != position) {
             mCurrentSortOption = position;
-            String optionName = getResources()
-                    .getStringArray(R.array.time_entries_list_sort_options)[position];
-            mViewHolder.sortByLabel.setText(optionName);
-            populateTimeEntries(mAdapter.getItems());
+            if (mAdapter != null) populateTimeEntries(mAdapter.getItems());
         }
     }
 
@@ -181,10 +191,13 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
         }
     }
 
-    static class ViewHolder {
+    private void showSortByDialog() {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        SortByDialogFragment dialog = SortByDialogFragment.newInstance(this);
+        dialog.show(fm, SortByDialogFragment.class.getSimpleName());
+    }
 
-        @BindView(R.id.sort_by)
-        AppCompatTextView sortByLabel;
+    static class ViewHolder {
 
         @BindView(R.id.swipe_refresh_layout)
         SwipeRefreshLayout swipeRefreshLayout;
