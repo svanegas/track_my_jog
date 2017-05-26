@@ -2,7 +2,9 @@ package com.svanegas.trackmyjog.domain.main.user.list;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 
+import com.svanegas.trackmyjog.R;
 import com.svanegas.trackmyjog.TrackMyJogApplication;
 import com.svanegas.trackmyjog.interactor.UserInteractor;
 import com.svanegas.trackmyjog.repository.model.APIError;
@@ -86,5 +88,22 @@ public class UsersListPresenterImpl implements UsersListPresenter {
 //        } else if (sortOption == DURATION_SORT_INDEX) {
 //            users.sort((o1, o2) -> Long.compare(o2.getDuration(), o1.getDuration()));
 //        }
+    }
+
+    @Override
+    public String setupNameText(User user) {
+        return user.getName();
+    }
+
+    @Override
+    public int setupRoleTextResId(User user) {
+        if (user.isAdmin()) return R.string.main_admin_role;
+        else if (user.isManager()) return R.string.main_manager_role;
+        else return R.string.main_regular_role;
+    }
+
+    @Override
+    public int setupProfileIndicatorVisibility(User user) {
+        return mPreferencesManager.getId() == user.getId() ? View.VISIBLE : View.GONE;
     }
 }

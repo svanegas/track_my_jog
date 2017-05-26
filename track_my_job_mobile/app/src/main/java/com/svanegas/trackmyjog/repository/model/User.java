@@ -1,5 +1,8 @@
 package com.svanegas.trackmyjog.repository.model;
 
+import static com.svanegas.trackmyjog.util.PreferencesManager.ADMIN_ROLE;
+import static com.svanegas.trackmyjog.util.PreferencesManager.MANAGER_ROLE;
+
 public class User {
 
     private long id;
@@ -21,5 +24,13 @@ public class User {
 
     public String getRole() {
         return role;
+    }
+
+    public boolean isAdmin() {
+        return ADMIN_ROLE.equals(role);
+    }
+
+    public boolean isManager() {
+        return MANAGER_ROLE.equals(role);
     }
 }

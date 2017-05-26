@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ public class UsersListFragment extends Fragment implements UsersListView,
     private UsersListPresenter mPresenter;
     private ViewHolder mViewHolder;
     private UsersAdapter mAdapter;
+    private DividerItemDecoration mDividerItemDecoration;
     private int mCurrentSortOption;
 
     public static UsersListFragment newInstance() {
@@ -59,7 +61,7 @@ public class UsersListFragment extends Fragment implements UsersListView,
         mViewHolder = new ViewHolder(rootView);
         ButterKnife.bind(this, rootView);
         mViewHolder.swipeRefreshLayout.setOnRefreshListener(this);
-//        mPresenter.fetchUsers(false);
+        mPresenter.fetchUsers(false);
         return rootView;
     }
 
@@ -135,8 +137,14 @@ public class UsersListFragment extends Fragment implements UsersListView,
     public void populateUsers(List<User> users) {
         mPresenter.sortUsers(mCurrentSortOption, users);
         mAdapter = new UsersAdapter(mPresenter, users);
-        mViewHolder.usersList.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        mViewHolder.usersList.setLayoutManager(layoutManager);
         mViewHolder.usersList.setAdapter(mAdapter);
+        if (mDividerItemDecoration == null) {
+            mDividerItemDecoration = new DividerItemDecoration(mViewHolder.usersList.getContext(),
+                    DividerItemDecoration.VERTICAL);
+            mViewHolder.usersList.addItemDecoration(mDividerItemDecoration);
+        }
     }
 
     @Override

@@ -18,8 +18,8 @@ public class PreferencesManager {
     private static final String EMAIL_KEY = "email";
     private static final String ROLE_KEY = "role";
 
-    private static final String ADMIN_ROLE = "admin";
-    private static final String MANAGER_ROLE = "manager";
+    public static final String ADMIN_ROLE = "admin";
+    public static final String MANAGER_ROLE = "manager";
 
 
     private SharedPreferences mPreferences;

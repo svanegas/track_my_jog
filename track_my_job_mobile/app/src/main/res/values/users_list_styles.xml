@@ -2,4 +2,38 @@
 <resources>
 
     <style name="UsersList"/>
+
+    <style name="UsersList.Avatar">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginStart">@dimen/activity_content_padding</item>
+        <item name="android:background">@android:color/darker_gray</item>
+    </style>
+
+    <style name="UsersList.Content">
+        <item name="android:layout_marginEnd">@dimen/users_list_item_content_margin_end</item>
+        <item name="android:layout_marginStart">@dimen/users_list_item_content_margin_start</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingEnd">@dimen/activity_content_padding</item>
+        <item name="android:paddingStart">@dimen/activity_content_padding</item>
+    </style>
+
+    <style name="UsersList.Title">
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@android:color/primary_text_light</item>
+        <item name="android:textSize">@dimen/users_list_item_title_text_size</item>
+    </style>
+
+    <style name="UsersList.Subtitle">
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@android:color/tertiary_text_light</item>
+    </style>
+
+    <style name="UsersList.ProfileIndicator">
+        <item name="android:layout_gravity">end|center</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:clickable">true</item>
+        <item name="android:padding">@dimen/users_list_item_profile_indicator_padding</item>
+        <item name="android:visibility">gone</item>
+    </style>
 </resources>

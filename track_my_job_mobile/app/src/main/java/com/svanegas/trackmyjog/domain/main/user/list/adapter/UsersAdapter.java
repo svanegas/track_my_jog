@@ -1,6 +1,8 @@
 package com.svanegas.trackmyjog.domain.main.user.list.adapter;
 
 import android.support.annotation.NonNull;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +39,9 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         final User user = mUsers.get(position);
 
+        holder.nameValue.setText(mPresenter.setupNameText(user));
+        holder.roleValue.setText(mPresenter.setupRoleTextResId(user));
+        holder.profileIndicator.setVisibility(mPresenter.setupProfileIndicatorVisibility(user));
         holder.rootView.setOnClickListener(view -> mPresenter.userClicked(user));
     }
 
@@ -53,6 +58,15 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 
         @BindView(R.id.root_view)
         ViewGroup rootView;
+
+        @BindView(R.id.name_value)
+        AppCompatTextView nameValue;
+
+        @BindView(R.id.role_value)
+        AppCompatTextView roleValue;
+
+        @BindView(R.id.profile_indicator)
+        AppCompatImageView profileIndicator;
 
         ViewHolder(View itemView) {
             super(itemView);

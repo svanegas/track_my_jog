@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="users_list_item_height">72dp</dimen>
+    <dimen name="users_list_item_avatar_size">40dp</dimen>
+    <dimen name="users_list_item_content_margin_end">48dp</dimen>
+    <dimen name="users_list_item_content_margin_start">56dp</dimen>
+    <dimen name="users_list_item_title_text_size">16sp</dimen>
+    <dimen name="users_list_item_profile_indicator_size">48dp</dimen>
+    <dimen name="users_list_item_profile_indicator_padding">16dp</dimen>
+</resources>

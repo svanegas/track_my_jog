@@ -3,6 +3,14 @@
 
     <style name="TimeEntriesList" />
 
+    <style name="TimeEntriesList.Container">
+        <item name="android:layout_margin">@dimen/time_entries_list_container_margin</item>
+    </style>
+
+    <style name="TimeEntriesList.Content">
+        <item name="android:padding">@dimen/time_entries_list_content_padding</item>
+    </style>
+
     <style name="TimeEntriesList.Date">
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textColor">@android:color/black</item>

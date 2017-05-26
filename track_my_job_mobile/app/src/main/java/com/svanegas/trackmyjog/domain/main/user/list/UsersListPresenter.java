@@ -11,4 +11,10 @@ public interface UsersListPresenter {
     void fetchUsers(boolean pulledToRefresh);
 
     void sortUsers(int sortOption, List<User> users);
+
+    String setupNameText(User user);
+
+    int setupRoleTextResId(User user);
+
+    int setupProfileIndicatorVisibility(User user);
 }
