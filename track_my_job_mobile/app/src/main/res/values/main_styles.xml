@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Main"/>
+
+    <style name="Main.List">
+        <item name="android:clipToPadding">false</item>
+        <item name="android:paddingBottom">@dimen/time_entries_list_bottom_padding</item>
+        <item name="android:scrollbars">vertical</item>
+    </style>
+
+    <style name="Main.List.Container">
+        <item name="android:layout_margin">@dimen/time_entries_list_container_margin</item>
+    </style>
+
+    <style name="Main.List.Content">
+        <item name="android:padding">@dimen/time_entries_list_content_padding</item>
+    </style>
+</resources>

@@ -19,11 +19,11 @@
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/time_entries_list"
+            android:id="@+id/users_list"
             style="@style/Main.List"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/time_entries_list_item"/>
+            tools:listitem="@layout/users_list_item"/>
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <ProgressBar

@@ -31,6 +31,9 @@ public class MainPresenterImpl implements MainPresenter {
             case R.id.nav_time_entries_list:
                 mView.goToTimeEntriesList();
                 return true;
+            case R.id.nav_users_list:
+                mView.goToUsersList();
+                return true;
             case R.id.nav_logout:
                 mAuthInteractor.logoutUser()
                         .subscribeOn(Schedulers.computation())

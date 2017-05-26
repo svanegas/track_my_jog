@@ -27,6 +27,7 @@ import com.svanegas.trackmyjog.R;
 import com.svanegas.trackmyjog.domain.landing.LandingActivity;
 import com.svanegas.trackmyjog.domain.main.time_entry.form.TimeEntryFormFormFragment;
 import com.svanegas.trackmyjog.domain.main.time_entry.list.TimeEntriesListFragment;
+import com.svanegas.trackmyjog.domain.main.user.list.UsersListFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +35,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements MainView,
         NavigationView.OnNavigationItemSelectedListener,
         TimeEntriesListFragment.OnTimeEntriesListInteractionListener,
+        UsersListFragment.OnUsersListInteractionListener,
         TimeEntryFormFormFragment.OnTimeEntryFormListener,
         AdapterView.OnItemSelectedListener {
 
@@ -130,6 +132,25 @@ public class MainActivity extends AppCompatActivity implements MainView,
     public void goToTimeEntriesList() {
         mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         TimeEntriesListFragment fragment = TimeEntriesListFragment.newInstance();
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onAddUserRequested() {
+
+    }
+
+    @Override
+    public void onUpdateUserRequested(long userId) {
+
+    }
+
+    @Override
+    public void goToUsersList() {
+        mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        UsersListFragment fragment = UsersListFragment.newInstance();
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();

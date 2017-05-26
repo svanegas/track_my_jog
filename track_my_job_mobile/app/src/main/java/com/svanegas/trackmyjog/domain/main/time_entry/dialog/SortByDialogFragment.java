@@ -31,7 +31,7 @@ public class SortByDialogFragment extends DialogFragment {
         Bundle args = getArguments();
         final Callback callback = (Callback) args.getSerializable(CALLBACK_KEY);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.time_entries_list_sort_by)
+        builder.setTitle(R.string.main_list_sort_by)
                 .setItems(R.array.time_entries_list_sort_options, (dialog, which) -> {
                     if (callback != null) callback.onSortOptionSelected(which);
                 });

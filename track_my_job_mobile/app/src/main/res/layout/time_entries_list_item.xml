@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root_view"
-    style="@style/TimeEntriesList.Container"
+    style="@style/Main.List.Container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground">
 
     <LinearLayout
-        style="@style/TimeEntriesList.Content"
+        style="@style/Main.List.Content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">

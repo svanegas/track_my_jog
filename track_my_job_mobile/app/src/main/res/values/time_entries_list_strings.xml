@@ -9,7 +9,6 @@
         <item>@string/time_entries_list_my_records</item>
     </string-array>
 
-    <string name="time_entries_list_sort_by">Sort by</string>
     <string name="time_entries_list_sort_date">Date</string>
     <string name="time_entries_list_sort_distance">Distance</string>
     <string name="time_entries_list_sort_duration">Duration</string>

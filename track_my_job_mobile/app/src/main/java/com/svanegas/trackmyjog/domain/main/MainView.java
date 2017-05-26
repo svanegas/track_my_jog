@@ -4,6 +4,8 @@ interface MainView {
 
     void goToTimeEntriesList();
 
+    void goToUsersList();
+
     void goToWelcome();
 
     void populateHeaderName(String name);
