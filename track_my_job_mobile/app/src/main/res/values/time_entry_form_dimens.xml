@@ -4,4 +4,5 @@
     <dimen name="time_entry_form_input_text_size">30sp</dimen>
     <dimen name="time_entry_form_input_horizontal_padding">10dp</dimen>
     <dimen name="time_entry_form_duration_label_text_size">30sp</dimen>
+    <dimen name="time_entry_form_small_input_width">75dp</dimen>
 </resources>

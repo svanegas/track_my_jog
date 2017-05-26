@@ -184,6 +184,10 @@ public class TimeEntryFormPresenterImpl implements TimeEntryFormPresenter {
             try {
                 long hoursInt = Long.valueOf(hours);
                 long minutesInt = Long.valueOf(minutes);
+                if (minutesInt >= 60) {
+                    mView.showNotInRangeMinutesError();
+                    return 0L;
+                }
                 total = hoursInt * 60L + minutesInt;
                 if (total <= 0L) {
                     mView.showNegativeDurationError();

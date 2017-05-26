@@ -221,6 +221,13 @@ public class TimeEntryFormFormFragment extends Fragment implements TimeEntryForm
     }
 
     @Override
+    public void showNotInRangeMinutesError() {
+        mViewHolder.minutesField
+                .setError(getString(R.string.time_entry_form_error_minutes_not_in_range));
+        mViewHolder.minutesField.requestFocus();
+    }
+
+    @Override
     public void showInvalidDurationError() {
         mViewHolder.minutesField.setError(getString(R.string.time_entry_form_error_invalid));
         mViewHolder.minutesField.requestFocus();

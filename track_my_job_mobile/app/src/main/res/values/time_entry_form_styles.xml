@@ -21,17 +21,13 @@
     </style>
 
     <style name="TimeEntryForm.InputSmall">
-        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_width">@dimen/time_entry_form_small_input_width</item>
+        <item name="android:gravity">center</item>
         <item name="android:inputType">numberDecimal</item>
         <item name="android:maxLength">2</item>
         <item name="android:paddingEnd">@dimen/time_entry_form_input_horizontal_padding</item>
         <item name="android:paddingStart">@dimen/time_entry_form_input_horizontal_padding</item>
         <item name="android:textSize">@dimen/time_entry_form_input_text_size</item>
-    </style>
-
-    <style name="TimeEntryForm.InputSmall.Hint" parent="TimeEntryForm.InputSmall">
-        <item name="android:fontFamily">sans-serif-light</item>
-        <item name="android:textColor">@android:color/darker_gray</item>
     </style>
 
     <style name="TimeEntryForm.DurationLabel">

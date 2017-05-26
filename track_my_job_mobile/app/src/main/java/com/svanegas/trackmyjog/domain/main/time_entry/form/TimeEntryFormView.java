@@ -32,6 +32,8 @@ interface TimeEntryFormView {
 
     void showNegativeDurationError();
 
+    void showNotInRangeMinutesError();
+
     void showInvalidDurationError();
 
     void showEmptyDistanceError();
