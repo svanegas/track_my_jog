@@ -582,7 +582,7 @@ RSpec.describe "TimeEntries", type: :request do
 
       context 'when date has invalid format' do
         it 'responds with 400' do
-          body[:date] = Faker::Lorem.characters
+          body[:date] = "!abcxyz#{Faker::Lorem.characters}abcxyz!"
           patch time_entry_path(existing_time_entry.id), { params: body, headers: session }
           expect(response.status).to eq(422)
         end

@@ -4,4 +4,5 @@ Rails.application.routes.draw do
     registrations: 'overrides/registrations'
   }
   resources :time_entries
+  resources :users
 end

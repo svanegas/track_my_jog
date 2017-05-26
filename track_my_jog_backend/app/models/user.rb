@@ -19,7 +19,11 @@ class User < ActiveRecord::Base
     self.role.to_sym == :manager
   end
 
-  def can_create_role?(role)
+  def regular?
+    self.role.to_sym == :regular
+  end
+
+  def can_crud_role?(role)
     if self.admin?
       true
     elsif self.manager?
