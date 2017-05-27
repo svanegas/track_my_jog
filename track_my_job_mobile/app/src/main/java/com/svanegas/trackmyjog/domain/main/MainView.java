@@ -11,4 +11,6 @@ interface MainView {
     void populateHeaderName(String name);
 
     void populateHeaderRole(int roleResId);
+
+    void populateNavigationViewItems(int menuResId);
 }

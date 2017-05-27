@@ -18,6 +18,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -28,9 +29,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
-import static com.svanegas.trackmyjog.domain.main.time_entry.dialog.SortByDialogFragment.DATE_SORT_INDEX;
-import static com.svanegas.trackmyjog.domain.main.time_entry.dialog.SortByDialogFragment.DISTANCE_SORT_INDEX;
-import static com.svanegas.trackmyjog.domain.main.time_entry.dialog.SortByDialogFragment.DURATION_SORT_INDEX;
 import static com.svanegas.trackmyjog.network.ConnectionInterceptor.isInternetConnectionError;
 import static com.svanegas.trackmyjog.util.HttpErrorHelper.isHttpError;
 import static com.svanegas.trackmyjog.util.HttpErrorHelper.isUnauthorizedError;
@@ -39,6 +37,11 @@ import static com.svanegas.trackmyjog.util.HttpErrorHelper.parseHttpError;
 public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
 
     private static final String TAG = TimeEntriesListPresenterImpl.class.getSimpleName();
+
+    // Indexes of sort
+    public static final int DATE_SORT_INDEX = 0;
+    public static final int DISTANCE_SORT_INDEX = 1;
+    public static final int DURATION_SORT_INDEX = 2;
 
     public static final String INPUT_DATE_FORMAT = "yyyy-MM-dd";
     private static final float UNITS_RELATIVE_SIZE = 0.7f;
@@ -91,11 +94,13 @@ public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
     @Override
     public void sortTimeEntries(int sortOption, List<TimeEntry> timeEntries) {
         if (sortOption == DATE_SORT_INDEX) {
-            timeEntries.sort((o1, o2) -> o2.getDate().compareTo(o1.getDate()));
+            Collections.sort(timeEntries, (o1, o2) -> o2.getDate().compareTo(o1.getDate()));
         } else if (sortOption == DISTANCE_SORT_INDEX) {
-            timeEntries.sort((o1, o2) -> Long.compare(o2.getDistance(), o1.getDistance()));
+            Collections.sort(timeEntries, (o1, o2) ->
+                    Long.compare(o2.getDistance(), o1.getDistance()));
         } else if (sortOption == DURATION_SORT_INDEX) {
-            timeEntries.sort((o1, o2) -> Long.compare(o2.getDuration(), o1.getDuration()));
+            Collections.sort(timeEntries, (o1, o2) ->
+                    Long.compare(o2.getDuration(), o1.getDuration()));
         }
     }
 

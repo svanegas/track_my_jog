@@ -43,6 +43,7 @@ public class MainPresenterImpl implements MainPresenter {
                             mPreferencesManager.removeAuthHeaders();
                             mView.goToWelcome();
                         })
+                        .onErrorReturnItem(new Object()) // Ignore error
                         .subscribe();
                 return true;
         }
@@ -50,12 +51,22 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
-    public void requestHeaderPopulation() {
+    public void requestNavigationViewPopulation() {
         mView.populateHeaderName(mPreferencesManager.getName());
-        int displayableRoleResId;
-        if (mPreferencesManager.isAdmin()) displayableRoleResId = R.string.main_admin_role;
-        else if (mPreferencesManager.isManager()) displayableRoleResId = R.string.main_manager_role;
-        else displayableRoleResId = R.string.main_regular_role;
+        int displayableRoleResId, menuResId;
+        if (mPreferencesManager.isAdmin()) {
+            displayableRoleResId = R.string.main_admin_role;
+            menuResId = R.menu.main_activity_drawer;
+        }
+        else if (mPreferencesManager.isManager()) {
+            displayableRoleResId = R.string.main_manager_role;
+            menuResId = R.menu.main_activity_drawer;
+        }
+        else {
+            displayableRoleResId = R.string.main_regular_role;
+            menuResId = R.menu.main_activity_drawer_no_users;
+        }
         mView.populateHeaderRole(displayableRoleResId);
+        mView.populateNavigationViewItems(menuResId);
     }
 }

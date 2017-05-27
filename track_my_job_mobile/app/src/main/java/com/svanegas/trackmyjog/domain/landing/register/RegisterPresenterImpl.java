@@ -24,7 +24,7 @@ import static com.svanegas.trackmyjog.util.HttpErrorHelper.parseHttpError;
 public class RegisterPresenterImpl implements RegisterPresenter {
 
     private static final String TAG = RegisterPresenterImpl.class.getSimpleName();
-    private static final int MINIMUM_PASSWORD_SIZE = 8;
+    public static final int MINIMUM_PASSWORD_SIZE = 8;
 
     private RegisterView mView;
 

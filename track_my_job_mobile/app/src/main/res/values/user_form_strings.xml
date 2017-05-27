@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Create form -->
+    <string name="user_form_create_title">Add an user</string>
+    <string name="user_form_create_submit_text">Create</string>
+    <string name="user_form_role_label">Role</string>
+    <string name="user_form_create_success">User created successfully</string>
+
+    <string-array name="user_form_spinner_roles_options">
+        <item>@string/main_regular_role</item>
+        <item>@string/main_manager_role</item>
+        <item>@string/main_admin_role</item>
+    </string-array>
+
+    <!-- Update form -->
+    <string name="user_form_update_title">Update an user</string>
+    <string name="user_form_update_submit_text">Update</string>
+    <string name="user_form_update_success">User updated successfully</string>
+
+    <!-- Delete -->
+    <string name="user_form_action_delete">Delete</string>
+    <string name="user_form_delete_confirmation">Delete this user?</string>
+    <string name="user_form_delete_cancel">Cancel</string>
+    <string name="user_form_delete_success">User deleted successfully</string>
+</resources>

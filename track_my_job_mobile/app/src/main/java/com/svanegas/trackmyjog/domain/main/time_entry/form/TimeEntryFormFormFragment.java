@@ -18,7 +18,7 @@ import android.widget.DatePicker;
 import android.widget.ProgressBar;
 
 import com.svanegas.trackmyjog.R;
-import com.svanegas.trackmyjog.domain.main.time_entry.dialog.DeleteConfirmDialogFragment;
+import com.svanegas.trackmyjog.domain.main.dialog.DeleteConfirmDialogFragment;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -292,7 +292,8 @@ public class TimeEntryFormFormFragment extends Fragment implements TimeEntryForm
 
     private void showDeleteConfirmationDialog() {
         FragmentManager fm = getActivity().getSupportFragmentManager();
-        DeleteConfirmDialogFragment alert = DeleteConfirmDialogFragment.newInstance(this);
+        DeleteConfirmDialogFragment alert = DeleteConfirmDialogFragment.newInstance(this,
+                R.string.time_entry_form_delete_confirmation);
         alert.show(fm, DeleteConfirmDialogFragment.class.getSimpleName());
     }
 

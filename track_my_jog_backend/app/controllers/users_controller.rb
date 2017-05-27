@@ -34,14 +34,20 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
-    begin
-      if @user.update(user_params)
-        render json: @user
-      else
-        render json: @user.errors, status: :unprocessable_entity
+    if current_user.manager? && params[:role].to_sym == :admin
+      render json: {
+        errors: [I18n.t('devise_token_auth.registrations.unauthorized_role')]
+      }, status: :forbidden
+    else
+      begin
+        if @user.update(user_params)
+          render json: @user
+        else
+          render json: @user.errors, status: :unprocessable_entity
+        end
+      rescue ActiveRecord::RecordNotUnique
+        render_update_error_email_already_exists
       end
-    rescue ActiveRecord::RecordNotUnique
-      render_update_error_email_already_exists
     end
   end
 
@@ -81,7 +87,7 @@ class UsersController < ApplicationController
     def check_roles_to_process
       unless current_user.can_crud_role?(@user.role)
         render json: {
-          errors: [I18n.t('devise_token_auth.registrations.unauthorized_role')]
+          errors: [I18n.t('user.modifying_unathorized_role')]
         }, status: :forbidden
       end
     end

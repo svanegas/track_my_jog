@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="UsersList"/>
+    <style name="UsersList" />
 
     <style name="UsersList.Avatar">
         <item name="android:layout_gravity">center_vertical</item>
@@ -35,5 +35,11 @@
         <item name="android:clickable">true</item>
         <item name="android:padding">@dimen/users_list_item_profile_indicator_padding</item>
         <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="UsersList.Divider">
+        <item name="android:layout_marginStart">@dimen/users_list_divider_margin_start</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:background">@color/gray_opaque</item>
     </style>
 </resources>

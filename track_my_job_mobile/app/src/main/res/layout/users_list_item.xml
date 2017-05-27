@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_view"
     android:layout_width="match_parent"
@@ -11,7 +10,7 @@
     <android.support.v7.widget.AppCompatTextView
         style="@style/UsersList.Avatar"
         android:layout_width="@dimen/users_list_item_avatar_size"
-        android:layout_height="@dimen/users_list_item_avatar_size"/>
+        android:layout_height="@dimen/users_list_item_avatar_size" />
 
     <LinearLayout
         style="@style/UsersList.Content"
@@ -22,13 +21,13 @@
             android:id="@+id/name_value"
             style="@style/UsersList.Title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/role_value"
             style="@style/UsersList.Subtitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <android.support.v7.widget.AppCompatImageView
@@ -36,6 +35,10 @@
         style="@style/UsersList.ProfileIndicator"
         android:layout_width="@dimen/users_list_item_profile_indicator_size"
         android:layout_height="@dimen/users_list_item_profile_indicator_size"
-        app:srcCompat="@drawable/ic_person"/>
+        app:srcCompat="@drawable/ic_person" />
 
+    <View
+        style="@style/UsersList.Divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/users_list_divider_height" />
 </FrameLayout>

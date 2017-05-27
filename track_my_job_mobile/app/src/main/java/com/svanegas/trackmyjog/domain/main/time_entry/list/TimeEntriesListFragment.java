@@ -18,7 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.svanegas.trackmyjog.R;
-import com.svanegas.trackmyjog.domain.main.time_entry.dialog.SortByDialogFragment;
+import com.svanegas.trackmyjog.domain.main.dialog.SortByDialogFragment;
 import com.svanegas.trackmyjog.domain.main.time_entry.list.adapter.TimeEntriesAdapter;
 import com.svanegas.trackmyjog.repository.model.TimeEntry;
 
@@ -28,11 +28,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.svanegas.trackmyjog.domain.main.time_entry.dialog.SortByDialogFragment.DATE_SORT_INDEX;
+import static com.svanegas.trackmyjog.domain.main.time_entry.list.TimeEntriesListPresenterImpl.DATE_SORT_INDEX;
 
 public class TimeEntriesListFragment extends Fragment implements TimeEntriesListView,
         SwipeRefreshLayout.OnRefreshListener, SortByDialogFragment.Callback {
 
+    // Indexes of toolbar spinner
     private static final int ALL_RECORDS_INDEX = 0;
 
     private OnTimeEntriesListInteractionListener mListener;
@@ -193,7 +194,8 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
 
     private void showSortByDialog() {
         FragmentManager fm = getActivity().getSupportFragmentManager();
-        SortByDialogFragment dialog = SortByDialogFragment.newInstance(this);
+        SortByDialogFragment dialog = SortByDialogFragment.newInstance(this,
+                R.array.time_entries_list_sort_options);
         dialog.show(fm, SortByDialogFragment.class.getSimpleName());
     }
 

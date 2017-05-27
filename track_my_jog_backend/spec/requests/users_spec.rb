@@ -455,9 +455,17 @@ RSpec.describe "Users", type: :request do
         context 'when role is manager' do
           it 'updates the user' do
             body[:role] = :manager
-            patch user_path(create(:manager_user).id), { params: body, headers: manager_session }
+            patch user_path(create(:user).id), { params: body, headers: manager_session }
             expect(response).to have_http_status(200)
             expect(JSON.parse(response.body)['role'].to_sym).to eq :manager
+          end
+        end
+
+        context 'when role is admin' do
+          it 'responds with 403' do
+            body[:role] = :admin
+            patch user_path(create(:user).id), { params: body, headers: manager_session }
+            expect(response).to have_http_status(403)
           end
         end
 
@@ -484,7 +492,7 @@ RSpec.describe "Users", type: :request do
         context 'when role is manager' do
           it 'updates the user' do
             body[:role] = :manager
-            patch user_path(create(:manager_user).id), { params: body, headers: admin_session }
+            patch user_path(create(:user).id), { params: body, headers: admin_session }
             expect(response).to have_http_status(200)
             expect(JSON.parse(response.body)['role'].to_sym).to eq :manager
           end
@@ -493,7 +501,7 @@ RSpec.describe "Users", type: :request do
         context 'when role is admin' do
           it 'updates the user' do
             body[:role] = :admin
-            patch user_path(create(:admin_user).id), { params: body, headers: admin_session }
+            patch user_path(create(:user).id), { params: body, headers: admin_session }
             expect(response).to have_http_status(200)
             expect(JSON.parse(response.body)['role'].to_sym).to eq :admin
           end

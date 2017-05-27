@@ -19,7 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.svanegas.trackmyjog.R;
-import com.svanegas.trackmyjog.domain.main.time_entry.dialog.SortByDialogFragment;
+import com.svanegas.trackmyjog.domain.main.dialog.SortByDialogFragment;
 import com.svanegas.trackmyjog.domain.main.user.list.adapter.UsersAdapter;
 import com.svanegas.trackmyjog.repository.model.User;
 
@@ -29,7 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.svanegas.trackmyjog.domain.main.time_entry.dialog.SortByDialogFragment.DATE_SORT_INDEX;
+import static com.svanegas.trackmyjog.domain.main.user.list.UsersListPresenterImpl.NAME_SORT_INDEX;
 
 public class UsersListFragment extends Fragment implements UsersListView,
         SwipeRefreshLayout.OnRefreshListener, SortByDialogFragment.Callback {
@@ -38,7 +38,6 @@ public class UsersListFragment extends Fragment implements UsersListView,
     private UsersListPresenter mPresenter;
     private ViewHolder mViewHolder;
     private UsersAdapter mAdapter;
-    private DividerItemDecoration mDividerItemDecoration;
     private int mCurrentSortOption;
 
     public static UsersListFragment newInstance() {
@@ -49,7 +48,7 @@ public class UsersListFragment extends Fragment implements UsersListView,
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter = new UsersListPresenterImpl(this);
-        mCurrentSortOption = DATE_SORT_INDEX;
+        mCurrentSortOption = NAME_SORT_INDEX;
         setHasOptionsMenu(true);
     }
 
@@ -140,11 +139,6 @@ public class UsersListFragment extends Fragment implements UsersListView,
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         mViewHolder.usersList.setLayoutManager(layoutManager);
         mViewHolder.usersList.setAdapter(mAdapter);
-        if (mDividerItemDecoration == null) {
-            mDividerItemDecoration = new DividerItemDecoration(mViewHolder.usersList.getContext(),
-                    DividerItemDecoration.VERTICAL);
-            mViewHolder.usersList.addItemDecoration(mDividerItemDecoration);
-        }
     }
 
     @Override
@@ -178,7 +172,8 @@ public class UsersListFragment extends Fragment implements UsersListView,
 
     private void showSortByDialog() {
         FragmentManager fm = getActivity().getSupportFragmentManager();
-        SortByDialogFragment dialog = SortByDialogFragment.newInstance(this);
+        SortByDialogFragment dialog = SortByDialogFragment.newInstance(this,
+                R.array.users_list_sort_options);
         dialog.show(fm, SortByDialogFragment.class.getSimpleName());
     }
 

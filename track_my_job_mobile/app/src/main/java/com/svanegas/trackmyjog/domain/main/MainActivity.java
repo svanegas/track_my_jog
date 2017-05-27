@@ -27,6 +27,7 @@ import com.svanegas.trackmyjog.R;
 import com.svanegas.trackmyjog.domain.landing.LandingActivity;
 import com.svanegas.trackmyjog.domain.main.time_entry.form.TimeEntryFormFormFragment;
 import com.svanegas.trackmyjog.domain.main.time_entry.list.TimeEntriesListFragment;
+import com.svanegas.trackmyjog.domain.main.user.form.UserFormFragment;
 import com.svanegas.trackmyjog.domain.main.user.list.UsersListFragment;
 
 import butterknife.BindView;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements MainView,
         TimeEntriesListFragment.OnTimeEntriesListInteractionListener,
         UsersListFragment.OnUsersListInteractionListener,
         TimeEntryFormFormFragment.OnTimeEntryFormListener,
+        UserFormFragment.OnUserFormListener,
         AdapterView.OnItemSelectedListener {
 
     @BindView(R.id.drawer_layout)
@@ -101,7 +103,8 @@ public class MainActivity extends AppCompatActivity implements MainView,
     public void onActivityTitleSpinnerRequested() {
         setTitle("");
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.time_entries_list_spinner_records_options, R.layout.main_toolbar_spinner_item);
+                R.array.time_entries_list_spinner_records_options,
+                R.layout.main_toolbar_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mViewHolder.spinner.setAdapter(adapter);
         if (mToolbarSpinnerSelectedPos != -1)
@@ -139,12 +142,20 @@ public class MainActivity extends AppCompatActivity implements MainView,
 
     @Override
     public void onAddUserRequested() {
-
+        UserFormFragment fragment = UserFormFragment.newInstance();
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     @Override
     public void onUpdateUserRequested(long userId) {
-
+        UserFormFragment fragment = UserFormFragment.newInstance(userId);
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -172,6 +183,11 @@ public class MainActivity extends AppCompatActivity implements MainView,
         mViewHolder.headerRoleLabel.setText(roleResId);
     }
 
+    @Override
+    public void populateNavigationViewItems(int menuResId) {
+        mViewHolder.navigationView.inflateMenu(menuResId);
+    }
+
     private void setupToolbar() {
         setSupportActionBar(mViewHolder.toolbar);
     }
@@ -194,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements MainView,
 
     private void setupNavigationView() {
         mViewHolder.navigationView.setNavigationItemSelectedListener(this);
-        mPresenter.requestHeaderPopulation();
+        mPresenter.requestNavigationViewPopulation();
     }
 
     private void setupInitialSelection() {

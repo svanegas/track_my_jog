@@ -12,6 +12,8 @@ import com.svanegas.trackmyjog.repository.model.User;
 import com.svanegas.trackmyjog.util.PreferencesManager;
 
 import java.net.SocketTimeoutException;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -28,6 +30,10 @@ import static com.svanegas.trackmyjog.util.HttpErrorHelper.parseHttpError;
 public class UsersListPresenterImpl implements UsersListPresenter {
 
     private static final String TAG = UsersListPresenterImpl.class.getSimpleName();
+
+    // Indexes of sort
+    public static final int NAME_SORT_INDEX = 0;
+    public static final int ROLE_SORT_INDEX = 1;
 
     private UsersListView mView;
 
@@ -81,13 +87,11 @@ public class UsersListPresenterImpl implements UsersListPresenter {
 
     @Override
     public void sortUsers(int sortOption, List<User> users) {
-//        if (sortOption == DATE_SORT_INDEX) {
-//            users.sort((o1, o2) -> o2.getDate().compareTo(o1.getDate()));
-//        } else if (sortOption == DISTANCE_SORT_INDEX) {
-//            users.sort((o1, o2) -> Long.compare(o2.getDistance(), o1.getDistance()));
-//        } else if (sortOption == DURATION_SORT_INDEX) {
-//            users.sort((o1, o2) -> Long.compare(o2.getDuration(), o1.getDuration()));
-//        }
+        if (sortOption == NAME_SORT_INDEX) {
+            Collections.sort(users, (o1, o2) -> o1.getName().compareTo(o2.getName()));
+        } else if (sortOption == ROLE_SORT_INDEX) {
+            Collections.sort(users, (o1, o2) -> o1.getRole().compareTo(o2.getRole()));
+        }
     }
 
     @Override
