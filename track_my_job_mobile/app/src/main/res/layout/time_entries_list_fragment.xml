@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,19 +10,26 @@
         style="@style/AppTheme.ErrorIndicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/time_entries_list"
-            style="@style/Main.List"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/time_entries_list_item"/>
+            android:layout_height="match_parent">
+
+            <include layout="@layout/screen_message" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/time_entries_list"
+                style="@style/Main.List"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/time_entries_list_item" />
+        </LinearLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <ProgressBar
@@ -31,12 +37,12 @@
         style="@style/AppTheme.ScreenProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_button"
         style="@style/AppTheme.Fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_add"/>
+        app:srcCompat="@drawable/ic_add" />
 </FrameLayout>

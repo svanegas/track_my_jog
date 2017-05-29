@@ -18,6 +18,8 @@ interface TimeEntriesListView {
 
     void populateTimeEntries(List<TimeEntry> timeEntries);
 
+    void populateEmpty();
+
     void showTimeoutError();
 
     void showNoConnectionError();

@@ -25,6 +25,7 @@ import android.widget.ArrayAdapter;
 
 import com.svanegas.trackmyjog.R;
 import com.svanegas.trackmyjog.domain.landing.LandingActivity;
+import com.svanegas.trackmyjog.domain.main.report.ReportFragment;
 import com.svanegas.trackmyjog.domain.main.time_entry.form.TimeEntryFormFormFragment;
 import com.svanegas.trackmyjog.domain.main.time_entry.list.TimeEntriesListFragment;
 import com.svanegas.trackmyjog.domain.main.user.form.UserFormFragment;
@@ -39,7 +40,8 @@ public class MainActivity extends AppCompatActivity implements MainView,
         UsersListFragment.OnUsersListInteractionListener,
         TimeEntryFormFormFragment.OnTimeEntryFormListener,
         UserFormFragment.OnUserFormListener,
-        AdapterView.OnItemSelectedListener {
+        AdapterView.OnItemSelectedListener,
+        ReportFragment.OnReportListener {
 
     @BindView(R.id.drawer_layout)
     ViewGroup rootView;
@@ -162,6 +164,15 @@ public class MainActivity extends AppCompatActivity implements MainView,
     public void goToUsersList() {
         mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         UsersListFragment fragment = UsersListFragment.newInstance();
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void goToReport() {
+        mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        ReportFragment fragment = ReportFragment.newInstance();
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();

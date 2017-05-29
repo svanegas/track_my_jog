@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="report_title">Report</string>
+
+    <string name="report_empty_range">You have no reports in the selected week</string>
+
+    <string name="report_date_range_format">%1$s - %2$s</string>
+    <string name="report_without_year_format">EEEE, MMMM dd</string>
+    <string name="report_with_year_format">MMMM dd, yyyy</string>
+</resources>

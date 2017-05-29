@@ -149,7 +149,8 @@ public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(timeEntries -> {
                     mView.hideLoading(pulledToRefresh);
-                    mView.populateTimeEntries(timeEntries);
+                    if (timeEntries.isEmpty()) mView.populateEmpty();
+                    else mView.populateTimeEntries(timeEntries);
                 }, throwable -> {
                     mView.hideLoading(pulledToRefresh);
                     if (throwable instanceof SocketTimeoutException) {

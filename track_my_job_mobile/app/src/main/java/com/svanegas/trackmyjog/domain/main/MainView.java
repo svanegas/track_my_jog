@@ -6,6 +6,8 @@ interface MainView {
 
     void goToUsersList();
 
+    void goToReport();
+
     void goToWelcome();
 
     void populateHeaderName(String name);

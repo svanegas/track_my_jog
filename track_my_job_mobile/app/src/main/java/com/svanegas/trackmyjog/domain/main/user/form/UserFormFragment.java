@@ -140,8 +140,6 @@ public class UserFormFragment extends Fragment implements UserFormView,
                 android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mViewHolder.rolesSpinner.setAdapter(adapter);
-//        if (mToolbarSpinnerSelectedPos != -1)
-//            mViewHolder.spinner.setSelection(mToolbarSpinnerSelectedPos);
     }
 
     private void setupSubmitButton() {

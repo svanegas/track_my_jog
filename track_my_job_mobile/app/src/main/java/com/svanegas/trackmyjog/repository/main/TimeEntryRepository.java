@@ -1,5 +1,6 @@
 package com.svanegas.trackmyjog.repository.main;
 
+import com.svanegas.trackmyjog.repository.model.Report;
 import com.svanegas.trackmyjog.repository.model.TimeEntry;
 
 import java.util.List;
@@ -22,4 +23,6 @@ public interface TimeEntryRepository {
                                       long duration);
 
     Single<Object> deleteTimeEntry(long timeEntryId);
+
+    Single<Report> fetchReport(String date);
 }

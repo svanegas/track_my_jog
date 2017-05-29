@@ -148,10 +148,22 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
 
     @Override
     public void populateTimeEntries(List<TimeEntry> timeEntries) {
+        mViewHolder.timeEntriesList.setVisibility(View.VISIBLE);
+        mViewHolder.emptyScreen.setVisibility(View.GONE);
         mPresenter.sortTimeEntries(mCurrentSortOption, timeEntries);
         mAdapter = new TimeEntriesAdapter(mPresenter, timeEntries);
         mViewHolder.timeEntriesList.setLayoutManager(new LinearLayoutManager(getContext()));
         mViewHolder.timeEntriesList.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void populateEmpty() {
+        mViewHolder.timeEntriesList.setVisibility(View.GONE);
+        mViewHolder.emptyScreen.setVisibility(View.VISIBLE);
+        if (mSelectedRecordsSpinnerIndex == ALL_RECORDS_INDEX)
+            mViewHolder.emptyMessage.setText(R.string.time_entries_list_empty_all);
+        else mViewHolder.emptyMessage.setText(R.string.time_entries_list_empty);
+
     }
 
     @Override
@@ -209,6 +221,12 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
 
         @BindView(R.id.time_entries_list)
         RecyclerView timeEntriesList;
+
+        @BindView(R.id.screen_message_root)
+        ViewGroup emptyScreen;
+
+        @BindView(R.id.screen_message_text)
+        AppCompatTextView emptyMessage;
 
         @BindView(R.id.progress)
         ProgressBar progress;

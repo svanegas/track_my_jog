@@ -1,7 +1,9 @@
 package com.svanegas.trackmyjog.interactor;
 
+import com.svanegas.trackmyjog.domain.main.report.ReportFragment;
 import com.svanegas.trackmyjog.repository.main.RemoteTimeEntryRepository;
 import com.svanegas.trackmyjog.repository.main.TimeEntryRepository;
+import com.svanegas.trackmyjog.repository.model.Report;
 import com.svanegas.trackmyjog.repository.model.TimeEntry;
 
 import java.util.List;
@@ -47,5 +49,9 @@ public class TimeEntryInteractor {
 
     public Single<Object> deleteTimeEntry(long timeEntryId) {
         return mRemoteRepository.deleteTimeEntry(timeEntryId);
+    }
+
+    public Single<Report> fetchReport(String date) {
+        return mRemoteRepository.fetchReport(date);
     }
 }

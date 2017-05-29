@@ -4,6 +4,7 @@ import com.svanegas.trackmyjog.domain.landing.LandingPresenterImpl;
 import com.svanegas.trackmyjog.domain.landing.login.LoginPresenterImpl;
 import com.svanegas.trackmyjog.domain.landing.register.RegisterPresenterImpl;
 import com.svanegas.trackmyjog.domain.main.MainPresenterImpl;
+import com.svanegas.trackmyjog.domain.main.report.ReportPresenterImpl;
 import com.svanegas.trackmyjog.domain.main.time_entry.form.TimeEntryFormPresenterImpl;
 import com.svanegas.trackmyjog.domain.main.time_entry.list.TimeEntriesListPresenterImpl;
 import com.svanegas.trackmyjog.domain.main.user.form.UserFormPresenterImpl;
@@ -37,4 +38,6 @@ public interface ApplicationComponent {
     void inject(UsersListPresenterImpl usersListPresenter);
 
     void inject(UserFormPresenterImpl userFormPresenter);
+
+    void inject(ReportPresenterImpl reportPresenter);
 }

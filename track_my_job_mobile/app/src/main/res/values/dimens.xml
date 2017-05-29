@@ -4,4 +4,6 @@
     <dimen name="error_indicator_padding">10dp</dimen>
     <dimen name="submit_button_horizontal_margin">3dp</dimen>
     <dimen name="submit_progress_horizontal_margin">4dp</dimen>
+    <dimen name="screen_message_text_margin">15dp</dimen>
+    <dimen name="screen_message_text_size">16sp</dimen>
 </resources>

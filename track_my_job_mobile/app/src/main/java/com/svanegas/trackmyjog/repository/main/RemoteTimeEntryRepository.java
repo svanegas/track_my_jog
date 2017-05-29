@@ -1,5 +1,6 @@
 package com.svanegas.trackmyjog.repository.main;
 
+import com.svanegas.trackmyjog.repository.model.Report;
 import com.svanegas.trackmyjog.repository.model.TimeEntry;
 
 import java.util.List;
@@ -50,5 +51,10 @@ public class RemoteTimeEntryRepository implements TimeEntryRepository {
     @Override
     public Single<Object> deleteTimeEntry(long timeEntryId) {
         return mService.deleteTimeEntry(timeEntryId);
+    }
+
+    @Override
+    public Single<Report> fetchReport(String date) {
+        return mService.fetchReport(date);
     }
 }

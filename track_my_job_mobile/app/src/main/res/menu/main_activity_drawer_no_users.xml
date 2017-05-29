@@ -7,6 +7,10 @@
             android:icon="@drawable/ic_menu_time_entries"
             android:title="@string/time_entries_list_title" />
         <item
+            android:id="@+id/nav_report"
+            android:icon="@drawable/ic_report"
+            android:title="@string/report_title" />
+        <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_settings"
             android:title="@string/main_action_settings" />

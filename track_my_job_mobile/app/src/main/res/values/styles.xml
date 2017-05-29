@@ -44,4 +44,12 @@
         <item name="android:clickable">true</item>
         <item name="android:tint">@android:color/white</item>
     </style>
+
+    <style name="AppTheme.ScreenMessage">
+        <item name="android:textColor">@android:color/tertiary_text_light</item>
+        <item name="android:layout_margin">@dimen/screen_message_text_margin</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/screen_message_text_size</item>
+    </style>
 </resources>

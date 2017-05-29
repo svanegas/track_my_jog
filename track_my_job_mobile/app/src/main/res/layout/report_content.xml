@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/report_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.AppCompatTextView
+        style="@style/TimeEntryForm.Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total records in week" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/entries_count_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="2"
+        android:textSize="24sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/TimeEntryForm.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total distance" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/distance_sum_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="100"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/TimeEntryForm.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total duration" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/duration_sum_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="2000"
+                android:textSize="24sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

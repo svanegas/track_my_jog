@@ -32,11 +32,11 @@ class TimeEntriesController < ApplicationController
     week_end = @given_date.end_of_week(:monday)
     @time_entries = current_user.time_entries.date_from(week_start).date_to(week_end)
     render json: {
-      entries: @time_entries.count,
+      count: @time_entries.count,
       from: week_start,
       to: week_end,
-      sum_distance: @time_entries.sum(:distance).to_i,
-      sum_duration: @time_entries.sum(:duration).to_i
+      distance_sum: @time_entries.sum(:distance).to_i,
+      duration_sum: @time_entries.sum(:duration).to_i
     }, status: :ok
   end
 
