@@ -9,8 +9,12 @@ class TimeEntry < ApplicationRecord
 
   # Scopes for search filtering
   scope :user_id, -> (user_id) { where user_id: user_id }
-  scope :date_from, -> (date_from) { where("date >= ?", Date.parse(date_from)) }
-  scope :date_to, -> (date_to) { where("date <= ?", Date.parse(date_to)) }
+  scope :date_from, -> (date_from) do
+    where("date >= ?", date_from.is_a?(Date) ? date_from : Date.parse(date_from))
+  end
+  scope :date_to, -> (date_to) do
+    where("date <= ?", date_to.is_a?(Date) ? date_to : Date.parse(date_to))
+  end
 
   private
 

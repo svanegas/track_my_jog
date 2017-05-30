@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="time_entry_form_date_label_text_size">12sp</dimen>
+    <dimen name="time_entry_form_large_input_text_size">30sp</dimen>
+    <dimen name="time_entry_form_large_input_min_width">200dp</dimen>
+    <dimen name="time_entry_form_distance_label_text_size">30sp</dimen>
+    <dimen name="time_entry_form_input_horizontal_padding">10dp</dimen>
+    <dimen name="time_entry_form_duration_label_text_size">30sp</dimen>
+    <dimen name="time_entry_form_small_input_width">75dp</dimen>
+</resources>

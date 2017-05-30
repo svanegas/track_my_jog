@@ -27,6 +27,9 @@ en:
     forbidden_entry: "You're not allowed to access the requested time entry"
     date_query:
       invalid_format: "The given date format is invalid, try dd-mm-yyyy or dd/mm/yyyy"
+  user:
+    unauthorized_regular_user: "You're not authorized to perform this action"
+    modifying_unathorized_role: "You're not authorized to interact with this user"
   activerecord:
     errors:
       models:

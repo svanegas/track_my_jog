@@ -4,14 +4,18 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.svanegas.trackmyjog.TrackMyJogApplication;
-import com.svanegas.trackmyjog.domain.landing.login.interactor.LoginInteractor;
+import com.svanegas.trackmyjog.interactor.AuthenticationInteractor;
 import com.svanegas.trackmyjog.repository.model.APIError;
+import com.svanegas.trackmyjog.repository.model.User;
+import com.svanegas.trackmyjog.util.PreferencesManager;
 
 import java.net.SocketTimeoutException;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
@@ -26,7 +30,13 @@ public class LoginPresenterImpl implements LoginPresenter {
     private LoginView mView;
 
     @Inject
-    LoginInteractor mLoginInteractor;
+    AuthenticationInteractor mAuthInteractor;
+
+    @Inject
+    PreferencesManager mPreferencesManager;
+
+    @Inject
+    CompositeDisposable mDisposables;
 
     LoginPresenterImpl(LoginView loginView) {
         mView = loginView;
@@ -46,27 +56,35 @@ public class LoginPresenterImpl implements LoginPresenter {
         else mView.hideLoadingAndEnableFields();
     }
 
+    @Override
+    public void unsubscribe() {
+        mDisposables.clear();
+    }
+
     private void loginUser(String email, String password) {
-        mLoginInteractor.loginUser(email, password)
+        Disposable disposable = mAuthInteractor.loginUser(email, password)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(user -> mView.hideLoadingAndEnableFields(),
-                        throwable -> {
-                            mView.hideLoadingAndEnableFields();
-                            if (throwable instanceof SocketTimeoutException) {
-                                mView.showTimeoutError();
-                            } else if (isInternetConnectionError(throwable)) {
-                                mView.showNoConnectionError();
-                            } else if (isHttpError(throwable)) {
-                                APIError error = parseHttpError((HttpException) throwable);
-                                if (error != null && error.getErrorMessage() != null) {
-                                    mView.showDisplayableError(error.errorMessage);
-                                } else mView.showUnknownError();
-                            } else {
-                                Log.e(TAG, "Could not login due unknown error: ", throwable);
-                                mView.showUnknownError();
-                            }
-                        });
+                .subscribe(user -> {
+                    mPreferencesManager.saveUserInfo(user);
+                    mView.onLoginSuccess();
+                }, throwable -> {
+                    mView.hideLoadingAndEnableFields();
+                    if (throwable instanceof SocketTimeoutException) {
+                        mView.showTimeoutError();
+                    } else if (isInternetConnectionError(throwable)) {
+                        mView.showNoConnectionError();
+                    } else if (isHttpError(throwable)) {
+                        APIError error = parseHttpError((HttpException) throwable);
+                        if (error != null && error.getErrorMessage() != null) {
+                            mView.showDisplayableError(error.errorMessage);
+                        } else mView.showUnknownError();
+                    } else {
+                        Log.e(TAG, "Could not login due unknown error: ", throwable);
+                        mView.showUnknownError();
+                    }
+                });
+        mDisposables.add(disposable);
     }
 
     private boolean validateEmail(String email) {

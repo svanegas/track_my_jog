@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="users_list_title">Users</string>
+
+    <string name="users_list_sort_name">Name</string>
+    <string name="users_list_sort_role">Role</string>
+
+    <string-array name="users_list_sort_options">
+        <item>@string/users_list_sort_name</item>
+        <item>@string/users_list_sort_role</item>
+    </string-array>
+</resources>

@@ -5,5 +5,52 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.SubmitButton" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="android:layout_marginTop">@dimen/submit_button_horizontal_margin</item>
+    </style>
+
+    <style name="AppTheme.ProgressBar" parent="@style/Base.Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:layout_marginStart">@dimen/submit_progress_horizontal_margin</item>
+        <item name="android:layout_marginEnd">@dimen/submit_progress_horizontal_margin</item>
+        <item name="android:indeterminate">true</item>
+    </style>
+
+    <style name="AppTheme.ErrorIndicator">
+        <item name="android:background">@color/red_opaque</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/error_indicator_padding</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="AppTheme.ScreenProgress">
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="AppTheme.Fab">
+        <item name="android:layout_gravity">end|bottom</item>
+        <item name="android:layout_margin">@dimen/time_entries_list_fab_margin</item>
+        <item name="android:clickable">true</item>
+        <item name="android:tint">@android:color/white</item>
+    </style>
+
+    <style name="AppTheme.ScreenMessage">
+        <item name="android:textColor">@android:color/tertiary_text_light</item>
+        <item name="android:layout_margin">@dimen/screen_message_text_margin</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/screen_message_text_size</item>
     </style>
 </resources>

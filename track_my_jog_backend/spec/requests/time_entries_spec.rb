@@ -416,7 +416,7 @@ RSpec.describe "TimeEntries", type: :request do
 
     context 'when date has invalid format' do
       it 'responds with 400' do
-        body[:date] = Faker::Lorem.characters
+        body[:date] = "!abcxyz#{Faker::Lorem.characters}abcxyz!"
         post time_entries_path, { params: body, headers: session }
         expect(response.status).to eq(422)
       end
@@ -582,7 +582,7 @@ RSpec.describe "TimeEntries", type: :request do
 
       context 'when date has invalid format' do
         it 'responds with 400' do
-          body[:date] = Faker::Lorem.characters
+          body[:date] = "!abcxyz#{Faker::Lorem.characters}abcxyz!"
           patch time_entry_path(existing_time_entry.id), { params: body, headers: session }
           expect(response.status).to eq(422)
         end
@@ -637,9 +637,9 @@ RSpec.describe "TimeEntries", type: :request do
     context 'when deleting an existing and owned time entry' do
       let(:existing_time_entry) { create(:time_entry, user: user) }
 
-      it 'responds with 204' do
+      it 'responds with 200' do
         delete time_entry_path(existing_time_entry.id), headers: session
-        expect(response.status).to eq(204)
+        expect(response.status).to eq(200)
       end
     end
 
@@ -666,11 +666,11 @@ RSpec.describe "TimeEntries", type: :request do
 
     context 'as admin user' do
       context 'when updating a time entry that does not belong to him' do
-        it 'responds with 204' do
+        it 'responds with 200' do
           admin_session = create(:admin_user).create_new_auth_token
           other_time_entry = create(:time_entry)
           delete time_entry_path(other_time_entry.id), headers: admin_session
-          expect(response.status).to eq(204)
+          expect(response.status).to eq(200)
         end
       end
     end

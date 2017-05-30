@@ -60,6 +60,12 @@ public class LoginFragment extends Fragment implements LoginView {
         mListener = null;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mPresenter.unsubscribe();
+    }
+
     @OnClick(R.id.submit_button)
     public void onSubmitClicked() {
         mPresenter.validateLogin();
@@ -88,13 +94,13 @@ public class LoginFragment extends Fragment implements LoginView {
 
     @Override
     public void showEmptyEmailError() {
-        mViewHolder.emailField.setError(getString(R.string.register_error_field_required));
+        mViewHolder.emailField.setError(getString(R.string.error_field_required));
         mViewHolder.emailField.requestFocus();
     }
 
     @Override
     public void showEmptyPasswordError() {
-        mViewHolder.passwordField.setError(getString(R.string.register_error_field_required));
+        mViewHolder.passwordField.setError(getString(R.string.error_field_required));
         mViewHolder.passwordField.requestFocus();
     }
 
@@ -120,6 +126,11 @@ public class LoginFragment extends Fragment implements LoginView {
     public void showUnknownError() {
         mViewHolder.errorMessage.setVisibility(View.VISIBLE);
         mViewHolder.errorMessage.setText(R.string.error_unknown);
+    }
+
+    @Override
+    public void onLoginSuccess() {
+        mListener.goToMainScreen();
     }
 
     private void setLoadingAndFieldsEnabled(boolean enabled) {
@@ -154,5 +165,7 @@ public class LoginFragment extends Fragment implements LoginView {
     public interface OnLoginInteractionListener {
 
         void onActivityTitleRequested(int titleResId, boolean showBackArrow);
+
+        void goToMainScreen();
     }
 }

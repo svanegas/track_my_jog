@@ -5,13 +5,19 @@ import android.support.annotation.Nullable;
 import com.google.gson.Gson;
 import com.svanegas.trackmyjog.repository.model.APIError;
 
+import java.net.HttpURLConnection;
+import java.net.ProtocolException;
+
 import retrofit2.HttpException;
 
 public class HttpErrorHelper {
 
     public static boolean isUnauthorizedError(Throwable throwable) {
-        // TODO: Implement and use this method
-        return false;
+        if (throwable instanceof HttpException) {
+            HttpException httpException = (HttpException) throwable;
+            return httpException.code() == HttpURLConnection.HTTP_UNAUTHORIZED;
+        }
+        return throwable instanceof ProtocolException;
     }
 
     public static boolean isHttpError(Throwable throwable) {

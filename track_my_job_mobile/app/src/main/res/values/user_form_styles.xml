@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="UserForm" />
+
+    <style name="UserForm.Label">
+        <item name="android:layout_marginTop">@dimen/user_form_label_vertical_margin</item>
+        <item name="android:layout_marginBottom">@dimen/user_form_label_vertical_margin</item>
+        <item name="android:layout_marginStart">@dimen/user_form_label_horizontal_margin</item>
+        <item name="android:layout_marginEnd">@dimen/user_form_label_horizontal_margin</item>
+        <item name="android:layout_gravity">start|center</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/time_entry_form_date_label_text_size</item>
+    </style>
+
+    <style name="UserForm.RolesSpinner">
+        <item name="android:layout_gravity">start|center</item>
+        <item name="android:layout_marginBottom">@dimen/user_form_roles_spinner_margin_bottom</item>
+    </style>
+</resources>

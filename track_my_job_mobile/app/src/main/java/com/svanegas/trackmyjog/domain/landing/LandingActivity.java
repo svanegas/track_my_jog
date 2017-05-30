@@ -1,5 +1,6 @@
 package com.svanegas.trackmyjog.domain.landing;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,24 +13,34 @@ import com.svanegas.trackmyjog.R;
 import com.svanegas.trackmyjog.domain.landing.login.LoginFragment;
 import com.svanegas.trackmyjog.domain.landing.register.RegisterFragment;
 import com.svanegas.trackmyjog.domain.landing.welcome.WelcomeFragment;
+import com.svanegas.trackmyjog.domain.main.MainActivity;
 
 import butterknife.ButterKnife;
 
 public class LandingActivity extends AppCompatActivity implements
-        WelcomeFragment.OnWelcomeInteractionListener, LoginFragment.OnLoginInteractionListener,
+        LandingView, WelcomeFragment.OnWelcomeInteractionListener,
+        LoginFragment.OnLoginInteractionListener,
         RegisterFragment.OnRegisterInteractionListener {
 
     private FragmentManager mFragmentManager;
+    private LandingPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.landing_activity);
 
+        mPresenter = new LandingPresenterImpl(this);
         ButterKnife.bind(this);
 
         mFragmentManager = getSupportFragmentManager();
         setupWelcomeFragment();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.checkIfLogged();
     }
 
     @Override
@@ -59,6 +70,12 @@ public class LandingActivity extends AppCompatActivity implements
             setTitle(titleResId);
             actionBar.setDisplayHomeAsUpEnabled(showBackArrow);
         }
+    }
+
+    @Override
+    public void goToMainScreen() {
+        startActivity(new Intent(this, MainActivity.class));
+        finishAffinity();
     }
 
     private void setupWelcomeFragment() {

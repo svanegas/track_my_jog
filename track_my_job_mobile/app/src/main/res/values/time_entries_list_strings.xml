@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="time_entries_list_title">Records</string>
+    <string name="time_entries_list_my_records">My records</string>
+    <string name="time_entries_list_all_records">All records</string>
+
+    <string name="time_entries_list_empty_all">There are no records to show</string>
+    <string name="time_entries_list_empty">You don\'t have any record yet</string>
+
+    <string name="time_entries_list_date_picker_clear">Clear</string>
+    <string name="time_entries_list_filter_from">All records in past</string>
+    <string name="time_entries_list_filter_separator">&#8211;</string>
+    <string name="time_entries_list_filter_to">Today</string>
+
+    <string-array name="time_entries_list_spinner_records_options">
+        <item>@string/time_entries_list_all_records</item>
+        <item>@string/time_entries_list_my_records</item>
+    </string-array>
+
+    <string name="time_entries_list_sort_date">Date</string>
+    <string name="time_entries_list_sort_distance">Distance</string>
+    <string name="time_entries_list_sort_duration">Duration</string>
+
+    <string name="time_entries_list_speed_km">km/h</string>
+    <string name="time_entries_list_speed_mi">mph</string>
+
+    <string name="time_entries_list_duration_hr">hr</string>
+    <string name="time_entries_list_duration_min">min</string>
+
+    <string-array name="time_entries_list_sort_options">
+        <item>@string/time_entries_list_sort_date</item>
+        <item>@string/time_entries_list_sort_distance</item>
+        <item>@string/time_entries_list_sort_duration</item>
+    </string-array>
+
+    <string name="time_entries_list_no_date_available">No date available</string>
+    <string name="time_entries_list_without_year_format">EE, MMMM dd</string>
+    <string name="time_entries_list_with_year_format">MMMM dd, yyyy</string>
+</resources>

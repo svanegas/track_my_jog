@@ -60,6 +60,12 @@ public class RegisterFragment extends Fragment implements RegisterView {
         mListener = null;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mPresenter.unsubscribe();
+    }
+
     @OnClick(R.id.submit_button)
     public void onSubmitClicked() {
         mPresenter.validateRegistration();
@@ -98,13 +104,13 @@ public class RegisterFragment extends Fragment implements RegisterView {
 
     @Override
     public void showEmptyNameError() {
-        mViewHolder.nameField.setError(getString(R.string.register_error_field_required));
+        mViewHolder.nameField.setError(getString(R.string.error_field_required));
         mViewHolder.nameField.requestFocus();
     }
 
     @Override
     public void showEmptyEmailError() {
-        mViewHolder.emailField.setError(getString(R.string.register_error_field_required));
+        mViewHolder.emailField.setError(getString(R.string.error_field_required));
         mViewHolder.emailField.requestFocus();
     }
 
@@ -116,7 +122,7 @@ public class RegisterFragment extends Fragment implements RegisterView {
 
     @Override
     public void showEmptyPasswordError() {
-        mViewHolder.passwordField.setError(getString(R.string.register_error_field_required));
+        mViewHolder.passwordField.setError(getString(R.string.error_field_required));
         mViewHolder.passwordField.requestFocus();
     }
 
@@ -155,6 +161,11 @@ public class RegisterFragment extends Fragment implements RegisterView {
     public void showUnknownError() {
         mViewHolder.errorMessage.setVisibility(View.VISIBLE);
         mViewHolder.errorMessage.setText(R.string.error_unknown);
+    }
+
+    @Override
+    public void onRegisterSuccess() {
+        mListener.goToMainScreen();
     }
 
     private void setLoadingAndFieldsEnabled(boolean enabled) {
@@ -197,5 +208,7 @@ public class RegisterFragment extends Fragment implements RegisterView {
     public interface OnRegisterInteractionListener {
 
         void onActivityTitleRequested(int titleResId, boolean showBackArrow);
+
+        void goToMainScreen();
     }
 }

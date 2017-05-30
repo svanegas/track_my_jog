@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/error_message"
+            style="@style/AppTheme.ErrorIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_content_padding">
+
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/TimeEntryForm.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/time_entry_form_date_label" />
+
+            <DatePicker
+                android:id="@+id/date_picker"
+                style="@style/TimeEntryForm.DatePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/TimeEntryForm.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/time_entry_form_distance" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/distance_field"
+                    style="@style/TimeEntryForm.InputLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/time_entry_form_distance" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/distance_units_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/time_entry_form_distance_label_text_size" />
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/TimeEntryForm.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/time_entry_form_duration" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/hours_field"
+                    style="@style/TimeEntryForm.InputSmall"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/time_entry_form_hours_hint" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    style="@style/TimeEntryForm.DurationLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/time_entry_form_hours_label" />
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/minutes_field"
+                    style="@style/TimeEntryForm.InputSmall"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/time_entry_form_minutes_hint" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    style="@style/TimeEntryForm.DurationLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/time_entry_form_minutes_label" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/submit_button"
+                    style="@style/AppTheme.SubmitButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/time_entry_form_create_submit_text" />
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    style="@style/AppTheme.ProgressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+            </FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
+</ScrollView>

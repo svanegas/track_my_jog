@@ -1,11 +1,13 @@
 package com.svanegas.trackmyjog;
 
 import android.app.Application;
+import android.content.Context;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.disposables.CompositeDisposable;
 
 @Module
 class ApplicationModule {
@@ -20,5 +22,17 @@ class ApplicationModule {
     @Singleton
     Application providesApplication() {
         return mApplication;
+    }
+
+    @Provides
+    @Singleton
+    Context providesContext() {
+        return mApplication.getApplicationContext();
+    }
+
+    @Provides
+    @Singleton
+    CompositeDisposable providesCompositeDisposable() {
+        return new CompositeDisposable();
     }
 }

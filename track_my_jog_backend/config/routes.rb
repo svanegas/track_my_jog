@@ -3,5 +3,7 @@ Rails.application.routes.draw do
     sessions:  'overrides/sessions',
     registrations: 'overrides/registrations'
   }
+  get '/time_entries/report/:date', to: 'time_entries#report'
   resources :time_entries
+  resources :users
 end

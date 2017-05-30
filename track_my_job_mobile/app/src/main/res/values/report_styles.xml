@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Report" />
+
+    <style name="Report.Label">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/report_label_text_size</item>
+    </style>
+
+    <style name="Report.Value">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/report_value_text_size</item>
+    </style>
+</resources>

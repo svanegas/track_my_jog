@@ -16,10 +16,28 @@ class TimeEntriesController < ApplicationController
       end
       render json: @time_entries
     rescue ArgumentError
-      render json: {
-        errors: [I18n.t('time_entry.date_query.invalid_format')]
-      }, status: :bad_request
+      render_invalid_date_format
     end
+  end
+
+  # GET /time_entries/report/:date
+  def report
+    begin
+      @given_date = Date.parse(params[:date])
+    rescue ArgumentError
+      render_invalid_date_format
+      return
+    end
+    week_start = @given_date.beginning_of_week(:monday)
+    week_end = @given_date.end_of_week(:monday)
+    @time_entries = current_user.time_entries.date_from(week_start).date_to(week_end)
+    render json: {
+      count: @time_entries.count,
+      from: week_start,
+      to: week_end,
+      distance_sum: @time_entries.sum(:distance).to_i,
+      duration_sum: @time_entries.sum(:duration).to_i
+    }, status: :ok
   end
 
   # GET /time_entries/1
@@ -52,7 +70,15 @@ class TimeEntriesController < ApplicationController
 
   # DELETE /time_entries/1
   def destroy
-    @time_entry.destroy
+    if @time_entry.destroy
+      render json: {
+        success: true
+      }
+    else
+      render json: {
+        errors: @time_entry.errors.full_messages
+      }, status: :unprocessable_entity
+    end
   end
 
   private
@@ -76,5 +102,11 @@ class TimeEntriesController < ApplicationController
       filter_params = params.slice(:user_id, :date_from, :date_to)
       filter_params.delete(:user_id) unless current_user.admin?
       filter_params
+    end
+
+    def render_invalid_date_format
+      render json: {
+        errors: [I18n.t('time_entry.date_query.invalid_format')]
+      }, status: :bad_request
     end
 end

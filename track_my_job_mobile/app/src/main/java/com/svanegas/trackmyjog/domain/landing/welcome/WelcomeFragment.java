@@ -12,9 +12,6 @@ import com.svanegas.trackmyjog.R;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by Santiago Vanegas Gil on 5/22/17.
- */
 public class WelcomeFragment extends Fragment implements WelcomeView {
 
     private OnWelcomeInteractionListener mListener;
@@ -34,7 +31,6 @@ public class WelcomeFragment extends Fragment implements WelcomeView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mListener.onActivityTitleRequested(R.string.welcome_title, false);
-        // Inflate the layout for this fragment
         View rootView =  inflater.inflate(R.layout.welcome_fragment, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;

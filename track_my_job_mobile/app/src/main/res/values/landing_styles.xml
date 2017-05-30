@@ -3,16 +3,6 @@
 
     <style name="Landing"/>
 
-    <style name="Landing.SubmitButton" parent="@style/Widget.AppCompat.Button.Colored">
-        <item name="android:layout_marginTop">@dimen/landing_submit_button_horizontal_margin</item>
-    </style>
-
-    <style name="Landing.ProgressBar" parent="@style/Base.Widget.AppCompat.ProgressBar.Horizontal">
-        <item name="android:layout_marginStart">@dimen/landing_progress_horizontal_margin</item>
-        <item name="android:layout_marginEnd">@dimen/landing_progress_horizontal_margin</item>
-        <item name="android:indeterminate">true</item>
-    </style>
-
     <style name="Landing.ErrorMessage">
         <item name="android:layout_margin">@dimen/landing_error_margin</item>
         <item name="android:gravity">center</item>
