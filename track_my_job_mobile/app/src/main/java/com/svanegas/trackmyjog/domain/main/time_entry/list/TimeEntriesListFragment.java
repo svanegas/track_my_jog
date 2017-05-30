@@ -15,9 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.svanegas.trackmyjog.R;
+import com.svanegas.trackmyjog.domain.main.OnFabFragmentListener;
 import com.svanegas.trackmyjog.domain.main.dialog.DatePickerDialogFragment;
 import com.svanegas.trackmyjog.domain.main.dialog.SortByDialogFragment;
 import com.svanegas.trackmyjog.domain.main.time_entry.list.adapter.TimeEntriesAdapter;
@@ -33,7 +33,8 @@ import butterknife.OnClick;
 import static com.svanegas.trackmyjog.domain.main.time_entry.list.TimeEntriesListPresenterImpl.DATE_SORT_INDEX;
 
 public class TimeEntriesListFragment extends Fragment implements TimeEntriesListView,
-        SwipeRefreshLayout.OnRefreshListener, SortByDialogFragment.Callback, DatePickerDialogFragment.Callback {
+        SwipeRefreshLayout.OnRefreshListener, SortByDialogFragment.Callback,
+        DatePickerDialogFragment.Callback, OnFabFragmentListener {
 
     // Indexes of toolbar spinner
     private static final int ALL_RECORDS_INDEX = 0;
@@ -95,6 +96,18 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mListener.onShowFabRequested();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mListener.onHideFabRequested();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         mPresenter.unsubscribe();
@@ -129,8 +142,8 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
         }
     }
 
-    @OnClick(R.id.add_button)
-    public void onAddClicked() {
+    @Override
+    public void onFabClicked() {
         mListener.onAddTimeEntryRequested();
     }
 
@@ -351,6 +364,10 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
         void onActivityTitleRequested(int titleResId);
 
         void onActivityTitleSpinnerRequested();
+
+        void onShowFabRequested();
+
+        void onHideFabRequested();
 
         void onAddTimeEntryRequested();
 

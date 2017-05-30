@@ -64,7 +64,9 @@ class TimeEntriesController < ApplicationController
     if @time_entry.update(time_entry_params)
       render json: @time_entry
     else
-      render json: @time_entry.errors, status: :unprocessable_entity
+      render json: {
+        errors: @time_entry.errors.full_messages
+      }, status: :unprocessable_entity
     end
   end
 

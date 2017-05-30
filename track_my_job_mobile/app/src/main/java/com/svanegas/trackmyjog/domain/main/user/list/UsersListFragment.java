@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,9 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.svanegas.trackmyjog.R;
+import com.svanegas.trackmyjog.domain.main.OnFabFragmentListener;
 import com.svanegas.trackmyjog.domain.main.dialog.SortByDialogFragment;
 import com.svanegas.trackmyjog.domain.main.user.list.adapter.UsersAdapter;
 import com.svanegas.trackmyjog.repository.model.User;
@@ -27,12 +26,12 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 import static com.svanegas.trackmyjog.domain.main.user.list.UsersListPresenterImpl.NAME_SORT_INDEX;
 
 public class UsersListFragment extends Fragment implements UsersListView,
-        SwipeRefreshLayout.OnRefreshListener, SortByDialogFragment.Callback {
+        SwipeRefreshLayout.OnRefreshListener, SortByDialogFragment.Callback,
+        OnFabFragmentListener {
 
     private OnUsersListInteractionListener mListener;
     private UsersListPresenter mPresenter;
@@ -82,6 +81,18 @@ public class UsersListFragment extends Fragment implements UsersListView,
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mListener.onShowFabRequested();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mListener.onHideFabRequested();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         mPresenter.unsubscribe();
@@ -116,8 +127,8 @@ public class UsersListFragment extends Fragment implements UsersListView,
         }
     }
 
-    @OnClick(R.id.add_button)
-    public void onAddClicked() {
+    @Override
+    public void onFabClicked() {
         mListener.onAddUserRequested();
     }
 
@@ -208,6 +219,10 @@ public class UsersListFragment extends Fragment implements UsersListView,
     public interface OnUsersListInteractionListener {
 
         void onActivityTitleRequested(int titleResId);
+
+        void onShowFabRequested();
+
+        void onHideFabRequested();
 
         void onAddUserRequested();
 
