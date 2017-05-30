@@ -26,7 +26,7 @@ public interface TimeEntryService {
     @POST("time_entries")
     @FormUrlEncoded
     Single<TimeEntry> createTimeEntry(@Field("date") String date,
-                                      @Field("distance") String distance,
+                                      @Field("distance") long distance,
                                       @Field("duration") long duration);
 
     @GET("time_entries/{timeEntryId}")
@@ -36,7 +36,7 @@ public interface TimeEntryService {
     @FormUrlEncoded
     Single<TimeEntry> updateTimeEntry(@Path("timeEntryId") long timeEntryId,
                                       @Field("date") String date,
-                                      @Field("distance") String distance,
+                                      @Field("distance") long distance,
                                       @Field("duration") long duration);
 
     @DELETE("time_entries/{timeEntryId}")

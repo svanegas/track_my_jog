@@ -7,6 +7,7 @@ import com.svanegas.trackmyjog.TrackMyJogApplication;
 import com.svanegas.trackmyjog.interactor.TimeEntryInteractor;
 import com.svanegas.trackmyjog.repository.model.APIError;
 import com.svanegas.trackmyjog.repository.model.TimeEntry;
+import com.svanegas.trackmyjog.util.PreferencesManager;
 
 import java.net.SocketTimeoutException;
 import java.text.DateFormat;
@@ -23,9 +24,14 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
 import static com.svanegas.trackmyjog.domain.main.time_entry.list.TimeEntriesListPresenterImpl.INPUT_DATE_FORMAT;
+import static com.svanegas.trackmyjog.domain.main.time_entry.list.TimeEntriesListPresenterImpl.KM_CONVERSION_FACTOR;
+import static com.svanegas.trackmyjog.domain.main.time_entry.list.TimeEntriesListPresenterImpl.MI_CONVERSION_FACTOR;
+import static com.svanegas.trackmyjog.domain.main.time_entry.list.TimeEntriesListPresenterImpl.computeDistance;
 import static com.svanegas.trackmyjog.network.ConnectionInterceptor.isInternetConnectionError;
 import static com.svanegas.trackmyjog.util.HttpErrorHelper.isHttpError;
 import static com.svanegas.trackmyjog.util.HttpErrorHelper.parseHttpError;
+import static com.svanegas.trackmyjog.util.PreferencesManager.KM_UNIT;
+import static com.svanegas.trackmyjog.util.PreferencesManager.MILE_UNIT;
 
 public class TimeEntryFormPresenterImpl implements TimeEntryFormPresenter {
 
@@ -36,9 +42,17 @@ public class TimeEntryFormPresenterImpl implements TimeEntryFormPresenter {
     @Inject
     TimeEntryInteractor mInteractor;
 
+    @Inject
+    PreferencesManager mPreferencesManager;
+
     TimeEntryFormPresenterImpl(TimeEntryFormView timeEntryFormView) {
         mView = timeEntryFormView;
         TrackMyJogApplication.getInstance().getApplicationComponent().inject(this);
+    }
+
+    @Override
+    public void setupDistanceUnits() {
+        mView.populateDistanceUnits(mPreferencesManager.getDistanceUnits());
     }
 
     /**
@@ -55,10 +69,11 @@ public class TimeEntryFormPresenterImpl implements TimeEntryFormPresenter {
         String minutes = mView.minutes();
 
         long duration = validateDuration(hours, minutes);
-        float distanceValue = validateDistance(distance);
+        double distanceValue = validateDistance(distance);
+        long distanceLong = computeMeters(distanceValue, mPreferencesManager.getDistanceUnits());
 
-        if (distanceValue > 0f && duration > 0)
-            processTimeEntry(timeEntryId, date, distance, duration);
+        if (distanceLong > 0 && duration > 0)
+            processTimeEntry(timeEntryId, date, distanceLong, duration);
         else mView.hideLoadingAndEnableFields();
     }
 
@@ -75,7 +90,8 @@ public class TimeEntryFormPresenterImpl implements TimeEntryFormPresenter {
                     } catch (ParseException e) {
                         mView.showUnableToParseDateError();
                     }
-                    mView.populateDistance(timeEntry.getDistance());
+                    mView.populateDistance(computeDistance(timeEntry.getDistance(),
+                            mPreferencesManager.getDistanceUnits()));
                     mView.populateDuration(timeEntry.getDuration());
                 }, throwable -> {
                     mView.hideLoadingAndEnableFields();
@@ -121,7 +137,7 @@ public class TimeEntryFormPresenterImpl implements TimeEntryFormPresenter {
                 });
     }
 
-    private void processTimeEntry(long timeEntryId, Calendar date, String distance, long duration) {
+    private void processTimeEntry(long timeEntryId, Calendar date, long distance, long duration) {
         String dateString = String.format(Locale.US, "%d-%d-%d",
                 date.get(Calendar.YEAR),
                 date.get(Calendar.MONTH) + 1,
@@ -205,26 +221,45 @@ public class TimeEntryFormPresenterImpl implements TimeEntryFormPresenter {
      * Validates if the entered distance value is valid
      *
      * @param distance string representation of the distance
-     * @return 0f if the given distance is invalid, a positive floating point number otherwise.
+     * @return 0.0 if the given distance is invalid, a positive floating point number otherwise.
      * The positive floating point number corresponds to the entered distance.
      */
-    private float validateDistance(String distance) {
-        float distanceFloat;
+    private double validateDistance(String distance) {
+        double distanceDouble;
         if (TextUtils.isEmpty(distance)) {
             mView.showEmptyDistanceError();
-            return 0f;
+            return 0.0;
         } else {
             try {
-                distanceFloat = Float.valueOf(distance);
-                if (distanceFloat <= 0f) {
+                distanceDouble = Double.valueOf(distance);
+                if (distanceDouble <= 0.0) {
                     mView.showNegativeDistanceError();
-                    return 0f;
+                    return 0.0;
                 }
             } catch (NumberFormatException e) {
                 mView.showInvalidDistanceError();
-                return 0f;
+                return 0.0;
             }
         }
-        return distanceFloat;
+        return distanceDouble;
+    }
+
+    /**
+     * Converts the given distance from the specified units to meters.
+     *
+     * @param distance value to be converted to meters.
+     * @param units    units of the given distance, possible units:
+     *                 {@link PreferencesManager#KM_UNIT}, {@link PreferencesManager#MILE_UNIT}.
+     * @return meters representation of the given value.
+     */
+    private long computeMeters(double distance, String units) {
+        switch (units) {
+            case KM_UNIT:
+                return (long) (distance * KM_CONVERSION_FACTOR);
+            case MILE_UNIT:
+                return (long) (distance * MI_CONVERSION_FACTOR);
+            default:
+                throw new IllegalArgumentException(units + " is not a valid unit");
+        }
     }
 }

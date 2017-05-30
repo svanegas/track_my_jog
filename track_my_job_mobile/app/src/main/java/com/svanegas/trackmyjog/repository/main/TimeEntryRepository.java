@@ -15,11 +15,11 @@ public interface TimeEntryRepository {
 
     Single<TimeEntry> fetchTimeEntry(long timeEntryId);
 
-    Single<TimeEntry> createTimeEntry(String date, String distance, long duration);
+    Single<TimeEntry> createTimeEntry(String date, long distance, long duration);
 
     Single<TimeEntry> updateTimeEntry(long timeEntryId,
                                       String date,
-                                      String distance,
+                                      long distance,
                                       long duration);
 
     Single<Object> deleteTimeEntry(long timeEntryId);

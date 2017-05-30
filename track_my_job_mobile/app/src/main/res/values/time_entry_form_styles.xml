@@ -15,9 +15,10 @@
     </style>
 
     <style name="TimeEntryForm.InputLarge">
+        <item name="android:minWidth">@dimen/time_entry_form_large_input_min_width</item>
         <item name="android:gravity">center</item>
         <item name="android:inputType">numberDecimal</item>
-        <item name="android:textSize">@dimen/time_entry_form_input_text_size</item>
+        <item name="android:textSize">@dimen/time_entry_form_large_input_text_size</item>
     </style>
 
     <style name="TimeEntryForm.InputSmall">
@@ -27,7 +28,7 @@
         <item name="android:maxLength">2</item>
         <item name="android:paddingEnd">@dimen/time_entry_form_input_horizontal_padding</item>
         <item name="android:paddingStart">@dimen/time_entry_form_input_horizontal_padding</item>
-        <item name="android:textSize">@dimen/time_entry_form_input_text_size</item>
+        <item name="android:textSize">@dimen/time_entry_form_large_input_text_size</item>
     </style>
 
     <style name="TimeEntryForm.DurationLabel">

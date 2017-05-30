@@ -36,13 +36,13 @@ public class TimeEntryInteractor {
         return mRemoteRepository.fetchTimeEntry(timeEntryId);
     }
 
-    public Single<TimeEntry> createTimeEntry(String date, String distance, long duration) {
+    public Single<TimeEntry> createTimeEntry(String date, long distance, long duration) {
         return mRemoteRepository.createTimeEntry(date, distance, duration);
     }
 
     public Single<TimeEntry> updateTimeEntry(long timeEntryId,
                                              String date,
-                                             String distance,
+                                             long distance,
                                              long duration) {
         return mRemoteRepository.updateTimeEntry(timeEntryId, date, distance, duration);
     }

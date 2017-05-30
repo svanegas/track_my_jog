@@ -79,6 +79,7 @@ public class TimeEntryFormFormFragment extends Fragment implements TimeEntryForm
 
         setupDatePicker();
         setupSubmitButton();
+        mPresenter.setupDistanceUnits();
         if (mIsUpdate) mPresenter.fetchTimeEntry(mTimeEntryId);
         return rootView;
     }
@@ -198,8 +199,13 @@ public class TimeEntryFormFormFragment extends Fragment implements TimeEntryForm
     }
 
     @Override
-    public void populateDistance(long distance) {
-        mViewHolder.distanceField.setText(String.valueOf(distance));
+    public void populateDistanceUnits(String distanceUnits) {
+        mViewHolder.distanceUnits.setText(distanceUnits);
+    }
+
+    @Override
+    public void populateDistance(double distance) {
+        mViewHolder.distanceField.setText(String.format(Locale.US, "%.2f", distance));
     }
 
     @Override
@@ -315,6 +321,9 @@ public class TimeEntryFormFormFragment extends Fragment implements TimeEntryForm
 
         @BindView(R.id.distance_field)
         AppCompatEditText distanceField;
+
+        @BindView(R.id.distance_units_label)
+        AppCompatTextView distanceUnits;
 
         @BindView(R.id.hours_field)
         AppCompatEditText hoursField;

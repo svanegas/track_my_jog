@@ -36,14 +36,14 @@ public class RemoteTimeEntryRepository implements TimeEntryRepository {
     }
 
     @Override
-    public Single<TimeEntry> createTimeEntry(String date, String distance, long duration) {
+    public Single<TimeEntry> createTimeEntry(String date, long distance, long duration) {
         return mService.createTimeEntry(date, distance, duration);
     }
 
     @Override
     public Single<TimeEntry> updateTimeEntry(long timeEntryId,
                                              String date,
-                                             String distance,
+                                             long distance,
                                              long duration) {
         return mService.updateTimeEntry(timeEntryId, date, distance, duration);
     }

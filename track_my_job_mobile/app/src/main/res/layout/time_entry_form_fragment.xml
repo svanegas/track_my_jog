@@ -40,12 +40,25 @@
                 android:layout_height="wrap_content"
                 android:text="@string/time_entry_form_distance" />
 
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/distance_field"
-                style="@style/TimeEntryForm.InputLarge"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/time_entry_form_distance" />
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/distance_field"
+                    style="@style/TimeEntryForm.InputLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/time_entry_form_distance" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/distance_units_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/time_entry_form_distance_label_text_size" />
+            </LinearLayout>
 
             <android.support.v7.widget.AppCompatTextView
                 style="@style/TimeEntryForm.Label"
@@ -62,8 +75,8 @@
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/hours_field"
                     style="@style/TimeEntryForm.InputSmall"
-                    android:hint="@string/time_entry_form_hours_hint"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:hint="@string/time_entry_form_hours_hint" />
 
                 <android.support.v7.widget.AppCompatTextView
                     style="@style/TimeEntryForm.DurationLabel"
@@ -74,8 +87,8 @@
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/minutes_field"
                     style="@style/TimeEntryForm.InputSmall"
-                    android:hint="@string/time_entry_form_minutes_hint"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:hint="@string/time_entry_form_minutes_hint" />
 
                 <android.support.v7.widget.AppCompatTextView
                     style="@style/TimeEntryForm.DurationLabel"

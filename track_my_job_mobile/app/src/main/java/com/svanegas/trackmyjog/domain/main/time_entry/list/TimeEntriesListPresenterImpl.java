@@ -34,6 +34,7 @@ import static com.svanegas.trackmyjog.util.HttpErrorHelper.isHttpError;
 import static com.svanegas.trackmyjog.util.HttpErrorHelper.isUnauthorizedError;
 import static com.svanegas.trackmyjog.util.HttpErrorHelper.parseHttpError;
 import static com.svanegas.trackmyjog.util.PreferencesManager.KM_UNIT;
+import static com.svanegas.trackmyjog.util.PreferencesManager.MILE_UNIT;
 
 public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
 
@@ -46,6 +47,9 @@ public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
 
     public static final String INPUT_DATE_FORMAT = "yyyy-MM-dd";
     private static final float UNITS_RELATIVE_SIZE = 0.7f;
+
+    public static final double KM_CONVERSION_FACTOR = 1000.0;
+    public static final double MI_CONVERSION_FACTOR = 1609.344;
 
     private TimeEntriesListView mView;
 
@@ -119,7 +123,7 @@ public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
 
     @Override
     public Spannable setupDistanceText(long distance) {
-        String units = KM_UNIT; // Maybe take preferred units from preferences.
+        String units = mPreferencesManager.getDistanceUnits();
         String textWithUnits = String.format(Locale.US, "%.2f %s",
                 computeDistance(distance, units),
                 units);
@@ -175,14 +179,17 @@ public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
      * Converts the given distance to the desired units.
      *
      * @param distance distance in meters
-     * @param units    desired units, possible units: {@link PreferencesManager#KM_UNIT}
+     * @param units    desired units, possible units: {@link PreferencesManager#KM_UNIT},
+     *                 {@link PreferencesManager#MILE_UNIT}.
      * @return double representation of the given distance in given units
      * @throws IllegalArgumentException when given {@param #units} does not belong to possible units
      */
-    private double computeDistance(long distance, String units) {
+    public static double computeDistance(long distance, String units) {
         switch (units) {
             case KM_UNIT:
-                return distance / 1000f;
+                return distance / KM_CONVERSION_FACTOR;
+            case MILE_UNIT:
+                return distance / MI_CONVERSION_FACTOR;
             default:
                 throw new IllegalArgumentException(units + " is not a valid unit");
         }

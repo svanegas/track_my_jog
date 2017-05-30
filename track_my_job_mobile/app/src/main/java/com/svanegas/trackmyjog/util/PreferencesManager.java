@@ -18,6 +18,7 @@ public class PreferencesManager {
     public static final String EMAIL_KEY = "email";
 
     public static final String KM_UNIT = "km";
+    public static final String MILE_UNIT = "mi.";
     private static final String DISTANCE_UNIT_KEY = "distance_unit";
 
     private static final String ROLE_KEY = "role";
@@ -69,7 +70,7 @@ public class PreferencesManager {
         return getAuthToken() != null && getClient() != null && getUid() != null;
     }
 
-    public String getDistanceUnit() {
+    public String getDistanceUnits() {
         return mPreferences.getString(DISTANCE_UNIT_KEY, KM_UNIT);
     }
 

@@ -9,7 +9,7 @@
     <string name="settings_mi_value">Miles</string>
 
     <string name="settings_km_key">km</string>
-    <string name="settings_mi_key">mi</string>
+    <string name="settings_mi_key">mi.</string>
 
     <string-array name="distance_units">
         <item>@string/settings_km_value</item>

@@ -24,7 +24,9 @@ interface TimeEntryFormView {
 
     void populateDate(Calendar calendar);
 
-    void populateDistance(long distance);
+    void populateDistanceUnits(String distanceUnits);
+
+    void populateDistance(double distance);
 
     void populateDuration(long duration);
 
