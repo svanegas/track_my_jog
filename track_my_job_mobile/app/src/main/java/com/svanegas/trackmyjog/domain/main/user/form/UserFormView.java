@@ -47,4 +47,6 @@ interface UserFormView {
     void showDisplayableError(String errorMessage);
 
     void showUnknownError();
+
+    void goToWelcomeDueUnauthorized();
 }

@@ -31,6 +31,7 @@ import static com.svanegas.trackmyjog.domain.main.time_entry.list.TimeEntriesLis
 import static com.svanegas.trackmyjog.domain.main.time_entry.list.TimeEntriesListPresenterImpl.computeDistance;
 import static com.svanegas.trackmyjog.network.ConnectionInterceptor.isInternetConnectionError;
 import static com.svanegas.trackmyjog.util.HttpErrorHelper.isHttpError;
+import static com.svanegas.trackmyjog.util.HttpErrorHelper.isUnauthorizedError;
 import static com.svanegas.trackmyjog.util.HttpErrorHelper.parseHttpError;
 import static com.svanegas.trackmyjog.util.PreferencesManager.KM_UNIT;
 import static com.svanegas.trackmyjog.util.PreferencesManager.MILE_UNIT;
@@ -104,6 +105,8 @@ public class TimeEntryFormPresenterImpl implements TimeEntryFormPresenter {
                         mView.showTimeoutError();
                     } else if (isInternetConnectionError(throwable)) {
                         mView.showNoConnectionError();
+                    } else if (isUnauthorizedError(throwable)) {
+                        mView.goToWelcomeDueUnauthorized(throwable);
                     } else if (isHttpError(throwable)) {
                         APIError error = parseHttpError((HttpException) throwable);
                         if (error != null && error.getErrorMessage() != null) {
@@ -130,6 +133,8 @@ public class TimeEntryFormPresenterImpl implements TimeEntryFormPresenter {
                         mView.showTimeoutError();
                     } else if (isInternetConnectionError(throwable)) {
                         mView.showNoConnectionError();
+                    } else if (isUnauthorizedError(throwable)) {
+                        mView.goToWelcomeDueUnauthorized(throwable);
                     } else if (isHttpError(throwable)) {
                         APIError error = parseHttpError((HttpException) throwable);
                         if (error != null && error.getErrorMessage() != null) {
@@ -174,6 +179,8 @@ public class TimeEntryFormPresenterImpl implements TimeEntryFormPresenter {
                         mView.showTimeoutError();
                     } else if (isInternetConnectionError(throwable)) {
                         mView.showNoConnectionError();
+                    } else if (isUnauthorizedError(throwable)) {
+                        mView.goToWelcomeDueUnauthorized(throwable);
                     } else if (isHttpError(throwable)) {
                         APIError error = parseHttpError((HttpException) throwable);
                         if (error != null && error.getErrorMessage() != null) {

@@ -293,6 +293,11 @@ public class TimeEntryFormFormFragment extends Fragment implements TimeEntryForm
         mViewHolder.errorMessage.setText(R.string.error_unknown);
     }
 
+    @Override
+    public void goToWelcomeDueUnauthorized(Throwable throwable) {
+        mListener.onUnauthorizedUser();
+    }
+
     private void setLoadingAndFieldsEnabled(boolean enabled) {
         mViewHolder.progressBar.setVisibility(enabled ? View.GONE : View.VISIBLE);
         mViewHolder.datePicker.setEnabled(enabled);
@@ -353,5 +358,7 @@ public class TimeEntryFormFormFragment extends Fragment implements TimeEntryForm
         void onActivityTitleRequested(int titleResId);
 
         void goToTimeEntriesList();
+
+        void onUnauthorizedUser();
     }
 }

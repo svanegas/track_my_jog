@@ -161,7 +161,7 @@ public class UsersListFragment extends Fragment implements UsersListView,
 
     @Override
     public void goToWelcomeDueUnauthorized() {
-        Toast.makeText(getContext(), "Welcome due unauthorized", Toast.LENGTH_SHORT).show();
+        mListener.onUnauthorizedUser();
     }
 
     @Override
@@ -212,5 +212,7 @@ public class UsersListFragment extends Fragment implements UsersListView,
         void onAddUserRequested();
 
         void onUpdateUserRequested(long userId);
+
+        void onUnauthorizedUser();
     }
 }

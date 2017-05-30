@@ -53,4 +53,6 @@ interface TimeEntryFormView {
     void showUnableToParseDateError();
 
     void showUnknownError();
+
+    void goToWelcomeDueUnauthorized(Throwable throwable);
 }

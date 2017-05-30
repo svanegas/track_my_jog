@@ -31,6 +31,7 @@ import static com.svanegas.trackmyjog.domain.main.time_entry.list.TimeEntriesLis
 import static com.svanegas.trackmyjog.domain.main.time_entry.list.TimeEntriesListPresenterImpl.createSpeedText;
 import static com.svanegas.trackmyjog.network.ConnectionInterceptor.isInternetConnectionError;
 import static com.svanegas.trackmyjog.util.HttpErrorHelper.isHttpError;
+import static com.svanegas.trackmyjog.util.HttpErrorHelper.isUnauthorizedError;
 import static com.svanegas.trackmyjog.util.HttpErrorHelper.parseHttpError;
 
 public class ReportPresenterImpl implements ReportPresenter {
@@ -90,6 +91,8 @@ public class ReportPresenterImpl implements ReportPresenter {
                         mView.showTimeoutError();
                     } else if (isInternetConnectionError(throwable)) {
                         mView.showNoConnectionError();
+                    } else if (isUnauthorizedError(throwable)) {
+                        mView.goToWelcomeDueUnauthorized();
                     } else if (isHttpError(throwable)) {
                         APIError error = parseHttpError((HttpException) throwable);
                         if (error != null && error.getErrorMessage() != null) {

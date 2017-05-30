@@ -35,6 +35,8 @@ import com.svanegas.trackmyjog.domain.settings.SettingsFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.svanegas.trackmyjog.domain.landing.LandingActivity.UNAUTHORIZED_TAG;
+
 public class MainActivity extends AppCompatActivity implements MainView,
         NavigationView.OnNavigationItemSelectedListener,
         TimeEntriesListFragment.OnTimeEntriesListInteractionListener,
@@ -160,6 +162,15 @@ public class MainActivity extends AppCompatActivity implements MainView,
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onUnauthorizedUser() {
+        mPresenter.clearPreferences();
+        Intent intent = new Intent(this, LandingActivity.class);
+        intent.putExtra(UNAUTHORIZED_TAG, true);
+        startActivity(intent);
+        finishAffinity();
     }
 
     @Override

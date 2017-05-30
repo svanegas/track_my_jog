@@ -272,7 +272,7 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
 
     @Override
     public void goToWelcomeDueUnauthorized() {
-        Toast.makeText(getContext(), "Welcome due unauthorized", Toast.LENGTH_SHORT).show();
+        mListener.onUnauthorizedUser();
     }
 
     @Override
@@ -355,5 +355,7 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
         void onAddTimeEntryRequested();
 
         void onUpdateTimeEntryRequested(long timeEntryId);
+
+        void onUnauthorizedUser();
     }
 }

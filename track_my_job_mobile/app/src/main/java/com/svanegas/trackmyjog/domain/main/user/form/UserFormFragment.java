@@ -296,6 +296,11 @@ public class UserFormFragment extends Fragment implements UserFormView,
         mViewHolder.errorMessage.setText(R.string.error_unknown);
     }
 
+    @Override
+    public void goToWelcomeDueUnauthorized() {
+        mListener.onUnauthorizedUser();
+    }
+
     private void setLoadingAndFieldsEnabled(boolean enabled) {
         mViewHolder.progressBar.setVisibility(enabled ? View.GONE : View.VISIBLE);
         mViewHolder.nameField.setEnabled(enabled);
@@ -362,5 +367,7 @@ public class UserFormFragment extends Fragment implements UserFormView,
         void onActivityTitleRequested(int titleResId);
 
         void goToUsersList();
+
+        void onUnauthorizedUser();
     }
 }

@@ -75,4 +75,10 @@ public class MainPresenterImpl implements MainPresenter {
         mView.populateHeaderRole(displayableRoleResId);
         mView.populateNavigationViewItems(menuResId);
     }
+
+    @Override
+    public void clearPreferences() {
+        mPreferencesManager.removeAuthHeaders();
+        mPreferencesManager.removeUserInfo();
+    }
 }
