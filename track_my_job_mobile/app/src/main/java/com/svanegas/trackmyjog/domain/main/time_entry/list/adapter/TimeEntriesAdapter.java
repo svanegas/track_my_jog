@@ -51,6 +51,7 @@ public class TimeEntriesAdapter extends RecyclerView.Adapter<TimeEntriesAdapter.
 
         holder.distanceValue.setText(mPresenter.setupDistanceText(timeEntry.getDistance()));
         holder.durationValue.setText(mPresenter.setupDurationText(timeEntry.getDuration()));
+        holder.speedValue.setText(mPresenter.setupSpeedText(timeEntry));
         holder.rootView.setOnClickListener(view -> mPresenter.timeEntryClicked(timeEntry));
     }
 
@@ -76,6 +77,9 @@ public class TimeEntriesAdapter extends RecyclerView.Adapter<TimeEntriesAdapter.
 
         @BindView(R.id.duration_value)
         AppCompatTextView durationValue;
+
+        @BindView(R.id.speed_value)
+        AppCompatTextView speedValue;
 
         ViewHolder(View itemView) {
             super(itemView);

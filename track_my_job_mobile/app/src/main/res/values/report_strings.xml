@@ -7,4 +7,9 @@
     <string name="report_date_range_format">%1$s - %2$s</string>
     <string name="report_without_year_format">EEEE, MMMM dd</string>
     <string name="report_with_year_format">MMMM dd, yyyy</string>
+
+    <string name="report_total_records_in_week_label">Total records in week</string>
+    <string name="report_total_distance_label">Total distance</string>
+    <string name="report_total_duration_label">Total duration</string>
+    <string name="report_average_speed_label">Average speed</string>
 </resources>

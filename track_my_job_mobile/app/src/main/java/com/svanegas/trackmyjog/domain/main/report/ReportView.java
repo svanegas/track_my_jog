@@ -1,5 +1,7 @@
 package com.svanegas.trackmyjog.domain.main.report;
 
+import android.text.Spannable;
+
 import com.svanegas.trackmyjog.repository.model.Report;
 
 interface ReportView {
@@ -9,6 +11,12 @@ interface ReportView {
     void populateEmpty();
 
     void populateReport(Report report);
+
+    void populateDistance(Spannable spannable);
+
+    void populateDuration(Spannable spannable);
+
+    void populateSpeed(Spannable spannable);
 
     void showLoadingAndDisableFields(boolean pulledToRefresh);
 

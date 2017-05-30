@@ -1,12 +1,14 @@
 package com.svanegas.trackmyjog.domain.main.report;
 
 import android.content.Context;
+import android.text.Spannable;
 import android.util.Log;
 
 import com.svanegas.trackmyjog.R;
 import com.svanegas.trackmyjog.TrackMyJogApplication;
 import com.svanegas.trackmyjog.interactor.TimeEntryInteractor;
 import com.svanegas.trackmyjog.repository.model.APIError;
+import com.svanegas.trackmyjog.util.PreferencesManager;
 
 import java.net.SocketTimeoutException;
 import java.text.DateFormat;
@@ -24,6 +26,9 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
 import static com.svanegas.trackmyjog.domain.main.time_entry.list.TimeEntriesListPresenterImpl.INPUT_DATE_FORMAT;
+import static com.svanegas.trackmyjog.domain.main.time_entry.list.TimeEntriesListPresenterImpl.createDistanceTextWithUnits;
+import static com.svanegas.trackmyjog.domain.main.time_entry.list.TimeEntriesListPresenterImpl.createDurationText;
+import static com.svanegas.trackmyjog.domain.main.time_entry.list.TimeEntriesListPresenterImpl.createSpeedText;
 import static com.svanegas.trackmyjog.network.ConnectionInterceptor.isInternetConnectionError;
 import static com.svanegas.trackmyjog.util.HttpErrorHelper.isHttpError;
 import static com.svanegas.trackmyjog.util.HttpErrorHelper.parseHttpError;
@@ -39,6 +44,9 @@ public class ReportPresenterImpl implements ReportPresenter {
 
     @Inject
     Context mContext;
+
+    @Inject
+    PreferencesManager mPreferencesManager;
 
     @Inject
     CompositeDisposable mDisposables;
@@ -69,7 +77,13 @@ public class ReportPresenterImpl implements ReportPresenter {
                         mView.showUnableToParseDateError();
                     }
                     if (report.getCount() == 0) mView.populateEmpty();
-                    else mView.populateReport(report);
+                    else {
+                        mView.populateReport(report);
+                        mView.populateDistance(setupDistanceText(report.getDistanceSum()));
+                        mView.populateDuration(setupDurationText(report.getDurationSum()));
+                        mView.populateSpeed(setupSpeedText(report.getDistanceSum(),
+                                report.getDurationSum()));
+                    }
                 }, throwable -> {
                     mView.hideLoadingAndEnableFields(pulledToRefresh);
                     if (throwable instanceof SocketTimeoutException) {
@@ -87,6 +101,19 @@ public class ReportPresenterImpl implements ReportPresenter {
                     }
                 });
         mDisposables.add(disposable);
+    }
+
+    private Spannable setupSpeedText(long distanceSum, long durationSum) {
+        return createSpeedText(mContext, distanceSum, durationSum,
+                mPreferencesManager.getDistanceUnits());
+    }
+
+    private Spannable setupDistanceText(long distanceSum) {
+        return createDistanceTextWithUnits(distanceSum, mPreferencesManager.getDistanceUnits());
+    }
+
+    private Spannable setupDurationText(long durationSum) {
+        return createDurationText(mContext, durationSum);
     }
 
     @Override

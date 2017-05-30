@@ -3,6 +3,7 @@ package com.svanegas.trackmyjog.domain.main.time_entry.list;
 import android.content.Context;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 
@@ -135,25 +136,18 @@ public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
     @Override
     public Spannable setupDistanceText(long distance) {
         String units = mPreferencesManager.getDistanceUnits();
-        String textWithUnits = String.format(Locale.US, "%.2f %s",
-                computeDistance(distance, units),
-                units);
-        Spannable span = new SpannableString(textWithUnits);
-        span.setSpan(new RelativeSizeSpan(UNITS_RELATIVE_SIZE),
-                textWithUnits.length() - units.length(),
-                textWithUnits.length(),
-                Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-        return span;
+        return createDistanceTextWithUnits(distance, units);
     }
 
     @Override
-    public String setupDurationText(long duration) {
-        long hours = duration / 60;
-        long minutes = duration % 60;
-        if (hours > 0) {
-            if (minutes != 0) return String.format(Locale.US, "%d hr %d min", hours, minutes);
-            else return String.format(Locale.US, "%d hr", hours);
-        } else return String.format(Locale.US, "%d min", minutes);
+    public Spannable setupDurationText(long duration) {
+        return createDurationText(mContext, duration);
+    }
+
+    @Override
+    public Spannable setupSpeedText(TimeEntry timeEntry) {
+        String units = mPreferencesManager.getDistanceUnits();
+        return createSpeedText(mContext, timeEntry.getDistance(), timeEntry.getDuration(), units);
     }
 
     @Override
@@ -219,6 +213,83 @@ public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
                 return distance / MI_CONVERSION_FACTOR;
             default:
                 throw new IllegalArgumentException(units + " is not a valid unit");
+        }
+    }
+
+    /**
+     * Given a distance in meters and desired distance units, creates a {@link Spannable} text
+     * with those parameters.
+     *
+     * @param distance meters representation of desired distance.
+     * @param units    units to be placed in the {@link Spannable}.
+     * @return spannable with the distance converted and including its units.
+     */
+    public static Spannable createDistanceTextWithUnits(long distance, String units) {
+        String textWithUnits = String.format(Locale.US, "%.2f %s",
+                computeDistance(distance, units),
+                units);
+        Spannable span = new SpannableString(textWithUnits);
+        applyResizeSpan(span, textWithUnits, units);
+        return span;
+    }
+
+    public static Spannable createDurationText(Context context, long duration) {
+        long hours = duration / 60;
+        long minutes = duration % 60;
+        String resultText;
+        String hourLabel = context.getString(R.string.time_entries_list_duration_hr);
+        String minLabel = context.getString(R.string.time_entries_list_duration_min);
+        if (hours > 0) {
+            if (minutes != 0) {
+                resultText = String.format(Locale.US, "%d %s %d %s",
+                        hours, hourLabel, minutes, minLabel);
+            } else {
+                resultText = String.format(Locale.US, "%d %s", hours, hourLabel);
+            }
+        } else resultText = String.format(Locale.US, "%d %s", minutes, minLabel);
+        Spannable span = new SpannableString(resultText);
+        applyResizeSpan(span, resultText, hourLabel);
+        applyResizeSpan(span, resultText, minLabel);
+        return span;
+    }
+
+    public static Spannable createSpeedText(Context context, long distance, long duration,
+                                            String units) {
+        double distanceDouble = computeDistance(distance, units);
+        double hours = duration / 60.0;
+        double average = distanceDouble / hours;
+        String speedUnit;
+        switch (units) {
+            case KM_UNIT:
+                speedUnit = context.getString(R.string.time_entries_list_speed_km);
+                break;
+            case MILE_UNIT:
+                speedUnit = context.getString(R.string.time_entries_list_speed_mi);
+                break;
+            default:
+                speedUnit = "";
+                break;
+        }
+        String speedText = String.format(Locale.US, "%.2f %s", average, speedUnit);
+        Spannable span = new SpannableString(speedText);
+        applyResizeSpan(span, speedText, speedUnit);
+        return span;
+    }
+
+    /**
+     * Applies a {@link RelativeSizeSpan} to the given {@link Spannable} if the label is found.
+     *
+     * @param span  current span to apply resize.
+     * @param text  full text that may contain the given label.
+     * @param label label to find and apply the span to.
+     */
+    private static void applyResizeSpan(Spannable span, String text, String label) {
+        int indexOfLabel = text.indexOf(label);
+        if (indexOfLabel != -1) {
+            span.setSpan(new RelativeSizeSpan(UNITS_RELATIVE_SIZE),
+                    indexOfLabel,
+                    indexOfLabel + label.length(),
+                    Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         }
     }
 

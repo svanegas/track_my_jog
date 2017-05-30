@@ -21,6 +21,12 @@
     <string name="time_entries_list_sort_distance">Distance</string>
     <string name="time_entries_list_sort_duration">Duration</string>
 
+    <string name="time_entries_list_speed_km">km/h</string>
+    <string name="time_entries_list_speed_mi">mph</string>
+
+    <string name="time_entries_list_duration_hr">hr</string>
+    <string name="time_entries_list_duration_min">min</string>
+
     <string-array name="time_entries_list_sort_options">
         <item>@string/time_entries_list_sort_date</item>
         <item>@string/time_entries_list_sort_distance</item>

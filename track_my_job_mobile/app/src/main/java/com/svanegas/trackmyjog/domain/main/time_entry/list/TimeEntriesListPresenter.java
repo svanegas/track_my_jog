@@ -28,7 +28,9 @@ public interface TimeEntriesListPresenter {
 
     Spannable setupDistanceText(long distance);
 
-    String setupDurationText(long duration);
+    Spannable setupDurationText(long duration);
+
+    Spannable setupSpeedText(TimeEntry timeEntry);
 
     void unsubscribe();
 }

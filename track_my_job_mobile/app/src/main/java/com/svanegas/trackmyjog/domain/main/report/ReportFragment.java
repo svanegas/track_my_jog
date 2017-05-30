@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
+import android.text.Spannable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -118,8 +119,21 @@ public class ReportFragment extends Fragment implements ReportView,
         mViewHolder.reportContent.setVisibility(View.VISIBLE);
         mViewHolder.emptyScreen.setVisibility(View.GONE);
         mViewHolder.entriesCount.setText(String.valueOf(report.getCount()));
-        mViewHolder.distanceSum.setText(String.valueOf(report.getDistanceSum()));
-        mViewHolder.durationSum.setText(String.valueOf(report.getDurationSum()));
+    }
+
+    @Override
+    public void populateDistance(Spannable spannable) {
+        mViewHolder.distanceSum.setText(spannable);
+    }
+
+    @Override
+    public void populateDuration(Spannable spannable) {
+        mViewHolder.durationSum.setText(spannable);
+    }
+
+    @Override
+    public void populateSpeed(Spannable spannable) {
+        mViewHolder.speed.setText(spannable);
     }
 
     @Override
@@ -191,6 +205,9 @@ public class ReportFragment extends Fragment implements ReportView,
 
         @BindView(R.id.duration_sum_value)
         AppCompatTextView durationSum;
+
+        @BindView(R.id.speed_value)
+        AppCompatTextView speed;
 
         @BindView(R.id.screen_message_root)
         ViewGroup emptyScreen;
