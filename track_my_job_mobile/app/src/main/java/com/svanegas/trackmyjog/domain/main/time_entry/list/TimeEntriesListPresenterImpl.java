@@ -33,6 +33,7 @@ import static com.svanegas.trackmyjog.network.ConnectionInterceptor.isInternetCo
 import static com.svanegas.trackmyjog.util.HttpErrorHelper.isHttpError;
 import static com.svanegas.trackmyjog.util.HttpErrorHelper.isUnauthorizedError;
 import static com.svanegas.trackmyjog.util.HttpErrorHelper.parseHttpError;
+import static com.svanegas.trackmyjog.util.PreferencesManager.KM_UNIT;
 
 public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
 
@@ -45,7 +46,6 @@ public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
 
     public static final String INPUT_DATE_FORMAT = "yyyy-MM-dd";
     private static final float UNITS_RELATIVE_SIZE = 0.7f;
-    private static final String KM_UNIT = "km";
 
     private TimeEntriesListView mView;
 
@@ -175,7 +175,7 @@ public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
      * Converts the given distance to the desired units.
      *
      * @param distance distance in meters
-     * @param units    desired units, possible units: {@link #KM_UNIT}
+     * @param units    desired units, possible units: {@link PreferencesManager#KM_UNIT}
      * @return double representation of the given distance in given units
      * @throws IllegalArgumentException when given {@param #units} does not belong to possible units
      */

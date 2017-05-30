@@ -8,6 +8,8 @@ interface MainView {
 
     void goToReport();
 
+    void goToSettings();
+
     void goToWelcome();
 
     void populateHeaderName(String name);

@@ -14,14 +14,17 @@ public class PreferencesManager {
     public static final String CLIENT_KEY = "client";
     public static final String UID_KEY = "uid";
     private static final String ID_KEY = "id";
-    private static final String NAME_KEY = "name";
-    private static final String EMAIL_KEY = "email";
-    private static final String ROLE_KEY = "role";
+    public static final String NAME_KEY = "name";
+    public static final String EMAIL_KEY = "email";
 
+    public static final String KM_UNIT = "km";
+    private static final String DISTANCE_UNIT_KEY = "distance_unit";
+
+    private static final String ROLE_KEY = "role";
     public static final String REGULAR_ROLE = "regular";
+
     public static final String MANAGER_ROLE = "manager";
     public static final String ADMIN_ROLE = "admin";
-
 
     private SharedPreferences mPreferences;
 
@@ -64,6 +67,10 @@ public class PreferencesManager {
 
     public boolean isLoggedIn() {
         return getAuthToken() != null && getClient() != null && getUid() != null;
+    }
+
+    public String getDistanceUnit() {
+        return mPreferences.getString(DISTANCE_UNIT_KEY, KM_UNIT);
     }
 
     public void saveAuthHeaders(String accessToken, String client, String uid) {

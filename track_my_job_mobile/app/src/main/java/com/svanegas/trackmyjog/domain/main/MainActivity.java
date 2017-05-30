@@ -30,6 +30,7 @@ import com.svanegas.trackmyjog.domain.main.time_entry.form.TimeEntryFormFormFrag
 import com.svanegas.trackmyjog.domain.main.time_entry.list.TimeEntriesListFragment;
 import com.svanegas.trackmyjog.domain.main.user.form.UserFormFragment;
 import com.svanegas.trackmyjog.domain.main.user.list.UsersListFragment;
+import com.svanegas.trackmyjog.domain.settings.SettingsFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,7 +42,8 @@ public class MainActivity extends AppCompatActivity implements MainView,
         TimeEntryFormFormFragment.OnTimeEntryFormListener,
         UserFormFragment.OnUserFormListener,
         AdapterView.OnItemSelectedListener,
-        ReportFragment.OnReportListener {
+        ReportFragment.OnReportListener,
+        SettingsFragment.OnSettingsListener {
 
     @BindView(R.id.drawer_layout)
     ViewGroup rootView;
@@ -173,6 +175,15 @@ public class MainActivity extends AppCompatActivity implements MainView,
     public void goToReport() {
         mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         ReportFragment fragment = ReportFragment.newInstance();
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void goToSettings() {
+        mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        SettingsFragment fragment = SettingsFragment.newInstance();
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();

@@ -6,7 +6,6 @@
     <string name="main_drawer_open">Open navigation drawer</string>
     <string name="main_drawer_close">Close navigation drawer</string>
 
-    <string name="main_action_settings">Settings</string>
     <string name="main_action_log_out">Log out</string>
 
     <string name="main_admin_role">Administrator</string>

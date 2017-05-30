@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="General">
+        <ListPreference
+            android:defaultValue="@string/settings_km_key"
+            android:dialogTitle="@string/settings_distance_units_dialog_title"
+            android:entries="@array/distance_units"
+            android:entryValues="@array/distance_units_values"
+            android:key="distance_unit"
+            android:summary="%s"
+            android:title="@string/settings_distance_units_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Account">
+        <Preference
+            android:key="name"
+            android:title="Name" />
+
+        <Preference
+            android:key="email"
+            android:title="Email" />
+
+        <PreferenceScreen
+            android:key="change_password"
+            android:title="Change password" />
+    </PreferenceCategory>
+</PreferenceScreen>
