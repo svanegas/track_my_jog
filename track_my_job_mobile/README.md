@@ -34,8 +34,15 @@ the project root and wait for the project to sync.
 - Click on the "Run" button and select the target device.
 - Make sure the target device is connected to the same network where the server is running.
 
+## Credits
+
+Launcher icon made by [Nikita Golubev] from [Flaticon] is licensed by [Creative Commons BY 3.0].
+
 [Butter Knife]:http://jakewharton.github.io/butterknife/
 [Dagger 2]:https://google.github.io/dagger/
 [RxJava 2]:https://github.com/ReactiveX/RxJava
 [Retrofit]:http://square.github.io/retrofit/
 [Android Studio]:https://developer.android.com/studio/index.html
+[Nikita Golubev]:http://www.flaticon.com/authors/nikita-golubev
+[Flaticon]:http://www.flaticon.com
+[Creative Commons BY 3.0]:http://creativecommons.org/licenses/by/3.0/
