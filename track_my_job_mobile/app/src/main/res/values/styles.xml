@@ -28,7 +28,7 @@
     </style>
 
     <style name="AppTheme.ErrorIndicator">
-        <item name="android:background">@color/red_opaque</item>
+        <item name="android:background">@android:color/holo_red_light</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">@dimen/error_indicator_padding</item>
