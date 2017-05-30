@@ -60,6 +60,12 @@ public class LoginFragment extends Fragment implements LoginView {
         mListener = null;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mPresenter.unsubscribe();
+    }
+
     @OnClick(R.id.submit_button)
     public void onSubmitClicked() {
         mPresenter.validateLogin();

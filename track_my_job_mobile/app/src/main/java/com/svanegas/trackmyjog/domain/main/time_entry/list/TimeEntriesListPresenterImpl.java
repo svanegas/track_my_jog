@@ -26,6 +26,9 @@ import javax.inject.Inject;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
@@ -62,6 +65,9 @@ public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
     @Inject
     PreferencesManager mPreferencesManager;
 
+    @Inject
+    CompositeDisposable mDisposables;
+
     TimeEntriesListPresenterImpl(TimeEntriesListView timeEntriesListView) {
         mView = timeEntriesListView;
         TrackMyJogApplication.getInstance().getApplicationComponent().inject(this);
@@ -85,13 +91,18 @@ public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
 
     @Override
     public void fetchTimeEntries(boolean pulledToRefresh) {
-        Single<List<TimeEntry>> single = mInteractor.fetchTimeEntries();
+        String dateFrom = parseDateToString(mView.dateFrom());
+        String dateTo = parseDateToString(mView.dateTo());
+        Single<List<TimeEntry>> single = mInteractor.fetchTimeEntries(dateFrom, dateTo);
         processTimeEntries(single, pulledToRefresh);
     }
 
     @Override
     public void fetchTimeEntriesByCurrentUser(boolean pulledToRefresh) {
-        Single<List<TimeEntry>> single = mInteractor.fetchTimeEntries(mPreferencesManager.getId());
+        String dateFrom = parseDateToString(mView.dateFrom());
+        String dateTo = parseDateToString(mView.dateTo());
+        Single<List<TimeEntry>> single = mInteractor.fetchTimeEntries(mPreferencesManager.getId(),
+                dateFrom, dateTo);
         processTimeEntries(single, pulledToRefresh);
     }
 
@@ -145,10 +156,25 @@ public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
         } else return String.format(Locale.US, "%d min", minutes);
     }
 
+    @Override
+    public void unsubscribe() {
+        mDisposables.clear();
+    }
+
+    @Override
+    public void processSelectedFilterFrom(Calendar date) {
+        mView.populateFilterDateFrom(formatSelectedDateFilter(date));
+    }
+
+    @Override
+    public void processSelectedFilterTo(Calendar date) {
+        mView.populateFilterDateTo(formatSelectedDateFilter(date));
+    }
+
     private void processTimeEntries(Single<List<TimeEntry>> timeEntriesSingle,
                                     boolean pulledToRefresh) {
         mView.showLoading(pulledToRefresh);
-        timeEntriesSingle
+        Disposable disposable = timeEntriesSingle
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(timeEntries -> {
@@ -173,6 +199,7 @@ public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
                         mView.showUnknownError();
                     }
                 });
+        mDisposables.add(disposable);
     }
 
     /**
@@ -193,5 +220,34 @@ public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
             default:
                 throw new IllegalArgumentException(units + " is not a valid unit");
         }
+    }
+
+    /**
+     * Returns a String representation of the given Calendar in format yyyy-mm-dd.
+     *
+     * @return string representation of the given date, null if given date is null.
+     */
+    private String parseDateToString(Calendar date) {
+        if (date != null) {
+            return String.format(Locale.US, "%d-%d-%d",
+                    date.get(Calendar.YEAR),
+                    date.get(Calendar.MONTH) + 1,
+                    date.get(Calendar.DAY_OF_MONTH));
+        } else return null;
+    }
+
+    /**
+     * Returns a pretty string representation of a given date.
+     *
+     * @param date date to prettify.
+     * @return string representation of the given date.
+     */
+    private String formatSelectedDateFilter(@NonNull Calendar date) {
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        String outFormatString;
+        if (currentYear == date.get(Calendar.YEAR)) {
+            outFormatString = mContext.getString(R.string.time_entries_list_without_year_format);
+        } else outFormatString = mContext.getString(R.string.time_entries_list_with_year_format);
+        return new SimpleDateFormat(outFormatString, Locale.US).format(date.getTime());
     }
 }

@@ -72,6 +72,12 @@ public class ReportFragment extends Fragment implements ReportView,
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mPresenter.unsubscribe();
+    }
+
+    @Override
     public void onRefresh() {
         mPresenter.fetchReport(mCalendar, true);
     }
@@ -84,9 +90,14 @@ public class ReportFragment extends Fragment implements ReportView,
     }
 
     @Override
-    public void onDateSet(Calendar date) {
+    public void onDateSet(Calendar date, int identifier) {
         mCalendar = date;
         mPresenter.fetchReport(mCalendar, false);
+    }
+
+    @Override
+    public void onDateCleared(int identifier) {
+        // Do nothing
     }
 
     @Override

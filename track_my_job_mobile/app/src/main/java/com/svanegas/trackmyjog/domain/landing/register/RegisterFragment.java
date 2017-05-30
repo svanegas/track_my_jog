@@ -60,6 +60,12 @@ public class RegisterFragment extends Fragment implements RegisterView {
         mListener = null;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mPresenter.unsubscribe();
+    }
+
     @OnClick(R.id.submit_button)
     public void onSubmitClicked() {
         mPresenter.validateRegistration();

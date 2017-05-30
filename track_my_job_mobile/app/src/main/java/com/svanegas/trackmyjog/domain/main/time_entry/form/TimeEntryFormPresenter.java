@@ -9,4 +9,6 @@ interface TimeEntryFormPresenter {
     void fetchTimeEntry(long timeEntryId);
 
     void deleteTimeEntry(long timeEntryId);
+
+    void unsubscribe();
 }

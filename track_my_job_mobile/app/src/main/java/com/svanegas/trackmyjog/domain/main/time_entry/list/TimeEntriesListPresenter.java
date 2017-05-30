@@ -5,11 +5,16 @@ import android.text.Spannable;
 import com.svanegas.trackmyjog.repository.model.TimeEntry;
 
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.List;
 
 public interface TimeEntriesListPresenter {
 
     void determineActivityTitle();
+
+    void processSelectedFilterFrom(Calendar date);
+
+    void processSelectedFilterTo(Calendar date);
 
     void timeEntryClicked(TimeEntry timeEntry);
 
@@ -24,4 +29,6 @@ public interface TimeEntriesListPresenter {
     Spannable setupDistanceText(long distance);
 
     String setupDurationText(long duration);
+
+    void unsubscribe();
 }

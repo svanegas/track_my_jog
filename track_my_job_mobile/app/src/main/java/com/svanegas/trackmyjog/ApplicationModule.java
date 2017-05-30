@@ -7,6 +7,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.disposables.CompositeDisposable;
 
 @Module
 class ApplicationModule {
@@ -27,5 +28,11 @@ class ApplicationModule {
     @Singleton
     Context providesContext() {
         return mApplication.getApplicationContext();
+    }
+
+    @Provides
+    @Singleton
+    CompositeDisposable providesCompositeDisposable() {
+        return new CompositeDisposable();
     }
 }

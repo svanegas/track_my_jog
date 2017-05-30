@@ -12,13 +12,14 @@ import com.svanegas.trackmyjog.repository.model.User;
 import com.svanegas.trackmyjog.util.PreferencesManager;
 
 import java.net.SocketTimeoutException;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
@@ -46,6 +47,9 @@ public class UsersListPresenterImpl implements UsersListPresenter {
     @Inject
     PreferencesManager mPreferencesManager;
 
+    @Inject
+    CompositeDisposable mDisposables;
+
     UsersListPresenterImpl(UsersListView usersListView) {
         mView = usersListView;
         TrackMyJogApplication.getInstance().getApplicationComponent().inject(this);
@@ -59,7 +63,7 @@ public class UsersListPresenterImpl implements UsersListPresenter {
     @Override
     public void fetchUsers(boolean pulledToRefresh) {
         mView.showLoading(pulledToRefresh);
-        mInteractor.fetchUsers()
+        Disposable disposable = mInteractor.fetchUsers()
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(users -> {
@@ -83,6 +87,7 @@ public class UsersListPresenterImpl implements UsersListPresenter {
                         mView.showUnknownError();
                     }
                 });
+        mDisposables.add(disposable);
     }
 
     @Override
@@ -109,5 +114,10 @@ public class UsersListPresenterImpl implements UsersListPresenter {
     @Override
     public int setupProfileIndicatorVisibility(User user) {
         return mPreferencesManager.getId() == user.getId() ? View.VISIBLE : View.GONE;
+    }
+
+    @Override
+    public void unsubscribe() {
+        mDisposables.clear();
     }
 }

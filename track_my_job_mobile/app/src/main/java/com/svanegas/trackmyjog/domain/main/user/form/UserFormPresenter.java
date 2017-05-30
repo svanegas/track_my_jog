@@ -7,4 +7,6 @@ interface UserFormPresenter {
     void fetchUser(long userId);
 
     void deleteUser(long userId);
+
+    void unsubscribe();
 }

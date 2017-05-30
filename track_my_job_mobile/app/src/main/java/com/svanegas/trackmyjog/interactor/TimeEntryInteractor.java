@@ -24,12 +24,12 @@ public class TimeEntryInteractor {
     }
 
 
-    public Single<List<TimeEntry>> fetchTimeEntries() {
-        return mRemoteRepository.fetchTimeEntries();
+    public Single<List<TimeEntry>> fetchTimeEntries(String dateFrom, String dateTo) {
+        return mRemoteRepository.fetchTimeEntries(dateFrom, dateTo);
     }
 
-    public Single<List<TimeEntry>> fetchTimeEntries(long userId) {
-        return mRemoteRepository.fetchTimeEntries(userId);
+    public Single<List<TimeEntry>> fetchTimeEntries(long userId, String dateFrom, String dateTo) {
+        return mRemoteRepository.fetchTimeEntries(userId, dateFrom, dateTo);
     }
 
     public Single<TimeEntry> fetchTimeEntry(long timeEntryId) {

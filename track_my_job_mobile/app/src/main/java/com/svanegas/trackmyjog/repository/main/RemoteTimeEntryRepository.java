@@ -21,13 +21,13 @@ public class RemoteTimeEntryRepository implements TimeEntryRepository {
     }
 
     @Override
-    public Single<List<TimeEntry>> fetchTimeEntries() {
-        return mService.fetchTimeEntries();
+    public Single<List<TimeEntry>> fetchTimeEntries(String dateFrom, String dateTo) {
+        return mService.fetchTimeEntries(dateFrom, dateTo);
     }
 
     @Override
-    public Single<List<TimeEntry>> fetchTimeEntries(long userId) {
-        return mService.fetchTimeEntries(userId);
+    public Single<List<TimeEntry>> fetchTimeEntries(long userId, String dateFrom, String dateTo) {
+        return mService.fetchTimeEntries(userId, dateFrom, dateTo);
     }
 
     @Override

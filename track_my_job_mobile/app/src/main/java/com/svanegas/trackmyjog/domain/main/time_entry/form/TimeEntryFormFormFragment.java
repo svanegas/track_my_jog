@@ -102,6 +102,12 @@ public class TimeEntryFormFormFragment extends Fragment implements TimeEntryForm
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mPresenter.unsubscribe();
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_time_entry_update, menu);

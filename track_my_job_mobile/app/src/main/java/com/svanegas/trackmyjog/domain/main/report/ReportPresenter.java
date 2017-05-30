@@ -5,4 +5,6 @@ import java.util.Calendar;
 interface ReportPresenter {
 
     void fetchReport(Calendar date, boolean pulledToRefresh);
+
+    void unsubscribe();
 }

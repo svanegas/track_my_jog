@@ -13,6 +13,8 @@ import java.net.SocketTimeoutException;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
@@ -33,6 +35,9 @@ public class RegisterPresenterImpl implements RegisterPresenter {
 
     @Inject
     PreferencesManager mPreferencesManager;
+
+    @Inject
+    CompositeDisposable mDisposables;
 
     RegisterPresenterImpl(RegisterView registerView) {
         mView = registerView;
@@ -55,8 +60,13 @@ public class RegisterPresenterImpl implements RegisterPresenter {
         else mView.hideLoadingAndEnableFields();
     }
 
+    @Override
+    public void unsubscribe() {
+        mDisposables.clear();
+    }
+
     private void registerUser(String name, String email, String password) {
-        mAutheInteractor.registerUser(name, email, password)
+        Disposable disposable = mAutheInteractor.registerUser(name, email, password)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(user -> {
@@ -78,6 +88,7 @@ public class RegisterPresenterImpl implements RegisterPresenter {
                         mView.showUnknownError();
                     }
                 });
+        mDisposables.add(disposable);
     }
 
     private boolean validateName(String name) {

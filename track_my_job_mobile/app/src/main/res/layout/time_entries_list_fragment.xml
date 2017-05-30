@@ -12,25 +12,34 @@
         android:layout_height="wrap_content"
         android:visibility="gone" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_layout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <include layout="@layout/time_entries_list_dates_filter" />
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <include layout="@layout/screen_message" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/time_entries_list"
-                style="@style/Main.List"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:listitem="@layout/time_entries_list_item" />
-        </LinearLayout>
-    </android.support.v4.widget.SwipeRefreshLayout>
+                android:layout_height="match_parent">
+
+                <include layout="@layout/screen_message" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/time_entries_list"
+                    style="@style/Main.List"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/time_entries_list_item" />
+            </LinearLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progress"

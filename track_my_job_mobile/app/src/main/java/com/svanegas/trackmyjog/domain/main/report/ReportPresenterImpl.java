@@ -18,6 +18,8 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
@@ -38,6 +40,9 @@ public class ReportPresenterImpl implements ReportPresenter {
     @Inject
     Context mContext;
 
+    @Inject
+    CompositeDisposable mDisposables;
+
     public ReportPresenterImpl(ReportView reportView) {
         mView = reportView;
         TrackMyJogApplication.getInstance().getApplicationComponent().inject(this);
@@ -50,7 +55,7 @@ public class ReportPresenterImpl implements ReportPresenter {
                 date.get(Calendar.YEAR),
                 date.get(Calendar.MONTH) + 1,
                 date.get(Calendar.DAY_OF_MONTH));
-        mInteractor.fetchReport(dateString)
+        Disposable disposable = mInteractor.fetchReport(dateString)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(report -> {
@@ -81,6 +86,12 @@ public class ReportPresenterImpl implements ReportPresenter {
                         mView.showUnknownError();
                     }
                 });
+        mDisposables.add(disposable);
+    }
+
+    @Override
+    public void unsubscribe() {
+        mDisposables.clear();
     }
 
     private String setupFormattedDate(String date) throws ParseException {

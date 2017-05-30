@@ -18,10 +18,13 @@ import retrofit2.http.Query;
 public interface TimeEntryService {
 
     @GET("time_entries")
-    Single<List<TimeEntry>> fetchTimeEntries();
+    Single<List<TimeEntry>> fetchTimeEntries(@Query("date_from") String dateFrom,
+                                             @Query("date_to") String dateTo);
 
     @GET("time_entries")
-    Single<List<TimeEntry>> fetchTimeEntries(@Query("user_id") long userId);
+    Single<List<TimeEntry>> fetchTimeEntries(@Query("user_id") long userId,
+                                             @Query("date_from") String dateFrom,
+                                             @Query("date_to") String dateTo);
 
     @POST("time_entries")
     @FormUrlEncoded

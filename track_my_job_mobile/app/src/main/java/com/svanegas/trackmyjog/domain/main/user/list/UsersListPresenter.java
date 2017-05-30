@@ -17,4 +17,6 @@ public interface UsersListPresenter {
     int setupRoleTextResId(User user);
 
     int setupProfileIndicatorVisibility(User user);
+
+    void unsubscribe();
 }

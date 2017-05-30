@@ -20,6 +20,8 @@ import javax.inject.Inject;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
@@ -44,6 +46,9 @@ public class TimeEntryFormPresenterImpl implements TimeEntryFormPresenter {
 
     @Inject
     PreferencesManager mPreferencesManager;
+
+    @Inject
+    CompositeDisposable mDisposables;
 
     TimeEntryFormPresenterImpl(TimeEntryFormView timeEntryFormView) {
         mView = timeEntryFormView;
@@ -80,7 +85,7 @@ public class TimeEntryFormPresenterImpl implements TimeEntryFormPresenter {
     @Override
     public void fetchTimeEntry(long timeEntryId) {
         mView.showLoadingAndDisableFields();
-        mInteractor.fetchTimeEntry(timeEntryId)
+        Disposable disposable = mInteractor.fetchTimeEntry(timeEntryId)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(timeEntry -> {
@@ -110,12 +115,13 @@ public class TimeEntryFormPresenterImpl implements TimeEntryFormPresenter {
                         mView.showUnknownError();
                     }
                 });
+        mDisposables.add(disposable);
     }
 
     @Override
     public void deleteTimeEntry(long timeEntryId) {
         mView.showLoadingAndDisableFields();
-        mInteractor.deleteTimeEntry(timeEntryId)
+        Disposable disposable = mInteractor.deleteTimeEntry(timeEntryId)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(trash -> mView.onDeletionSuccess(), throwable -> {
@@ -135,6 +141,12 @@ public class TimeEntryFormPresenterImpl implements TimeEntryFormPresenter {
                         mView.showUnknownError();
                     }
                 });
+        mDisposables.add(disposable);
+    }
+
+    @Override
+    public void unsubscribe() {
+        mDisposables.clear();
     }
 
     private void processTimeEntry(long timeEntryId, Calendar date, long distance, long duration) {
@@ -151,7 +163,7 @@ public class TimeEntryFormPresenterImpl implements TimeEntryFormPresenter {
             isUpdate = false;
             single = mInteractor.createTimeEntry(dateString, distance, duration);
         }
-        single.subscribeOn(Schedulers.computation())
+        Disposable disposable = single.subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(timeEntry -> {
                     if (isUpdate) mView.onUpdateSuccess();
@@ -174,6 +186,7 @@ public class TimeEntryFormPresenterImpl implements TimeEntryFormPresenter {
                         mView.showUnknownError();
                     }
                 });
+        mDisposables.add(disposable);
     }
 
     private Calendar parseDate(String date) throws ParseException {

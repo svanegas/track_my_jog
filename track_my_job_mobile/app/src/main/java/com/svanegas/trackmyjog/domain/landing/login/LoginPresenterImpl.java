@@ -14,6 +14,8 @@ import java.net.SocketTimeoutException;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
@@ -33,6 +35,9 @@ public class LoginPresenterImpl implements LoginPresenter {
     @Inject
     PreferencesManager mPreferencesManager;
 
+    @Inject
+    CompositeDisposable mDisposables;
+
     LoginPresenterImpl(LoginView loginView) {
         mView = loginView;
         TrackMyJogApplication.getInstance().getApplicationComponent().inject(this);
@@ -51,8 +56,13 @@ public class LoginPresenterImpl implements LoginPresenter {
         else mView.hideLoadingAndEnableFields();
     }
 
+    @Override
+    public void unsubscribe() {
+        mDisposables.clear();
+    }
+
     private void loginUser(String email, String password) {
-        mAuthInteractor.loginUser(email, password)
+        Disposable disposable = mAuthInteractor.loginUser(email, password)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(user -> {
@@ -74,6 +84,7 @@ public class LoginPresenterImpl implements LoginPresenter {
                         mView.showUnknownError();
                     }
                 });
+        mDisposables.add(disposable);
     }
 
     private boolean validateEmail(String email) {

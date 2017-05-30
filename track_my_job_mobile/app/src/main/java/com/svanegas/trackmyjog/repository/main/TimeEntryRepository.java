@@ -9,9 +9,9 @@ import io.reactivex.Single;
 
 public interface TimeEntryRepository {
 
-    Single<List<TimeEntry>> fetchTimeEntries();
+    Single<List<TimeEntry>> fetchTimeEntries(String dateFrom, String dateTo);
 
-    Single<List<TimeEntry>> fetchTimeEntries(long userId);
+    Single<List<TimeEntry>> fetchTimeEntries(long userId, String dateFrom, String dateTo);
 
     Single<TimeEntry> fetchTimeEntry(long timeEntryId);
 

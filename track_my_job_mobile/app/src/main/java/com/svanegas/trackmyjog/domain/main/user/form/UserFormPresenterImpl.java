@@ -14,6 +14,8 @@ import javax.inject.Inject;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
@@ -34,6 +36,9 @@ public class UserFormPresenterImpl implements UserFormPresenter {
 
     @Inject
     UserInteractor mInteractor;
+
+    @Inject
+    CompositeDisposable mDisposables;
 
     UserFormPresenterImpl(UserFormView timeEntryFormView) {
         mView = timeEntryFormView;
@@ -66,7 +71,7 @@ public class UserFormPresenterImpl implements UserFormPresenter {
     @Override
     public void fetchUser(long userId) {
         mView.showLoadingAndDisableFields();
-        mInteractor.fetchUser(userId)
+        Disposable disposable = mInteractor.fetchUser(userId)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(user -> {
@@ -93,12 +98,13 @@ public class UserFormPresenterImpl implements UserFormPresenter {
                         mView.showUnknownError();
                     }
                 });
+        mDisposables.add(disposable);
     }
 
     @Override
     public void deleteUser(long userId) {
         mView.showLoadingAndDisableFields();
-        mInteractor.deleteUser(userId)
+        Disposable disposable = mInteractor.deleteUser(userId)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(trash -> mView.onDeletionSuccess(), throwable -> {
@@ -118,6 +124,12 @@ public class UserFormPresenterImpl implements UserFormPresenter {
                         mView.showUnknownError();
                     }
                 });
+        mDisposables.add(disposable);
+    }
+
+    @Override
+    public void unsubscribe() {
+        mDisposables.clear();
     }
 
     private void processUser(long userId, String name, String email, String role, String password) {
@@ -130,7 +142,7 @@ public class UserFormPresenterImpl implements UserFormPresenter {
             isUpdate = false;
             single = mInteractor.createUser(name, email, role, password);
         }
-        single.subscribeOn(Schedulers.computation())
+        Disposable disposable = single.subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(user -> {
                     if (isUpdate) mView.onUpdateSuccess();
@@ -153,6 +165,7 @@ public class UserFormPresenterImpl implements UserFormPresenter {
                         mView.showUnknownError();
                     }
                 });
+        mDisposables.add(disposable);
     }
 
     private boolean validateName(String name) {

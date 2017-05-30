@@ -7,6 +7,13 @@
         <item name="android:layout_margin">@dimen/time_entries_list_container_margin</item>
     </style>
 
+    <style name="TimeEntriesList.DateFilter">
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/time_entries_list_filter_text_size</item>
+    </style>
+
     <style name="TimeEntriesList.Content">
         <item name="android:padding">@dimen/time_entries_list_content_padding</item>
     </style>
