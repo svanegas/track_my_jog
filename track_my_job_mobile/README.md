@@ -4,10 +4,10 @@ An _Android_ application to use services exposed by _Track My Jog - Server_
 
 ## Table of contents
 
-  * [Dependencies](#dependencies)
-  * [Setup](#setup)
-  * [How to launch Track My Jog](#how-to-launch-track-my-jog)
-  * [Running tests](#running-tests)
+  * Dependencies
+  * Setup
+  * How to launch Track My Jog
+  * Running tests
 
 ## Dependencies
 

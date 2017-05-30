@@ -4,10 +4,10 @@ It has a simple RESTful API so that it can be used with ease.
 
 ## Table of contents
 
-  * [Dependencies](#dependencies)
-  * [Setup](#setup)
-  * [How to get Track My Jog up and running](#how-to-get-track-my-jog-up-and-running)
-  * [Running tests](#running-tests)
+  * Dependencies
+  * Setup
+  * How to get Track My Jog up and running
+  * Running tests
 
 ## Dependencies
 

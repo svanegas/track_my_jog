@@ -44,11 +44,8 @@ that exposes several endpoints to be consumed by the _Android_ or further client
 
 You can either download the APK file to test with demo server or run it locally.
 
-To run it locally you will need to [setup the back end] first, then run the _Android_ application.
-See the [back end README] to configure the server and the [mobile README] to launch the _Android_
-app.
+To run it locally you will need to setup the back end first, then run the _Android_ application.
+See the **back end README** to configure the server and the **mobile README** to launch the
+_Android_ app.
 
 [Ruby on Rails]:http://rubyonrails.org/
-[setup the back end]:track_my_jog_backend/README.md
-[back end README]:track_my_jog_backend/README.md
-[mobile README]:track_my_jog_mobile/README.md
