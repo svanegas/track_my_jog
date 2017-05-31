@@ -7,6 +7,7 @@ import com.svanegas.trackmyjog.TrackMyJogApplication;
 import com.svanegas.trackmyjog.interactor.UserInteractor;
 import com.svanegas.trackmyjog.repository.model.APIError;
 import com.svanegas.trackmyjog.repository.model.User;
+import com.svanegas.trackmyjog.util.PreferencesManager;
 
 import java.net.SocketTimeoutException;
 
@@ -37,6 +38,9 @@ public class UserFormPresenterImpl implements UserFormPresenter {
 
     @Inject
     UserInteractor mInteractor;
+
+    @Inject
+    PreferencesManager mPreferencesManager;
 
     @Inject
     CompositeDisposable mDisposables;
@@ -79,6 +83,7 @@ public class UserFormPresenterImpl implements UserFormPresenter {
                     mView.hideLoadingAndEnableFields();
                     mView.populateName(user.getName());
                     mView.populateEmail(user.getEmail());
+                    if (mPreferencesManager.getId() == user.getId()) mView.disableUserEdition();
                     if (user.isAdmin()) mView.populateRoleSpinner(ADMIN_INDEX);
                     else if (user.isManager()) mView.populateRoleSpinner(MANAGER_INDEX);
                     else mView.populateRoleSpinner(REGULAR_INDEX);

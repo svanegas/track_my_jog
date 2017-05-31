@@ -1,6 +1,8 @@
 package com.svanegas.trackmyjog.domain.main.user.list;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
 import android.view.View;
 
@@ -14,6 +16,7 @@ import com.svanegas.trackmyjog.util.PreferencesManager;
 import java.net.SocketTimeoutException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import javax.inject.Inject;
 
@@ -49,6 +52,9 @@ public class UsersListPresenterImpl implements UsersListPresenter {
 
     @Inject
     CompositeDisposable mDisposables;
+
+    @Inject
+    Random mRandom;
 
     UsersListPresenterImpl(UsersListView usersListView) {
         mView = usersListView;
@@ -100,6 +106,16 @@ public class UsersListPresenterImpl implements UsersListPresenter {
     }
 
     @Override
+    public String setupAvatarText(User user) {
+        return user.getName().substring(0, 1);
+    }
+
+    @Override
+    public void setupRandomAvatarColor(GradientDrawable gradientDrawable) {
+        gradientDrawable.setColor(generateRandomColor());
+    }
+
+    @Override
     public String setupNameText(User user) {
         return user.getName();
     }
@@ -119,5 +135,20 @@ public class UsersListPresenterImpl implements UsersListPresenter {
     @Override
     public void unsubscribe() {
         mDisposables.clear();
+    }
+
+    private int generateRandomColor() {
+        // This is the base color which will be mixed with the generated one
+        final int baseColor = Color.LTGRAY;
+
+        final int baseRed = Color.red(baseColor);
+        final int baseGreen = Color.green(baseColor);
+        final int baseBlue = Color.blue(baseColor);
+
+        final int red = (baseRed + mRandom.nextInt(256)) / 2;
+        final int green = (baseGreen + mRandom.nextInt(256)) / 2;
+        final int blue = (baseBlue + mRandom.nextInt(256)) / 2;
+
+        return Color.rgb(red, green, blue);
     }
 }

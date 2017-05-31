@@ -221,6 +221,14 @@ public class UserFormFragment extends Fragment implements UserFormView,
     }
 
     @Override
+    public void disableUserEdition() {
+        setHasOptionsMenu(false);
+        setLoadingAndFieldsEnabled(false);
+        mViewHolder.progressBar.setVisibility(View.GONE);
+        mViewHolder.submitButton.setVisibility(View.GONE);
+    }
+
+    @Override
     public void populateName(String name) {
         mViewHolder.nameField.setText(name);
     }
@@ -307,6 +315,7 @@ public class UserFormFragment extends Fragment implements UserFormView,
         mViewHolder.emailField.setEnabled(enabled);
         mViewHolder.passwordField.setEnabled(enabled);
         mViewHolder.passwordConfirmationField.setEnabled(enabled);
+        mViewHolder.rolesSpinner.setEnabled(enabled);
         mViewHolder.submitButton.setEnabled(enabled);
     }
 

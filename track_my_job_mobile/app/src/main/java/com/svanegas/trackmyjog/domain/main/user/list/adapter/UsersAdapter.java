@@ -1,5 +1,7 @@
 package com.svanegas.trackmyjog.domain.main.user.list.adapter;
 
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
@@ -39,6 +41,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         final User user = mUsers.get(position);
 
+        holder.avatar.setText(mPresenter.setupAvatarText(user));
+        mPresenter.setupRandomAvatarColor((GradientDrawable) holder.avatar.getBackground());
         holder.nameValue.setText(mPresenter.setupNameText(user));
         holder.roleValue.setText(mPresenter.setupRoleTextResId(user));
         holder.profileIndicator.setVisibility(mPresenter.setupProfileIndicatorVisibility(user));
@@ -58,6 +62,9 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 
         @BindView(R.id.root_view)
         ViewGroup rootView;
+
+        @BindView(R.id.avatar)
+        AppCompatTextView avatar;
 
         @BindView(R.id.name_value)
         AppCompatTextView nameValue;
