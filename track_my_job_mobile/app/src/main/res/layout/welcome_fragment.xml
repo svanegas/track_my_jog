@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".domain.landing.LandingActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".domain.landing.LandingActivity">
 
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/appCompatImageView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/welcome_background"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
+            android:text="Your jogging times tracked with ease"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="italic" />
+    </LinearLayout>
 
     <LinearLayout
         style="@style/Welcome.ButtonsContainer"
@@ -24,7 +43,7 @@
             style="@style/Welcome.RegisterButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/welcome_create_account"/>
+            android:text="@string/welcome_create_account" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/login_button"
@@ -32,6 +51,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/welcome_already_have_account"/>
+            android:text="@string/welcome_already_have_account" />
     </LinearLayout>
 </FrameLayout>

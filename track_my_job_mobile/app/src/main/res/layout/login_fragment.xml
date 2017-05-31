@@ -1,10 +1,10 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true"
-            tools:context=".domain.landing.login.LoginFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".domain.landing.login.LoginFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,19 +15,22 @@
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:textColorHint="@android:color/secondary_text_dark">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/email_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/login_email"
-                android:inputType="textEmailAddress"/>
+                android:inputType="textEmailAddress"
+                android:textColor="@android:color/primary_text_dark" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColorHint="@android:color/secondary_text_dark"
             app:passwordToggleEnabled="true">
 
             <android.support.design.widget.TextInputEditText
@@ -35,7 +38,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/login_password"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                android:textColor="@android:color/primary_text_dark" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.v7.widget.AppCompatTextView
@@ -43,7 +47,7 @@
             style="@style/Landing.ErrorMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -54,14 +58,14 @@
                 style="@style/AppTheme.SubmitButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/login_sign_in_button"/>
+                android:text="@string/login_sign_in_button" />
 
             <ProgressBar
                 android:id="@+id/progress_bar"
                 style="@style/AppTheme.ProgressBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"/>
+                android:visibility="gone" />
         </FrameLayout>
     </LinearLayout>
 </ScrollView>

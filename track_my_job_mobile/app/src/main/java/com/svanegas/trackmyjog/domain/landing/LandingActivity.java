@@ -30,7 +30,7 @@ public class LandingActivity extends AppCompatActivity implements
     private FragmentManager mFragmentManager;
     private LandingPresenter mPresenter;
 
-    @BindView(R.id.fragment_container)
+    @BindView(R.id.root_view)
     ViewGroup mRootView;
 
     @Override
