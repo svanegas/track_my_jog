@@ -1,6 +1,16 @@
-# Track My Jog
+<div style="text-align: center;">
+  <h1><i>Track My Jog</i></h1>
+  <img style="width: 200px;" src ="http://i.imgur.com/VLydx5F.png" />
+  <br />
+  <br />
+  <a href="https://drive.google.com/file/d/0B-byDzRxKccDbDNtWV91V2ptWVE/view?usp=sharing">
+    <img alt="Download Android APK" src="https://img.shields.io/badge/download-apk-green.svg" />
+  </a>
+</div>
 
 > A simple Android application to track jogging times of users
+
+---
 
 ## Functionality
 
@@ -41,7 +51,9 @@ that exposes several endpoints to be consumed by the _Android_ or further client
 | Welcome page | Records |
 |:---:|:---:|
 | ![Welcome](http://i.imgur.com/0HmZYFq.jpg)  | ![Records](http://i.imgur.com/ypAEuHf.png) |
+
 | Navigation drawer | Users |
+|:---:|:---:|
 | ![Navigation Drawer](http://i.imgur.com/0gPPlYx.png)  | ![Users](http://i.imgur.com/ooyRHtA.png) |
 
 ## Try it yourself
