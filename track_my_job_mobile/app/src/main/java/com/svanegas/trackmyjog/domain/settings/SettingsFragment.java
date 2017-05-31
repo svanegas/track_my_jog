@@ -2,6 +2,7 @@ package com.svanegas.trackmyjog.domain.settings;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Settin
     private SettingsPresenter mPresenter;
     private OnSettingsListener mListener;
     private ViewHolder mViewHolder;
+    private View mRootView;
 
     public static SettingsFragment newInstance() {
         return new SettingsFragment();
@@ -41,7 +43,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Settin
         mViewHolder = new ViewHolder(this);
         initListeners();
         mPresenter.fetchAccountInfo();
-        return super.onCreateView(inflater, container, savedInstanceState);
+        mRootView = super.onCreateView(inflater, container, savedInstanceState);
+        return mRootView;
     }
 
     @Override
@@ -78,6 +81,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Settin
     @Override
     public void populateEmail(String email) {
         mViewHolder.email.setSummary(email);
+    }
+
+    @Override
+    public void showNotImplementedYetMessage() {
+        Snackbar.make(mRootView, R.string.settings_not_implemented, Snackbar.LENGTH_LONG).show();
     }
 
     static class ViewHolder {

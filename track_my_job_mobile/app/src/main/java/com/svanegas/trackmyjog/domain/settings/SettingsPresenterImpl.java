@@ -25,16 +25,19 @@ public class SettingsPresenterImpl implements SettingsPresenter {
 
     @Override
     public boolean changeNameRequested() {
-        return false;
+        mView.showNotImplementedYetMessage();
+        return true;
     }
 
     @Override
     public boolean changeEmailRequested() {
-        return false;
+        mView.showNotImplementedYetMessage();
+        return true;
     }
 
     @Override
     public boolean changePasswordRequested() {
-        return false;
+        mView.showNotImplementedYetMessage();
+        return true;
     }
 }
