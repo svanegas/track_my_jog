@@ -3,6 +3,7 @@ package com.svanegas.trackmyjog.domain.main.time_entry.list;
 import android.text.Spannable;
 
 import com.svanegas.trackmyjog.repository.model.TimeEntry;
+import com.svanegas.trackmyjog.repository.model.User;
 
 import java.text.ParseException;
 import java.util.Calendar;
@@ -31,6 +32,10 @@ public interface TimeEntriesListPresenter {
     Spannable setupDurationText(long duration);
 
     Spannable setupSpeedText(TimeEntry timeEntry);
+
+    boolean isUserVisible();
+
+    String setupUserText(User user);
 
     void unsubscribe();
 }

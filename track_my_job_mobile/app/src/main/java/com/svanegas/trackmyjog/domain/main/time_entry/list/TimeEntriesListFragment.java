@@ -244,6 +244,11 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
     }
 
     @Override
+    public boolean shouldDisplayUserInList() {
+        return mSelectedRecordsSpinnerIndex == ALL_RECORDS_INDEX;
+    }
+
+    @Override
     public void populateFilterDateFrom(String date) {
         mViewHolder.dateFilterFrom.setText(date);
     }

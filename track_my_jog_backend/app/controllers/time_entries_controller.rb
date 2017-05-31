@@ -14,7 +14,7 @@ class TimeEntriesController < ApplicationController
       filtering_params(params).each do |key, value|
         @time_entries = @time_entries.public_send(key, value) if value.present?
       end
-      render json: @time_entries
+      render json: @time_entries, include: { user: { only: [:id, :name, :email, :role] } }
     rescue ArgumentError
       render_invalid_date_format
     end
@@ -42,7 +42,7 @@ class TimeEntriesController < ApplicationController
 
   # GET /time_entries/1
   def show
-    render json: @time_entry
+    render json: @time_entry, include: { user: { only: [:id, :name, :email, :role] } }
   end
 
   # POST /time_entries
