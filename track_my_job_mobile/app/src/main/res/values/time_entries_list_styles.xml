@@ -7,11 +7,26 @@
         <item name="android:layout_margin">@dimen/time_entries_list_container_margin</item>
     </style>
 
-    <style name="TimeEntriesList.DateFilter">
-        <item name="android:background">?attr/selectableItemBackground</item>
+    <style name="TimeEntriesList.DateFilter" />
+
+    <style name="TimeEntriesList.DateFilter.Title">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/time_entry_form_date_label_text_size</item>
+        <item name="android:layout_marginTop">@dimen/time_entries_list_dates_filter_margin_top
+        </item>
+        <item name="android:drawableEnd">@drawable/ic_calendar</item>
+        <item name="android:drawablePadding">
+            @dimen/time_entries_list_dates_filter_drawable_padding
+        </item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TimeEntriesList.DateFilter.Button">
+        <!--<item name="android:background">?attr/selectableItemBackground</item>-->
         <item name="android:clickable">true</item>
         <item name="android:gravity">center</item>
-        <item name="android:textSize">@dimen/time_entries_list_filter_text_size</item>
+        <!--<item name="android:textSize">@dimen/time_entries_list_filter_text_size</item>-->
     </style>
 
     <style name="TimeEntriesList.Content">

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -190,11 +192,11 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
         switch (identifier) {
             case DATE_FROM_IDENTIFIER:
                 mDateFilterFrom = null;
-                mViewHolder.dateFilterFrom.setText(R.string.time_entries_list_filter_from);
+                mViewHolder.dateFilterFrom.setText(R.string.time_entries_list_dates_filter_from);
                 break;
             case DATE_TO_IDENTIFIER:
                 mDateFilterTo = null;
-                mViewHolder.dateFilterTo.setText(R.string.time_entries_list_filter_to);
+                mViewHolder.dateFilterTo.setText(R.string.time_entries_list_dates_filter_to);
                 break;
         }
         fetchTimeEntries(false);

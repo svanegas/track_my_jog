@@ -80,7 +80,7 @@ public class DatePickerDialogFragment extends DialogFragment
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             dialog.getDatePicker().setFirstDayOfWeek(Calendar.MONDAY);
         if (mIncludeClearButton) {
-            String clearMessage = getString(R.string.time_entries_list_date_picker_clear);
+            String clearMessage = getString(R.string.time_entries_list_dates_picker_clear);
             dialog.setButton(DialogInterface.BUTTON_NEUTRAL, clearMessage,
                     (dialog1, which) -> mCallback.onDateCleared(mIdentifier));
         }

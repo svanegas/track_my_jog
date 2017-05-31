@@ -10,4 +10,7 @@
     <dimen name="time_entries_list_duration_text_size">25sp</dimen>
     <dimen name="time_entries_list_fab_margin">16dp</dimen>
     <dimen name="time_entries_list_filter_text_size">16sp</dimen>
+    <dimen name="time_entries_list_dates_filter_height">45dp</dimen>
+    <dimen name="time_entries_list_dates_filter_margin_top">8dp</dimen>
+    <dimen name="time_entries_list_dates_filter_drawable_padding">10dp</dimen>
 </resources>
