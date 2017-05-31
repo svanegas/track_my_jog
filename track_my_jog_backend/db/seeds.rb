@@ -10,14 +10,14 @@ admin = FactoryGirl.create(:admin_user, email: 'admin@example.com', password: 'p
 
 3.times do
   user = FactoryGirl.create(:manager_user, password: 'password')
-  Faker::Number.between(0, 5).times do
+  rand(0, 5).times do
     FactoryGirl.create(:time_entry, user: user)
   end
 end
 
 5.times do
   user = FactoryGirl.create(:user, password: 'password')
-  Faker::Number.between(0, 5).times do
+  rand(0, 5).times do
     FactoryGirl.create(:time_entry, user: user)
   end
 end

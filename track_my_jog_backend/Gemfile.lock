@@ -163,6 +163,7 @@ PLATFORMS
 DEPENDENCIES
   byebug
   devise_token_auth (~> 0.1.42)
+  factory_girl (~> 4.8)
   factory_girl_rails (~> 4.8)
   faker (~> 1.7)
   listen (~> 3.0.5)
@@ -176,4 +177,4 @@ DEPENDENCIES
   tzinfo-data
 
 BUNDLED WITH
-   1.13.6
+   1.14.6
