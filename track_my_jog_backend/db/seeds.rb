@@ -5,19 +5,4 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
-admin = FactoryGirl.create(:admin_user, email: 'admin@example.com', password: 'password')
-
-3.times do
-  user = FactoryGirl.create(:manager_user, password: 'password')
-  rand(0, 5).times do
-    FactoryGirl.create(:time_entry, user: user)
-  end
-end
-
-5.times do
-  user = FactoryGirl.create(:user, password: 'password')
-  rand(0, 5).times do
-    FactoryGirl.create(:time_entry, user: user)
-  end
-end
+Seeds::SampleData.run

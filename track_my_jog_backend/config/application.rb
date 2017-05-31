@@ -27,6 +27,9 @@ module TrackMyJogBackend
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    # Loading lib files
+    config.autoload_paths << Rails.root.join('lib')
+
     # Enabling CORS
     config.middleware.use Rack::Cors do
       allow do
