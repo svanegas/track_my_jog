@@ -31,4 +31,6 @@ interface ReportView {
     void showUnableToParseDateError();
 
     void showUnknownError();
+
+    void goToWelcomeDueUnauthorized();
 }

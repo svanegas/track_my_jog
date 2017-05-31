@@ -55,6 +55,12 @@ public class LoginFragment extends Fragment implements LoginView {
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        mListener.hideKeyboard();
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
@@ -167,5 +173,7 @@ public class LoginFragment extends Fragment implements LoginView {
         void onActivityTitleRequested(int titleResId, boolean showBackArrow);
 
         void goToMainScreen();
+
+        void hideKeyboard();
     }
 }

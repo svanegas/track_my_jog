@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -34,6 +35,9 @@ import com.svanegas.trackmyjog.domain.settings.SettingsFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+import static com.svanegas.trackmyjog.domain.landing.LandingActivity.UNAUTHORIZED_TAG;
 
 public class MainActivity extends AppCompatActivity implements MainView,
         NavigationView.OnNavigationItemSelectedListener,
@@ -97,6 +101,14 @@ public class MainActivity extends AppCompatActivity implements MainView,
         return true;
     }
 
+    @OnClick(R.id.add_button)
+    public void onFabClicked() {
+        Fragment fragment = mFragmentManager.findFragmentById(R.id.fragment_container);
+        if (fragment instanceof OnFabFragmentListener) {
+            ((OnFabFragmentListener) fragment).onFabClicked();
+        }
+    }
+
     @Override
     public void onActivityTitleRequested(int titleResId) {
         setTitle(titleResId);
@@ -115,6 +127,16 @@ public class MainActivity extends AppCompatActivity implements MainView,
             mViewHolder.spinner.setSelection(mToolbarSpinnerSelectedPos);
         mViewHolder.spinner.setOnItemSelectedListener(this);
         mViewHolder.spinner.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onShowFabRequested() {
+        mViewHolder.fab.show();
+    }
+
+    @Override
+    public void onHideFabRequested() {
+        mViewHolder.fab.hide();
     }
 
     @Override
@@ -160,6 +182,15 @@ public class MainActivity extends AppCompatActivity implements MainView,
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onUnauthorizedUser() {
+        mPresenter.clearPreferences();
+        Intent intent = new Intent(this, LandingActivity.class);
+        intent.putExtra(UNAUTHORIZED_TAG, true);
+        startActivity(intent);
+        finishAffinity();
     }
 
     @Override
@@ -287,6 +318,9 @@ public class MainActivity extends AppCompatActivity implements MainView,
 
         @BindView(R.id.nav_view)
         NavigationView navigationView;
+
+        @BindView(R.id.add_button)
+        FloatingActionButton fab;
 
         AppCompatTextView headerNameLabel;
 

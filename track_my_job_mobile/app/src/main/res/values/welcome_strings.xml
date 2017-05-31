@@ -3,4 +3,6 @@
     <string name="welcome_title">Track My Jog</string>
     <string name="welcome_create_account">Create an account</string>
     <string name="welcome_already_have_account">I already have an account</string>
+    <string name="welcome_unauthorized">Please log in again</string>
+    <string name="welcome_brand_message">Your jogging times tracked with ease</string>
 </resources>

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,9 +17,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.svanegas.trackmyjog.R;
+import com.svanegas.trackmyjog.domain.main.OnFabFragmentListener;
 import com.svanegas.trackmyjog.domain.main.dialog.DatePickerDialogFragment;
 import com.svanegas.trackmyjog.domain.main.dialog.SortByDialogFragment;
 import com.svanegas.trackmyjog.domain.main.time_entry.list.adapter.TimeEntriesAdapter;
@@ -33,7 +35,8 @@ import butterknife.OnClick;
 import static com.svanegas.trackmyjog.domain.main.time_entry.list.TimeEntriesListPresenterImpl.DATE_SORT_INDEX;
 
 public class TimeEntriesListFragment extends Fragment implements TimeEntriesListView,
-        SwipeRefreshLayout.OnRefreshListener, SortByDialogFragment.Callback, DatePickerDialogFragment.Callback {
+        SwipeRefreshLayout.OnRefreshListener, SortByDialogFragment.Callback,
+        DatePickerDialogFragment.Callback, OnFabFragmentListener {
 
     // Indexes of toolbar spinner
     private static final int ALL_RECORDS_INDEX = 0;
@@ -95,6 +98,18 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mListener.onShowFabRequested();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mListener.onHideFabRequested();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         mPresenter.unsubscribe();
@@ -129,8 +144,8 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
         }
     }
 
-    @OnClick(R.id.add_button)
-    public void onAddClicked() {
+    @Override
+    public void onFabClicked() {
         mListener.onAddTimeEntryRequested();
     }
 
@@ -177,11 +192,11 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
         switch (identifier) {
             case DATE_FROM_IDENTIFIER:
                 mDateFilterFrom = null;
-                mViewHolder.dateFilterFrom.setText(R.string.time_entries_list_filter_from);
+                mViewHolder.dateFilterFrom.setText(R.string.time_entries_list_dates_filter_from);
                 break;
             case DATE_TO_IDENTIFIER:
                 mDateFilterTo = null;
-                mViewHolder.dateFilterTo.setText(R.string.time_entries_list_filter_to);
+                mViewHolder.dateFilterTo.setText(R.string.time_entries_list_dates_filter_to);
                 break;
         }
         fetchTimeEntries(false);
@@ -229,6 +244,11 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
     }
 
     @Override
+    public boolean shouldDisplayUserInList() {
+        return mSelectedRecordsSpinnerIndex == ALL_RECORDS_INDEX;
+    }
+
+    @Override
     public void populateFilterDateFrom(String date) {
         mViewHolder.dateFilterFrom.setText(date);
     }
@@ -272,7 +292,7 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
 
     @Override
     public void goToWelcomeDueUnauthorized() {
-        Toast.makeText(getContext(), "Welcome due unauthorized", Toast.LENGTH_SHORT).show();
+        mListener.onUnauthorizedUser();
     }
 
     @Override
@@ -352,8 +372,14 @@ public class TimeEntriesListFragment extends Fragment implements TimeEntriesList
 
         void onActivityTitleSpinnerRequested();
 
+        void onShowFabRequested();
+
+        void onHideFabRequested();
+
         void onAddTimeEntryRequested();
 
         void onUpdateTimeEntryRequested(long timeEntryId);
+
+        void onUnauthorizedUser();
     }
 }

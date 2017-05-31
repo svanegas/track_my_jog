@@ -55,6 +55,12 @@ public class RegisterFragment extends Fragment implements RegisterView {
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        mListener.hideKeyboard();
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
@@ -210,5 +216,7 @@ public class RegisterFragment extends Fragment implements RegisterView {
         void onActivityTitleRequested(int titleResId, boolean showBackArrow);
 
         void goToMainScreen();
+
+        void hideKeyboard();
     }
 }

@@ -1,6 +1,7 @@
 package com.svanegas.trackmyjog.domain.main.time_entry.list.adapter;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -52,6 +53,12 @@ public class TimeEntriesAdapter extends RecyclerView.Adapter<TimeEntriesAdapter.
         holder.distanceValue.setText(mPresenter.setupDistanceText(timeEntry.getDistance()));
         holder.durationValue.setText(mPresenter.setupDurationText(timeEntry.getDuration()));
         holder.speedValue.setText(mPresenter.setupSpeedText(timeEntry));
+        boolean userVisible = mPresenter.isUserVisible();
+        if (holder.userContainer != null) {
+            holder.userContainer.setVisibility(userVisible ? View.VISIBLE : View.GONE);
+        }
+        holder.userValue.setVisibility(userVisible ? View.VISIBLE : View.GONE);
+        holder.userValue.setText(mPresenter.setupUserText(timeEntry.getUser()));
         holder.rootView.setOnClickListener(view -> mPresenter.timeEntryClicked(timeEntry));
     }
 
@@ -80,6 +87,13 @@ public class TimeEntriesAdapter extends RecyclerView.Adapter<TimeEntriesAdapter.
 
         @BindView(R.id.speed_value)
         AppCompatTextView speedValue;
+
+        @Nullable
+        @BindView(R.id.time_entries_list_user_container)
+        ViewGroup userContainer;
+
+        @BindView(R.id.user_value)
+        AppCompatTextView userValue;
 
         ViewHolder(View itemView) {
             super(itemView);

@@ -21,6 +21,8 @@ interface TimeEntriesListView {
 
     void hideLoading(boolean pulledToRefresh);
 
+    boolean shouldDisplayUserInList();
+
     void populateFilterDateFrom(String date);
 
     void populateFilterDateTo(String date);

@@ -177,6 +177,11 @@ public class ReportFragment extends Fragment implements ReportView,
         mViewHolder.errorMessage.setText(R.string.error_unknown);
     }
 
+    @Override
+    public void goToWelcomeDueUnauthorized() {
+        mListener.onUnauthorizedUser();
+    }
+
     private void setLoadingAndFieldsEnabled(boolean enabled, boolean pulledToRefresh) {
         if (pulledToRefresh) mViewHolder.swipeRefreshLayout.setRefreshing(!enabled);
         else mViewHolder.progressBar.setVisibility(enabled ? View.GONE : View.VISIBLE);
@@ -229,5 +234,7 @@ public class ReportFragment extends Fragment implements ReportView,
     public interface OnReportListener {
 
         void onActivityTitleRequested(int titleResId);
+
+        void onUnauthorizedUser();
     }
 }

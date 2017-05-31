@@ -28,7 +28,7 @@
     </style>
 
     <style name="AppTheme.ErrorIndicator">
-        <item name="android:background">@color/red_opaque</item>
+        <item name="android:background">@android:color/holo_red_light</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">@dimen/error_indicator_padding</item>
@@ -52,5 +52,14 @@
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/screen_message_text_size</item>
+    </style>
+
+    <style name="TimeEntriesList.DateFilter.BottomLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:layout_margin">@dimen/time_entries_list_date_filter_bottom_line_margin
+        </item>
+        <item name="android:background">@color/colorAccent</item>
     </style>
 </resources>

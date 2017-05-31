@@ -12,6 +12,7 @@ import com.svanegas.trackmyjog.TrackMyJogApplication;
 import com.svanegas.trackmyjog.interactor.TimeEntryInteractor;
 import com.svanegas.trackmyjog.repository.model.APIError;
 import com.svanegas.trackmyjog.repository.model.TimeEntry;
+import com.svanegas.trackmyjog.repository.model.User;
 import com.svanegas.trackmyjog.util.PreferencesManager;
 
 import java.net.SocketTimeoutException;
@@ -148,6 +149,17 @@ public class TimeEntriesListPresenterImpl implements TimeEntriesListPresenter {
     public Spannable setupSpeedText(TimeEntry timeEntry) {
         String units = mPreferencesManager.getDistanceUnits();
         return createSpeedText(mContext, timeEntry.getDistance(), timeEntry.getDuration(), units);
+    }
+
+    @Override
+    public boolean isUserVisible() {
+        return mView.shouldDisplayUserInList();
+    }
+
+    @Override
+    public String setupUserText(User user) {
+        if (user != null) return user.getName();
+        else return "";
     }
 
     @Override

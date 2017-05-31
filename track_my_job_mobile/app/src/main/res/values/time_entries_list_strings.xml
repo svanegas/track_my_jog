@@ -7,10 +7,11 @@
     <string name="time_entries_list_empty_all">There are no records to show</string>
     <string name="time_entries_list_empty">You don\'t have any record yet</string>
 
-    <string name="time_entries_list_date_picker_clear">Clear</string>
-    <string name="time_entries_list_filter_from">All records in past</string>
-    <string name="time_entries_list_filter_separator">&#8211;</string>
-    <string name="time_entries_list_filter_to">Today</string>
+    <string name="time_entries_list_dates_picker_clear">Clear</string>
+    <string name="time_entries_list_dates_filter_title">Date range filter</string>
+    <string name="time_entries_list_dates_filter_from">All records in past</string>
+    <string name="time_entries_list_dates_filter_separator">&#8211;</string>
+    <string name="time_entries_list_dates_filter_to">Today</string>
 
     <string-array name="time_entries_list_spinner_records_options">
         <item>@string/time_entries_list_all_records</item>

@@ -22,6 +22,8 @@ interface UserFormView {
 
     void onDeletionSuccess();
 
+    void disableUserEdition();
+
     void populateName(String name);
 
     void populateEmail(String email);
@@ -47,4 +49,6 @@ interface UserFormView {
     void showDisplayableError(String errorMessage);
 
     void showUnknownError();
+
+    void goToWelcomeDueUnauthorized();
 }

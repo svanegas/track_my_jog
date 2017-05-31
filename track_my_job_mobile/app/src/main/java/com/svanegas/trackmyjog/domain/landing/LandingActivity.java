@@ -1,13 +1,18 @@
 package com.svanegas.trackmyjog.domain.landing;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import com.svanegas.trackmyjog.R;
 import com.svanegas.trackmyjog.domain.landing.login.LoginFragment;
@@ -15,6 +20,7 @@ import com.svanegas.trackmyjog.domain.landing.register.RegisterFragment;
 import com.svanegas.trackmyjog.domain.landing.welcome.WelcomeFragment;
 import com.svanegas.trackmyjog.domain.main.MainActivity;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LandingActivity extends AppCompatActivity implements
@@ -22,8 +28,13 @@ public class LandingActivity extends AppCompatActivity implements
         LoginFragment.OnLoginInteractionListener,
         RegisterFragment.OnRegisterInteractionListener {
 
+    public static final String UNAUTHORIZED_TAG = "unauthorized";
+
     private FragmentManager mFragmentManager;
     private LandingPresenter mPresenter;
+
+    @BindView(R.id.root_view)
+    ViewGroup mRootView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +46,7 @@ public class LandingActivity extends AppCompatActivity implements
 
         mFragmentManager = getSupportFragmentManager();
         setupWelcomeFragment();
+        showMessageIfUnauthorized();
     }
 
     @Override
@@ -78,6 +90,16 @@ public class LandingActivity extends AppCompatActivity implements
         finishAffinity();
     }
 
+    @Override
+    public void hideKeyboard() {
+        View view = getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
     private void setupWelcomeFragment() {
         performFragmentTransaction(WelcomeFragment.newInstance(), true);
     }
@@ -90,5 +112,18 @@ public class LandingActivity extends AppCompatActivity implements
             fragmentTransaction.addToBackStack(null);
         }
         fragmentTransaction.commit();
+    }
+
+    private void showMessageIfUnauthorized() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            Bundle extras = intent.getExtras();
+            if (extras != null && extras.containsKey(UNAUTHORIZED_TAG)) {
+                Snackbar.make(mRootView,
+                        R.string.welcome_unauthorized,
+                        Snackbar.LENGTH_LONG).show();
+                extras.remove(UNAUTHORIZED_TAG);
+            }
+        }
     }
 }

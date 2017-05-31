@@ -38,7 +38,11 @@ The back end application is built using the **Ruby on Rails** version 5. It is a
 that exposes several endpoints to be consumed by the _Android_ or further clients.
 
 ## Screenshots
-
+| Welcome page | Records |
+|:---:|:---:|
+| ![Welcome](http://i.imgur.com/0HmZYFq.jpg)  | ![Records](http://i.imgur.com/ypAEuHf.png) |
+| Navigation drawer | Users |
+| ![Navigation Drawer](http://i.imgur.com/0gPPlYx.png)  | ![Users](http://i.imgur.com/ooyRHtA.png) |
 
 ## Try it yourself
 

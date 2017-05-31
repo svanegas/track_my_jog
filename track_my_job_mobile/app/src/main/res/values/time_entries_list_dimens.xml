@@ -8,6 +8,10 @@
     <dimen name="time_entries_list_duration_horizontal_margin">10dp</dimen>
     <dimen name="time_entries_list_duration_drawable_padding">5dp</dimen>
     <dimen name="time_entries_list_duration_text_size">25sp</dimen>
+    <dimen name="time_entries_list_user_text_size">18sp</dimen>
     <dimen name="time_entries_list_fab_margin">16dp</dimen>
     <dimen name="time_entries_list_filter_text_size">16sp</dimen>
+    <dimen name="time_entries_list_dates_filter_height">45dp</dimen>
+    <dimen name="time_entries_list_dates_filter_margin_top">8dp</dimen>
+    <dimen name="time_entries_list_date_filter_bottom_line_margin">10dp</dimen>
 </resources>

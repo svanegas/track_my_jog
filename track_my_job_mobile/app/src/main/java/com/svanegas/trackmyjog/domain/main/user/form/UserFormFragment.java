@@ -221,6 +221,14 @@ public class UserFormFragment extends Fragment implements UserFormView,
     }
 
     @Override
+    public void disableUserEdition() {
+        setHasOptionsMenu(false);
+        setLoadingAndFieldsEnabled(false);
+        mViewHolder.progressBar.setVisibility(View.GONE);
+        mViewHolder.submitButton.setVisibility(View.GONE);
+    }
+
+    @Override
     public void populateName(String name) {
         mViewHolder.nameField.setText(name);
     }
@@ -296,12 +304,18 @@ public class UserFormFragment extends Fragment implements UserFormView,
         mViewHolder.errorMessage.setText(R.string.error_unknown);
     }
 
+    @Override
+    public void goToWelcomeDueUnauthorized() {
+        mListener.onUnauthorizedUser();
+    }
+
     private void setLoadingAndFieldsEnabled(boolean enabled) {
         mViewHolder.progressBar.setVisibility(enabled ? View.GONE : View.VISIBLE);
         mViewHolder.nameField.setEnabled(enabled);
         mViewHolder.emailField.setEnabled(enabled);
         mViewHolder.passwordField.setEnabled(enabled);
         mViewHolder.passwordConfirmationField.setEnabled(enabled);
+        mViewHolder.rolesSpinner.setEnabled(enabled);
         mViewHolder.submitButton.setEnabled(enabled);
     }
 
@@ -362,5 +376,7 @@ public class UserFormFragment extends Fragment implements UserFormView,
         void onActivityTitleRequested(int titleResId);
 
         void goToUsersList();
+
+        void onUnauthorizedUser();
     }
 }

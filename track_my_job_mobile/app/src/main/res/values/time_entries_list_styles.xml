@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="TimeEntriesList" />
+    <style name="TimeEntriesList"/>
 
     <style name="TimeEntriesList.Container">
         <item name="android:layout_margin">@dimen/time_entries_list_container_margin</item>
     </style>
 
-    <style name="TimeEntriesList.DateFilter">
-        <item name="android:background">?attr/selectableItemBackground</item>
+    <style name="TimeEntriesList.DateFilter"/>
+
+    <style name="TimeEntriesList.DateFilter.Title">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/time_entry_form_date_label_text_size</item>
+        <item name="android:layout_marginTop">@dimen/time_entries_list_dates_filter_margin_top
+        </item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TimeEntriesList.DateFilter.Button">
+        <!--<item name="android:background">?attr/selectableItemBackground</item>-->
         <item name="android:clickable">true</item>
         <item name="android:gravity">center</item>
-        <item name="android:textSize">@dimen/time_entries_list_filter_text_size</item>
+        <!--<item name="android:textSize">@dimen/time_entries_list_filter_text_size</item>-->
     </style>
 
     <style name="TimeEntriesList.Content">
@@ -29,14 +40,23 @@
         <item name="android:layout_margin">@dimen/time_entries_list_distance_margin</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textSize">@dimen/time_entries_list_distance_text_size</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
     </style>
 
     <style name="TimeEntriesList.Duration">
         <item name="android:layout_marginEnd">@dimen/time_entries_list_duration_horizontal_margin
         </item>
+        <item name="android:gravity">end</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textSize">@dimen/time_entries_list_duration_text_size</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
     </style>
 
-    <style name="TimeEntriesList.Speed" parent="TimeEntriesList.Duration" />
+    <style name="TimeEntriesList.Speed" parent="TimeEntriesList.Duration"/>
+
+    <style name="TimeEntriesList.User" parent="TimeEntriesList.Duration">
+        <item name="android:textSize">@dimen/time_entries_list_user_text_size</item>
+    </style>
 </resources>

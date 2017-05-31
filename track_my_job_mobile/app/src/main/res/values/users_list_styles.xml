@@ -4,9 +4,14 @@
     <style name="UsersList" />
 
     <style name="UsersList.Avatar">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textSize">@dimen/users_list_item_avatar_text_size</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:layout_marginStart">@dimen/activity_content_padding</item>
-        <item name="android:background">@android:color/darker_gray</item>
+        <item name="android:background">@drawable/users_list_item_avatar_background</item>
     </style>
 
     <style name="UsersList.Content">
@@ -31,8 +36,6 @@
 
     <style name="UsersList.ProfileIndicator">
         <item name="android:layout_gravity">end|center</item>
-        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
-        <item name="android:clickable">true</item>
         <item name="android:padding">@dimen/users_list_item_profile_indicator_padding</item>
         <item name="android:visibility">gone</item>
     </style>

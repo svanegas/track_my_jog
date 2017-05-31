@@ -5,4 +5,6 @@ interface MainPresenter {
     boolean menuItemClicked(int itemId);
 
     void requestNavigationViewPopulation();
+
+    void clearPreferences();
 }

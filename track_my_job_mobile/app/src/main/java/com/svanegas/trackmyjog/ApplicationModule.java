@@ -3,6 +3,8 @@ package com.svanegas.trackmyjog;
 import android.app.Application;
 import android.content.Context;
 
+import java.util.Random;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -31,8 +33,13 @@ class ApplicationModule {
     }
 
     @Provides
-    @Singleton
     CompositeDisposable providesCompositeDisposable() {
         return new CompositeDisposable();
+    }
+
+    @Provides
+    @Singleton
+    Random providesRandom() {
+        return new Random(System.currentTimeMillis());
     }
 }

@@ -7,6 +7,7 @@ import com.svanegas.trackmyjog.TrackMyJogApplication;
 import com.svanegas.trackmyjog.interactor.UserInteractor;
 import com.svanegas.trackmyjog.repository.model.APIError;
 import com.svanegas.trackmyjog.repository.model.User;
+import com.svanegas.trackmyjog.util.PreferencesManager;
 
 import java.net.SocketTimeoutException;
 
@@ -26,6 +27,7 @@ import static com.svanegas.trackmyjog.domain.main.user.form.UserFormFragment.MAN
 import static com.svanegas.trackmyjog.domain.main.user.form.UserFormFragment.REGULAR_INDEX;
 import static com.svanegas.trackmyjog.network.ConnectionInterceptor.isInternetConnectionError;
 import static com.svanegas.trackmyjog.util.HttpErrorHelper.isHttpError;
+import static com.svanegas.trackmyjog.util.HttpErrorHelper.isUnauthorizedError;
 import static com.svanegas.trackmyjog.util.HttpErrorHelper.parseHttpError;
 
 public class UserFormPresenterImpl implements UserFormPresenter {
@@ -36,6 +38,9 @@ public class UserFormPresenterImpl implements UserFormPresenter {
 
     @Inject
     UserInteractor mInteractor;
+
+    @Inject
+    PreferencesManager mPreferencesManager;
 
     @Inject
     CompositeDisposable mDisposables;
@@ -78,6 +83,7 @@ public class UserFormPresenterImpl implements UserFormPresenter {
                     mView.hideLoadingAndEnableFields();
                     mView.populateName(user.getName());
                     mView.populateEmail(user.getEmail());
+                    if (mPreferencesManager.getId() == user.getId()) mView.disableUserEdition();
                     if (user.isAdmin()) mView.populateRoleSpinner(ADMIN_INDEX);
                     else if (user.isManager()) mView.populateRoleSpinner(MANAGER_INDEX);
                     else mView.populateRoleSpinner(REGULAR_INDEX);
@@ -87,6 +93,8 @@ public class UserFormPresenterImpl implements UserFormPresenter {
                         mView.showTimeoutError();
                     } else if (isInternetConnectionError(throwable)) {
                         mView.showNoConnectionError();
+                    } else if (isUnauthorizedError(throwable)) {
+                        mView.goToWelcomeDueUnauthorized();
                     } else if (isHttpError(throwable)) {
                         APIError error = parseHttpError((HttpException) throwable);
                         if (error != null && error.getErrorMessage() != null) {
@@ -113,6 +121,8 @@ public class UserFormPresenterImpl implements UserFormPresenter {
                         mView.showTimeoutError();
                     } else if (isInternetConnectionError(throwable)) {
                         mView.showNoConnectionError();
+                    } else if (isUnauthorizedError(throwable)) {
+                        mView.goToWelcomeDueUnauthorized();
                     } else if (isHttpError(throwable)) {
                         APIError error = parseHttpError((HttpException) throwable);
                         if (error != null && error.getErrorMessage() != null) {
@@ -153,6 +163,8 @@ public class UserFormPresenterImpl implements UserFormPresenter {
                         mView.showTimeoutError();
                     } else if (isInternetConnectionError(throwable)) {
                         mView.showNoConnectionError();
+                    } else if (isUnauthorizedError(throwable)) {
+                        mView.goToWelcomeDueUnauthorized();
                     } else if (isHttpError(throwable)) {
                         APIError error = parseHttpError((HttpException) throwable);
                         if (error != null && error.getErrorMessage() != null) {

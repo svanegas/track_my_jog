@@ -8,6 +8,7 @@
     android:clickable="true">
 
     <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/avatar"
         style="@style/UsersList.Avatar"
         android:layout_width="@dimen/users_list_item_avatar_size"
         android:layout_height="@dimen/users_list_item_avatar_size" />

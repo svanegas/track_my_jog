@@ -17,6 +17,7 @@
     <style name="TimeEntryForm.InputLarge">
         <item name="android:minWidth">@dimen/time_entry_form_large_input_min_width</item>
         <item name="android:gravity">center</item>
+        <item name="android:maxLength">6</item>
         <item name="android:inputType">numberDecimal</item>
         <item name="android:textSize">@dimen/time_entry_form_large_input_text_size</item>
     </style>
