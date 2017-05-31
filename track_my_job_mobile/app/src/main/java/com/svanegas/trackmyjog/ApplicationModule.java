@@ -33,7 +33,6 @@ class ApplicationModule {
     }
 
     @Provides
-    @Singleton
     CompositeDisposable providesCompositeDisposable() {
         return new CompositeDisposable();
     }
