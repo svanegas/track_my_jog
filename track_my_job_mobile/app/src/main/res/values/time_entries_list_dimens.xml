@@ -13,4 +13,5 @@
     <dimen name="time_entries_list_filter_text_size">16sp</dimen>
     <dimen name="time_entries_list_dates_filter_height">45dp</dimen>
     <dimen name="time_entries_list_dates_filter_margin_top">8dp</dimen>
+    <dimen name="time_entries_list_date_filter_bottom_line_margin">10dp</dimen>
 </resources>

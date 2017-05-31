@@ -221,14 +221,8 @@ public class TimeEntryFormFormFragment extends Fragment implements TimeEntryForm
     }
 
     @Override
-    public void showEmptyDurationError() {
-        mViewHolder.minutesField.setError(getString(R.string.error_field_required));
-        mViewHolder.minutesField.requestFocus();
-    }
-
-    @Override
-    public void showNegativeDurationError() {
-        mViewHolder.minutesField.setError(getString(R.string.time_entry_form_error_negative));
+    public void showNegativeOrZeroDurationError() {
+        mViewHolder.minutesField.setError(getString(R.string.time_entry_form_error_negative_or_zero));
         mViewHolder.minutesField.requestFocus();
     }
 
@@ -253,7 +247,7 @@ public class TimeEntryFormFormFragment extends Fragment implements TimeEntryForm
 
     @Override
     public void showNegativeDistanceError() {
-        mViewHolder.distanceField.setError(getString(R.string.time_entry_form_error_negative));
+        mViewHolder.distanceField.setError(getString(R.string.time_entry_form_error_negative_or_zero));
         mViewHolder.distanceField.requestFocus();
     }
 

@@ -44,7 +44,7 @@
                     style="@style/TimeEntryForm.InputLarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/time_entry_form_distance" />
+                    android:hint="@string/time_entry_form_distance"/>
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/distance_units_label"

@@ -30,9 +30,7 @@ interface TimeEntryFormView {
 
     void populateDuration(long duration);
 
-    void showEmptyDurationError();
-
-    void showNegativeDurationError();
+    void showNegativeOrZeroDurationError();
 
     void showNotInRangeMinutesError();
 

@@ -5,9 +5,9 @@
     <string name="time_entry_form_date_label">Date</string>
     <string name="time_entry_form_distance">Distance</string>
     <string name="time_entry_form_duration">Duration</string>
-    <string name="time_entry_form_hours_hint">01</string>
+    <string name="time_entry_form_hours_hint">00</string>
     <string name="time_entry_form_hours_label">hr</string>
-    <string name="time_entry_form_minutes_hint">30</string>
+    <string name="time_entry_form_minutes_hint">00</string>
     <string name="time_entry_form_minutes_label">min</string>
     <string name="time_entry_form_create_submit_text">Create</string>
     <string name="time_entry_form_create_success">Record created successfully</string>
@@ -24,7 +24,7 @@
     <string name="time_entry_form_delete_success">Record deleted successfully</string>
 
     <!-- Errors -->
-    <string name="time_entry_form_error_negative">This field can\'t be negative</string>
+    <string name="time_entry_form_error_negative_or_zero">This field must be greater than zero</string>
     <string name="time_entry_form_error_invalid">This field is not valid</string>
     <string name="time_entry_form_error_parsing_date">Could not populate the date correctly</string>
     <string name="time_entry_form_error_minutes_not_in_range">Must be between 0 and 59</string>

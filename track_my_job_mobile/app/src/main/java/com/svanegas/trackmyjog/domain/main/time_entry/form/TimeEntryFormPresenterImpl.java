@@ -213,26 +213,21 @@ public class TimeEntryFormPresenterImpl implements TimeEntryFormPresenter {
      */
     private long validateDuration(String hours, String minutes) {
         long total;
-        if (TextUtils.isEmpty(hours) || TextUtils.isEmpty(minutes)) {
-            mView.showEmptyDurationError();
-            return 0L;
-        } else {
-            try {
-                long hoursInt = Long.valueOf(hours);
-                long minutesInt = Long.valueOf(minutes);
-                if (minutesInt >= 60) {
-                    mView.showNotInRangeMinutesError();
-                    return 0L;
-                }
-                total = hoursInt * 60L + minutesInt;
-                if (total <= 0L) {
-                    mView.showNegativeDurationError();
-                    return 0L;
-                }
-            } catch (NumberFormatException e) {
-                mView.showInvalidDurationError();
+        try {
+            long hoursInt = hours.isEmpty() ? 0 : Long.valueOf(hours);
+            long minutesInt = minutes.isEmpty() ? 0 : Long.valueOf(minutes);
+            if (minutesInt >= 60) {
+                mView.showNotInRangeMinutesError();
                 return 0L;
             }
+            total = hoursInt * 60L + minutesInt;
+            if (total <= 0L) {
+                mView.showNegativeOrZeroDurationError();
+                return 0L;
+            }
+        } catch (NumberFormatException e) {
+            mView.showInvalidDurationError();
+            return 0L;
         }
         return total;
     }

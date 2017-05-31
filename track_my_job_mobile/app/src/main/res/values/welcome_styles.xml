@@ -7,6 +7,16 @@
         <item name="android:padding">@dimen/welcome_buttons_container_padding</item>
     </style>
 
+    <style name="Welcome.BrandMessage">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingEnd">@dimen/welcome_brand_message_horizontal_padding</item>
+        <item name="android:paddingStart">@dimen/welcome_brand_message_horizontal_padding</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/welcome_brand_message_text_size</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
     <style name="Welcome.RegisterButton" parent="@style/Widget.AppCompat.Button.Colored" />
 
     <style name="Welcome.LoginButton">
@@ -15,4 +25,5 @@
         <item name="android:padding">@dimen/welcome_login_button_padding</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
+
 </resources>

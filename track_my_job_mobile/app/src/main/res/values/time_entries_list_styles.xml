@@ -40,6 +40,8 @@
         <item name="android:layout_margin">@dimen/time_entries_list_distance_margin</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textSize">@dimen/time_entries_list_distance_text_size</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
     </style>
 
     <style name="TimeEntriesList.Duration">
@@ -48,6 +50,8 @@
         <item name="android:gravity">end</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textSize">@dimen/time_entries_list_duration_text_size</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
     </style>
 
     <style name="TimeEntriesList.Speed" parent="TimeEntriesList.Duration"/>
