@@ -1,11 +1,8 @@
+# Track My Jog
+[![Download APK](https://img.shields.io/badge/download-apk-green.svg)](https://drive.google.com/file/d/0B-byDzRxKccDbDNtWV91V2ptWVE/view?usp=sharing)
+
 <div style="text-align: center;">
-  <h1><i>Track My Jog</i></h1>
   <img style="width: 200px;" src ="http://i.imgur.com/VLydx5F.png" />
-  <br />
-  <br />
-  <a href="https://drive.google.com/file/d/0B-byDzRxKccDbDNtWV91V2ptWVE/view?usp=sharing">
-    <img alt="Download Android APK" src="https://img.shields.io/badge/download-apk-green.svg" />
-  </a>
 </div>
 
 > A simple Android application to track jogging times of users
